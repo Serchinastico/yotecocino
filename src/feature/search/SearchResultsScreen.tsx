@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import "react-datepicker/dist/react-datepicker.css";
 import { Coordinates } from "foundation/types/Coordinates";
+import ResultList from "./components/ResultList";
 
 const Container = styled.div`
   display: flex;
@@ -21,8 +22,18 @@ const SearchResultsScreen: React.FC<Props> = ({
   day,
   service
 }) => {
+  const offers = [
+    {
+      address: "Calle embajadores",
+      coordinates: { latitude: 40.21231, longitude: -3.123141 },
+      food: "Albóndigas con salsa",
+      contact: "@Serchinastico"
+    }
+  ];
   return (
-    <Container>{`${coordinates.latitude}, ${coordinates.longitude}, ${day}, ${service}`}</Container>
+    <Container>
+      <ResultList offers={offers} />
+    </Container>
   );
 };
 
