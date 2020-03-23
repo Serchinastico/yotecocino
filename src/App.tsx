@@ -4,6 +4,7 @@ import SearchScreen from "feature/search/SearchScreen";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import SearchResultsScreen from "feature/search/SearchResultsScreen";
 import { useQuery } from "foundation/router/UseQuery";
+import "./index.scss";
 
 const App: React.FC = () => {
   const parseLocation = (location: string) => {

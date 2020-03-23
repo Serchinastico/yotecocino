@@ -8,8 +8,24 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 80%;
-  height: 80px;
-  background: #446600;
+  background: #fff;
+  margin: 16px;
+  padding: 16px;
+`;
+
+const Food = styled.p`
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 0;
+`;
+
+const Address = styled.p`
+  margin: 0;
+`;
+
+const Contact = styled.p`
+  margin: 0;
+  font-weight: 600;
 `;
 
 interface Props {
@@ -19,9 +35,9 @@ interface Props {
 const ResultRow: React.FC<Props> = ({ offer }) => {
   return (
     <Container>
-      <p>{offer.address}</p>
-      <p>{offer.food}</p>
-      <p>{offer.contact}</p>
+      <Food>{offer.food}</Food>
+      <Address>{offer.address}</Address>
+      <Contact>{offer.contact}</Contact>
     </Container>
   );
 };

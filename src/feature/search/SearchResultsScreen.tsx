@@ -8,8 +8,9 @@ import ResultMap from "./components/ResultMap";
 const Container = styled.div`
   display: flex;
   flex-direction: row;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
+  margin: 0;
 `;
 
 interface Props {
@@ -26,7 +27,49 @@ const SearchResultsScreen: React.FC<Props> = ({
   const offers = [
     {
       address: "Calle embajadores",
-      coordinates: { latitude: 40.21231, longitude: -3.123141 },
+      coordinates: { latitude: 40.3850959, longitude: -3.6912495 },
+      food: "Albóndigas con salsa",
+      contact: "@Serchinastico"
+    },
+    {
+      address: "Calle embajadores",
+      coordinates: { latitude: 40.3850959, longitude: -3.6912495 },
+      food: "Albóndigas con salsa",
+      contact: "@Serchinastico"
+    },
+    {
+      address: "Calle embajadores",
+      coordinates: { latitude: 40.3850959, longitude: -3.6912495 },
+      food: "Albóndigas con salsa",
+      contact: "@Serchinastico"
+    },
+    {
+      address: "Calle embajadores",
+      coordinates: { latitude: 40.3850959, longitude: -3.6912495 },
+      food: "Albóndigas con salsa",
+      contact: "@Serchinastico"
+    },
+    {
+      address: "Calle embajadores",
+      coordinates: { latitude: 40.3850959, longitude: -3.6912495 },
+      food: "Albóndigas con salsa",
+      contact: "@Serchinastico"
+    },
+    {
+      address: "Calle embajadores",
+      coordinates: { latitude: 40.3850959, longitude: -3.6912495 },
+      food: "Albóndigas con salsa",
+      contact: "@Serchinastico"
+    },
+    {
+      address: "Calle embajadores",
+      coordinates: { latitude: 40.3850959, longitude: -3.6912495 },
+      food: "Albóndigas con salsa",
+      contact: "@Serchinastico"
+    },
+    {
+      address: "Calle embajadores",
+      coordinates: { latitude: 40.3850959, longitude: -3.6912495 },
       food: "Albóndigas con salsa",
       contact: "@Serchinastico"
     }

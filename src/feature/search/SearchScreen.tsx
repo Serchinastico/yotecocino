@@ -17,7 +17,6 @@ const Container = styled.form`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-family: "Open Sans", sans-serif;
 `;
 
 const InputTitle = styled.p`

@@ -10,6 +10,8 @@ const Container = styled.div`
   width: 50%;
   height: 100%;
   background: #002360;
+  margin: 0;
+  padding-top: 24px;
 `;
 
 interface Props {
@@ -20,7 +22,7 @@ const ResultList: React.FC<Props> = ({ offers }) => {
   return (
     <Container>
       {offers.map(offer => (
-        <ResultRow offer={offer} />
+        <ResultRow key={offer.food} offer={offer} />
       ))}
     </Container>
   );
