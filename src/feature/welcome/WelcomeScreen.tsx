@@ -7,7 +7,7 @@ const AcceptOrProvideFoodContainer = styled.div`
   flex-direction: column;
   background: #f0f0f0;
   border-radius: 16px;
-  box-shadow: 0px 4px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 4px 0px rgba(0, 0, 0, 0.4);
   height: 90vh;
   width: 45vw;
   margin: 16px;
@@ -20,7 +20,7 @@ const AcceptOrProvideFoodContainer = styled.div`
 const AcceptOrProvideFoodTitle = styled.p`
   font-size: 2rem;
   line-height: 1.5;
-  width: 50%;
+  width: 80%;
 `;
 
 const Tag = styled.span`
@@ -48,10 +48,16 @@ const WelcomeScreen: React.FC = () => {
     return (
       <AcceptOrProvideFoodContainer onClick={() => history.push("/search")}>
         <AcceptOrProvideFoodTitle>
-          Soy <Tag>personal sanitario</Tag>,{" "}
-          <Tag>miembro de los cuerpos policiales</Tag>,{" "}
-          <Tag>trabajo en un supermercado</Tag> o, en definitiva, cualquier
-          persona que esté trabajando durante estos días.
+          Me gustaría recibir comida porque soy
+          <li>
+            <Tag>personal sanitario</Tag>
+          </li>
+          <li>
+            <Tag>miembro de los cuerpos policiales</Tag>
+          </li>
+          <li>
+            <Tag>trabajo en un supermercado</Tag>
+          </li>
         </AcceptOrProvideFoodTitle>
         <AcceptOrProvideFoodIllustration src={"img/il_doctor.svg"} />
       </AcceptOrProvideFoodContainer>
