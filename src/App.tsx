@@ -10,6 +10,9 @@ const App = () => {
           <Route path="/">
             <WelcomeScreen />
           </Route>
+          <Route path="/search">
+            <SearchScreen />
+          </Route>
         </Switch>
       </Router>
     </div>
