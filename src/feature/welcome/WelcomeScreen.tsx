@@ -42,7 +42,7 @@ const Container = styled.div`
 `;
 
 const WelcomeScreen: React.FC = () => {
-  let history = useHistory();
+  const history = useHistory();
 
   const AcceptFoodOption = () => {
     return (
@@ -50,7 +50,7 @@ const WelcomeScreen: React.FC = () => {
         <AcceptOrProvideFoodTitle>
           Soy <Tag>personal sanitario</Tag>,{" "}
           <Tag>miembro de los cuerpos policiales</Tag>,{" "}
-          <Tag>cajer@ en un supermercado</Tag>, o en definitiva, cualquier
+          <Tag>trabajo en un supermercado</Tag> o, en definitiva, cualquier
           persona que esté trabajando durante estos días.
         </AcceptOrProvideFoodTitle>
         <AcceptOrProvideFoodIllustration src={"img/il_doctor.svg"} />
