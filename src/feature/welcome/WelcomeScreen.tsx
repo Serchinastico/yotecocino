@@ -2,83 +2,83 @@ import React from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 
-const AcceptOrProvideFoodContainer = styled.div`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
-  background: #f0f0f0;
-  border-radius: 16px;
-  box-shadow: 0px 4px 0px rgba(0, 0, 0, 0.4);
-  height: 90vh;
-  width: 45vw;
-  margin: 16px;
-  padding: 16px;
-  justify-content: center;
   align-items: center;
+`;
+
+const Title = styled.div`
+  font-size: 3rem;
+  font-family: "Pacifico", cursive;
+  color: #303240;
+  margin-top: 32px;
+`;
+
+const OptionsContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+
+const OptionContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0px 8px 0px rgba(0, 0, 0, 0.1);
+  height: 320px;
+  width: 256px;
+  margin: 40px;
+  justify-content: center;
   cursor: pointer;
 `;
 
-const AcceptOrProvideFoodTitle = styled.p`
-  font-size: 2rem;
-  line-height: 1.5;
-  width: 80%;
+const OptionTitle = styled.p`
+  font-size: 1.5rem;
+  text-align: center;
+  position: relative;
+  font-weight: 600;
+  top: 32px;
 `;
 
-const Tag = styled.span`
-  background: #c07ee280;
-  border: 1px solid #c07ee2ff;
-  padding: 4px;
-  border-radius: 4px;
-`;
-
-const AcceptOrProvideFoodIllustration = styled.img`
-  width: 50%;
-  height: 50%;
+const OptionIllustration = styled.img`
+  position: relative;
+  bottom: 39px;
   justify-self: flex-end;
-`;
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: row;
 `;
 
 const WelcomeScreen: React.FC = () => {
   const history = useHistory();
 
-  const AcceptFoodOption = () => {
+  const AcceptFoodButton = () => {
     return (
-      <AcceptOrProvideFoodContainer onClick={() => history.push("/search")}>
-        <AcceptOrProvideFoodTitle>
-          Me gustaría recibir comida porque soy
-          <li>
-            <Tag>personal sanitario</Tag>
-          </li>
-          <li>
-            <Tag>miembro de los cuerpos policiales</Tag>
-          </li>
-          <li>
-            <Tag>trabajo en un supermercado</Tag>
-          </li>
-        </AcceptOrProvideFoodTitle>
-        <AcceptOrProvideFoodIllustration src={"img/il_doctor.svg"} />
-      </AcceptOrProvideFoodContainer>
+      <OptionContainer onClick={() => history.push("/search")}>
+        <OptionTitle>Acepto comida</OptionTitle>
+        <OptionIllustration src={"img/il_doctor.svg"} />
+      </OptionContainer>
     );
   };
 
-  const ProvideFoodOption = () => {
+  const ProvideFoodButton = () => {
     return (
-      <AcceptOrProvideFoodContainer>
-        <AcceptOrProvideFoodTitle>
-          Me ofrezco a hacer comida.
-        </AcceptOrProvideFoodTitle>
-        <AcceptOrProvideFoodIllustration src={"img/il_chef.svg"} />
-      </AcceptOrProvideFoodContainer>
+      <OptionContainer>
+        <OptionTitle>Ofrezco comida</OptionTitle>
+        <OptionIllustration src={"img/il_chef.svg"} />
+      </OptionContainer>
     );
   };
 
   return (
     <Container>
-      <AcceptFoodOption />
-      <ProvideFoodOption />
+      <Title>#yotecocino</Title>
+      <OptionsContainer>
+        <AcceptFoodButton />
+        <ProvideFoodButton />
+      </OptionsContainer>
     </Container>
   );
 };

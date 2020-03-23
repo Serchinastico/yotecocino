@@ -6,9 +6,11 @@ import GoogleMapReact from "google-map-react";
 
 const Container = styled.div`
   display: flex;
+  position: fixed;
   flex-direction: column;
   width: 50%;
   height: 100%;
+  left: 50%;
   background: #ff2360;
 `;
 
