@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 
 const AcceptOrProvideFoodContainer = styled.div`
   display: flex;
@@ -13,6 +14,7 @@ const AcceptOrProvideFoodContainer = styled.div`
   padding: 16px;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 `;
 
 const AcceptOrProvideFoodTitle = styled.p`
@@ -40,9 +42,11 @@ const Container = styled.div`
 `;
 
 const WelcomeScreen: React.FC = () => {
+  let history = useHistory();
+
   const AcceptFoodOption = () => {
     return (
-      <AcceptOrProvideFoodContainer>
+      <AcceptOrProvideFoodContainer onClick={() => history.push("/search")}>
         <AcceptOrProvideFoodTitle>
           Soy <Tag>personal sanitario</Tag>,{" "}
           <Tag>miembro de los cuerpos policiales</Tag>,{" "}

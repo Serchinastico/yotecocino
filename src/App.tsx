@@ -1,5 +1,6 @@
 import React from "react";
 import WelcomeScreen from "feature/welcome/WelcomeScreen";
+import SearchScreen from "feature/search/SearchScreen";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 const App = () => {
@@ -7,11 +8,11 @@ const App = () => {
     <div>
       <Router>
         <Switch>
-          <Route path="/">
-            <WelcomeScreen />
-          </Route>
           <Route path="/search">
             <SearchScreen />
+          </Route>
+          <Route path="/">
+            <WelcomeScreen />
           </Route>
         </Switch>
       </Router>
