@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { useHistory } from "react-router-dom";
+import {useHistory} from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -57,35 +57,35 @@ const OptionIllustration = styled.img`
 `;
 
 const WelcomeScreen: React.FC = () => {
-  const history = useHistory();
+    const history = useHistory();
 
-  const AcceptFoodButton = () => {
+    const AcceptFoodButton = () => {
+        return (
+            <OptionContainer onClick={() => history.push("/search")}>
+                <OptionTitle>Acepto comida</OptionTitle>
+                <OptionIllustration src={"img/il_doctor.svg"}/>
+            </OptionContainer>
+        );
+    };
+
+    const ProvideFoodButton = () => {
+        return (
+            <OptionContainer onClick={() => history.push("/cook")}>
+                <OptionTitle>Ofrezco comida</OptionTitle>
+                <OptionIllustration src={"img/il_chef.svg"}/>
+            </OptionContainer>
+        );
+    };
+
     return (
-      <OptionContainer onClick={() => history.push("/search")}>
-        <OptionTitle>Acepto comida</OptionTitle>
-        <OptionIllustration src={"img/il_doctor.svg"} />
-      </OptionContainer>
+        <Container>
+            <Title>#yotecocino</Title>
+            <OptionsContainer>
+                <AcceptFoodButton/>
+                <ProvideFoodButton/>
+            </OptionsContainer>
+        </Container>
     );
-  };
-
-  const ProvideFoodButton = () => {
-    return (
-      <OptionContainer>
-        <OptionTitle>Ofrezco comida</OptionTitle>
-        <OptionIllustration src={"img/il_chef.svg"} />
-      </OptionContainer>
-    );
-  };
-
-  return (
-    <Container>
-      <Title>#yotecocino</Title>
-      <OptionsContainer>
-        <AcceptFoodButton />
-        <ProvideFoodButton />
-      </OptionsContainer>
-    </Container>
-  );
 };
 
 export default WelcomeScreen;
