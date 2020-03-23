@@ -9,14 +9,15 @@ import { Service } from "foundation/types/Service";
 const Container = styled.form`
   display: flex;
   flex-direction: column;
-  width: 50vw;
-  height: 90vh;
+  width: 500px;
   background: #ffffff;
-  border-radius: 16px;
+  border-radius: 32px;
   position: fixed;
+  padding: 32px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  box-shadow: 0px 8px 0px rgba(0, 0, 0, 0.1);
 `;
 
 const InputTitle = styled.p`
@@ -27,21 +28,35 @@ const InputTitle = styled.p`
 `;
 
 const TextInput = styled.input`
-  border: 1px solid #a0a0a0;
-  height: 44px;
-  width: 100%;
-  border-radius: 24px;
-  padding-left: 16px;
-  font-size: 1rem;
-`;
-
-const DateInput = styled(ReactDatePicker)`
-  border: 1px solid #a0a0a0;
-  height: 44px;
+  border: 0.5px solid rgba(0, 0, 0, 0.2);
+  height: 40px;
+  width: 470px;
   border-radius: 24px;
   padding-left: 16px;
   padding-right: 16px;
-  font-size: 1rem;
+  font-size: 0.9rem;
+  margin-top: 8px;
+  font-family: "Montserrat", sans-serif;
+
+  &::placeholder {
+    font-family: "Montserrat", sans-serif;
+  }
+`;
+
+const DateInput = styled(ReactDatePicker)`
+  border: 0.5px solid rgba(0, 0, 0, 0.2);
+  height: 40px;
+  width: 470px;
+  border-radius: 24px;
+  padding-left: 16px;
+  padding-right: 16px;
+  font-size: 0.9rem;
+  margin-top: 8px;
+  font-family: "Montserrat", sans-serif;
+
+  &::placeholder {
+    font-family: "Montserrat", sans-serif;
+  }
 `;
 
 const RadioInput = styled.input`
@@ -51,14 +66,23 @@ const RadioInput = styled.input`
 `;
 
 const ButtonInput = styled.input`
-  background: #a07ed2;
+  background: #e27861;
   padding: 16px;
-  margin: 16px;
+  margin-top: 16px;
   border-radius: 48px;
   border: none;
-  font-size: 1.2rem;
+  width: 116px;
+  font-size: 1rem;
+  font-weight: 600;
   color: #fff;
-  box-shadow: 0px 4px 0px rgba(0, 0, 0, 0.7);
+  align-self: center;
+`;
+
+const Title = styled.p`
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin: 0;
+  margin-bottom: 16px;
 `;
 
 const SearchScreen: React.FC = () => {
@@ -91,26 +115,29 @@ const SearchScreen: React.FC = () => {
 
   return (
     <Container onSubmit={onFormSubmit}>
+      <Title>
+        Completa los siguientes campos para buscar una comida preparada
+      </Title>
       <label>
-        <InputTitle>¿Dónde?</InputTitle>
+        <InputTitle>¿Dónde trabajas?</InputTitle>
         <TextInput
           type="text"
-          placeholder="Introduce una calle cerca de donde trabajas"
+          placeholder="Calle y número"
           value={address ?? ""}
           onChange={event => setAddress(event.target.value)}
         />
       </label>
       <label>
-        <InputTitle>¿Día?</InputTitle>
+        <InputTitle>¿Qué día será la recogida?</InputTitle>
         <DateInput
-          placeholderText="¿Cuánto te viene bien?"
+          placeholderText="Selecciona el día"
           selected={date}
           onChange={date => setDate(date)}
           minDate={new Date()}
         />
       </label>
       <label>
-        <InputTitle>¿Comida del día?</InputTitle>
+        <InputTitle>¿Comida o cena?</InputTitle>
         <RadioInput
           type="radio"
           id="lunch"
@@ -128,7 +155,7 @@ const SearchScreen: React.FC = () => {
         />
         <label htmlFor="dinner">Cena</label>
       </label>
-      <ButtonInput type="submit" value="Buscar" />
+      <ButtonInput type="submit" value="Enviar" />
     </Container>
   );
 };
