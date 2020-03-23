@@ -3,6 +3,7 @@ import styled from "styled-components";
 import "react-datepicker/dist/react-datepicker.css";
 import { Coordinates } from "foundation/types/Coordinates";
 import ResultList from "./components/ResultList";
+import ResultMap from "./components/ResultMap";
 
 const Container = styled.div`
   display: flex;
@@ -33,6 +34,7 @@ const SearchResultsScreen: React.FC<Props> = ({
   return (
     <Container>
       <ResultList offers={offers} />
+      <ResultMap offers={offers} />
     </Container>
   );
 };
