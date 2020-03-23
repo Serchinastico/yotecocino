@@ -7,7 +7,7 @@ import ResultRow from "./ResultRow";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 50%;
   height: 100%;
   background: #002360;
 `;

@@ -68,7 +68,7 @@ const WelcomeScreen: React.FC = () => {
     return (
       <AcceptOrProvideFoodContainer>
         <AcceptOrProvideFoodTitle>
-          Me ofrezco a hacer comida para l@s trabajadores.
+          Me ofrezco a hacer comida.
         </AcceptOrProvideFoodTitle>
         <AcceptOrProvideFoodIllustration src={"img/il_chef.svg"} />
       </AcceptOrProvideFoodContainer>
