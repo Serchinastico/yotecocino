@@ -65,7 +65,6 @@ const Illustration = styled.img`
 const WorkInProgressScreen: React.FC = () => {
   return (
     <Container>
-      <Title>#yotecocino</Title>
       <DescriptionContainer>
         <Description>
           <b>¡Disponible muy pronto!</b> Estamos trabajando muy duro en la web
