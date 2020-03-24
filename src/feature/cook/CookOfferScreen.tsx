@@ -1,29 +1,15 @@
 import React, {useState} from "react";
-import styled from "styled-components";
-import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {useHistory} from "react-router-dom";
 import dayjs from "dayjs";
 import {Service} from "foundation/types/Service";
 import LocationInput from "../ui/LocationInput";
 import {RichLocation} from "../../core/places/ConvertLocationToCoords";
-
-const Container = styled.form`
-  display: flex;
-  flex-direction: column;
-  width: 50vw;
-  height: 90vh;
-  background: #f0f0f0;
-  border-radius: 16px;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-`;
+import {ButtonInput, Container, DateInput, InputTitle, RadioInput, TextInput, Title} from "../ui/StyledForm";
 
 const CookOfferScreen: React.FC = () => {
     const history = useHistory();
-    const [address, setAddress] = useState<string | null>(null);
+    const [contact, setContact] = useState<string | null>(null);
     const [location, setLocation] = useState<RichLocation | null>(null);
     const [date, setDate] = useState<Date | null>(null);
     const [service, setService] = useState<Service | null>(null);
@@ -52,19 +38,22 @@ const CookOfferScreen: React.FC = () => {
 
     return (
         <Container onSubmit={onFormSubmit}>
-            <LocationInput address={address} setAddress={setAddress} setLocation={setLocation} showMap={true}/>
+            <Title>
+                Completa los siguientes campos para ofrecer una comida preparada
+            </Title>
             <label>
-                ¿Día?
-                <ReactDatePicker
+                <InputTitle>¿Qué día será la recogida?</InputTitle>
+                <DateInput
+                    placeholderText="Selecciona el día"
                     selected={date}
                     onChange={date => setDate(date)}
                     minDate={new Date()}
-                    showDisabledMonthNavigation
                 />
             </label>
+            <LocationInput setLocation={setLocation}/>
             <label>
-                ¿Comida del día?
-                <input
+                <InputTitle>¿Comida o cena?</InputTitle>
+                <RadioInput
                     type="radio"
                     id="lunch"
                     name="food_service"
@@ -72,7 +61,7 @@ const CookOfferScreen: React.FC = () => {
                     onChange={event => onServiceChange(event.target.value)}
                 />
                 <label htmlFor="lunch">Comida</label>
-                <input
+                <RadioInput
                     type="radio"
                     id="dinner"
                     name="food_service"
@@ -81,7 +70,16 @@ const CookOfferScreen: React.FC = () => {
                 />
                 <label htmlFor="dinner">Cena</label>
             </label>
-            <input type="submit" value="Buscar"/>
+            <label>
+                <InputTitle>Forma de contacto</InputTitle>
+                <TextInput
+                    type="text"
+                    placeholder="Twitter, Instagram, email, teléfono"
+                    value={contact ?? ""}
+                    onChange={event => setContact(event.target.value)}
+                />
+            </label>
+            <ButtonInput type="submit" value="Cocinar" />
         </Container>
     );
 };

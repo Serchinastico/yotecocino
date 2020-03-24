@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
 
 type  SearchPlaceInputProps = {
     onChange: (place: PlaceSearchResult) => void,
-    address?: string
+    address?: string | null
 } & SearchPlaceFilter
 
 export default function SearchPlaceInput(props: SearchPlaceInputProps) {

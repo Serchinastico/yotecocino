@@ -17,9 +17,8 @@ const styles = () => ({
 });
 
 interface Props {
-    setAddress: (address: string) => void,
     setLocation: (location: RichLocation) => void
-    address: string | null,
+    address?: string | null,
     showMap: boolean,
     mapWidth: number | string,
     mapHeight: number | string,
@@ -87,7 +86,7 @@ class LocationInput extends React.Component<LocationProps, any> {
     }
 
     render() {
-        const {showMap, classes} = this.props;
+        const {address, classes, showMap} = this.props;
         const {marker, viewport} = this.state;
         const auth = {
             mapboxApiAccessToken: config.mapsToken
@@ -109,6 +108,7 @@ class LocationInput extends React.Component<LocationProps, any> {
             country={config.country}
             language={config.language}
             onChange={this.updateAddress}
+            address={address}
         />;
 
         const search = showMap ?
