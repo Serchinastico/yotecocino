@@ -11,7 +11,7 @@ export default class SaveFood {
     const geohash = Geohash.encode(
       food.coordinates.latitude,
       food.coordinates.longitude,
-      7
+      6
     );
 
     const response = await axios.post(
@@ -21,6 +21,8 @@ export default class SaveFood {
         day: dayjs(food.date).format("YYYY-MM-dd"),
         foodname: food.food,
         geohash: geohash,
+        latitude: food.coordinates.latitude,
+        longitude: food.coordinates.longitude,
         service: food.service
       }
     );

@@ -38,8 +38,8 @@ const MapContainer = styled.div`
 
 interface Props {
   coordinates: Coordinates;
-  day: string;
-  service: string;
+  day: Date;
+  service: Service;
 }
 
 const SearchResultsScreen: React.FC<Props> = ({
@@ -47,24 +47,24 @@ const SearchResultsScreen: React.FC<Props> = ({
   day,
   service
 }) => {
-
   const findFood = new FindFood();
   const [offers, setOffers] = useState<FoodOffer[]>([]);
   const [needToLoad, setNeedToLoad] = useState<boolean>(true);
 
-
   React.useEffect(() => {
     if (needToLoad) {
-      findFood.execute({
-        day,
-        service,
-        nearTo: coordinates
-      }).then((found) => {
-        setOffers(found);
-      });
+      findFood
+        .execute({
+          day,
+          service,
+          nearTo: coordinates
+        })
+        .then(found => {
+          setOffers(found);
+        });
       setNeedToLoad(false);
     }
-  });
+  }, [needToLoad, findFood, day, service, coordinates]);
 
   console.log(offers);
 
@@ -72,16 +72,19 @@ const SearchResultsScreen: React.FC<Props> = ({
     undefined
   );
 
-  let map = offers.length === 0 ? null : <MapContainer>
-    <ResultMap offers={offers} selectedOffer={selectedOffer} />
-  </MapContainer>;
+  let map =
+    offers.length === 0 ? null : (
+      <MapContainer>
+        <ResultMap offers={offers} selectedOffer={selectedOffer} />
+      </MapContainer>
+    );
   return (
     <Container>
       <ListContainer>
         <ResultList
-            offers={offers}
-            onOfferSelected={offer => setSelectedOffer(offer)}
-            selectedOffer={selectedOffer}
+          offers={offers}
+          onOfferSelected={offer => setSelectedOffer(offer)}
+          selectedOffer={selectedOffer}
         />
       </ListContainer>
       {map}

@@ -1,9 +1,8 @@
-import {Coordinates} from "./Coordinates";
+import { Coordinates } from "./Coordinates";
+import { Service } from "./Service";
 
 export interface FoodSearchCriteria {
-    day: string,
-    service: string,
-    nearTo: Coordinates
+  day: Date;
+  service: Service;
+  nearTo: Coordinates;
 }
-
-

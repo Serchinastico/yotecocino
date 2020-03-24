@@ -7,6 +7,7 @@ interface FoodOffer {
   day: Date;
   food_name: string;
   location_geohash: string;
+  location: admin.firestore.GeoPoint;
   service: string;
 }
 
@@ -19,6 +20,8 @@ function setCorsResponse(
   response.set("Access-Control-Max-Age", "3600");
   response.status(204).send("");
 }
+
+admin.initializeApp();
 
 export const createOffer = functions
   .region("europe-west1")
@@ -34,6 +37,8 @@ export const createOffer = functions
         const dayInISO: string = request.body.day;
         const foodName: string = request.body.foodname;
         const locationGeohash: string = request.body.geohash;
+        const latitude: number = request.body.latitude;
+        const longitude: number = request.body.longitude;
         const service: string = request.body.service;
 
         const foodOffer = {
@@ -41,9 +46,9 @@ export const createOffer = functions
           day: dayjs(dayInISO).toDate(),
           food_name: foodName,
           location_geohash: locationGeohash,
+          location: new admin.firestore.GeoPoint(latitude, longitude),
           service
         };
-        admin.initializeApp();
         const document = await admin
           .firestore()
           .collection("food-offers")
@@ -67,7 +72,6 @@ export const deleteOffer = functions
       case "DELETE":
         const id: string = request.query.id;
 
-        admin.initializeApp();
         const document = await admin
           .firestore()
           .collection("food-offers")
@@ -101,12 +105,10 @@ export const offer = functions
         const geohashes = rawGeohashes.split(",");
         const day = dayjs(dayInISO);
 
-        if (geohashes.length > 8) {
+        if (geohashes.length !== 9) {
           response.sendStatus(400);
           return;
         }
-
-        admin.initializeApp();
 
         const document = await admin
           .firestore()
@@ -127,7 +129,22 @@ export const offer = functions
         if (document.docs.length === 0) {
           response.sendStatus(404);
         } else {
-          response.status(200).send(document.docs[0].data() as FoodOffer);
+          response.status(200).send(
+            document.docs
+              .map(doc => doc.data() as FoodOffer)
+              .map(foodOffer => {
+                return {
+                  food: foodOffer.food_name,
+                  coordinates: {
+                    latitude: foodOffer.location.latitude,
+                    longitude: foodOffer.location.longitude
+                  },
+                  service: foodOffer.service,
+                  contact: foodOffer.contact,
+                  date: dayjs(foodOffer.day).format("YYYY-MM-DD")
+                };
+              })
+          );
         }
         break;
     }

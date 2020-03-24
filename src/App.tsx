@@ -8,6 +8,8 @@ import { useQuery } from "foundation/router/UseQuery";
 import "./index.scss";
 import CreatedFoodOfferScreen from "./feature/food/CreatedFoodOfferScreen";
 import ManageAllMyFoods from "./feature/food/ManageAllMyFoods";
+import dayjs from "dayjs";
+import { Service } from "foundation/types/Service";
 
 const App: React.FC = () => {
   const parseLocation = (location: string) => {
@@ -18,34 +20,45 @@ const App: React.FC = () => {
     };
   };
 
-    const Routes = () => {
-        const query = useQuery();
+  const parseService = (service: string) => {
+    switch (service) {
+      case "lunch":
+        return Service.lunch;
+      case "dinner":
+        return Service.dinner;
+      default:
+        return Service.lunch;
+    }
+  };
 
-        return (
-            <Switch>
-                <Route path="/search/results">
-                    <SearchResultsScreen
-                        coordinates={parseLocation(query.get("location") ?? "0,0")}
-                        day={query.get("day") ?? ""}
-                        service={query.get("service") ?? "lunch"}
-                    />
-                </Route>
-                <Route exact path="/search">
-                    <SearchScreen/>
-                </Route>
-                <Route exact path="/cook">
-                    <FoodOfferScreen/>
-                </Route>
-                <Route exact path="/myFood">
-                    <ManageAllMyFoods/>
-                </Route>
-                <Route exact path="/food/:foodId" component={CreatedFoodOfferScreen}/>
-                <Route path="/">
-                    <WelcomeScreen/>
-                </Route>
-            </Switch>
-        );
-    };
+  const Routes = () => {
+    const query = useQuery();
+
+    return (
+      <Switch>
+        <Route path="/search/results">
+          <SearchResultsScreen
+            coordinates={parseLocation(query.get("location") ?? "0,0")}
+            day={dayjs(query.get("day") ?? "").toDate()}
+            service={parseService(query.get("service") ?? "")}
+          />
+        </Route>
+        <Route exact path="/search">
+          <SearchScreen />
+        </Route>
+        <Route exact path="/cook">
+          <FoodOfferScreen />
+        </Route>
+        <Route exact path="/myFood">
+          <ManageAllMyFoods />
+        </Route>
+        <Route exact path="/food/:foodId" component={CreatedFoodOfferScreen} />
+        <Route path="/">
+          <WelcomeScreen />
+        </Route>
+      </Switch>
+    );
+  };
 
   return (
     <div>
