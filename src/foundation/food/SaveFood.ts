@@ -5,7 +5,11 @@ export default class SaveFood {
     private myCreatedFoodsRepository = new MyCreatedFoodsRepository();
 
     execute(food: FoodOffer): Promise<FoodOffer> {
-        this.myCreatedFoodsRepository.save(food);
-        return Promise.resolve(food);
+        const foodWithId = {
+            food: Date().toString(),
+            ...food
+        }
+        this.myCreatedFoodsRepository.save(foodWithId);
+        return Promise.resolve(foodWithId);
     }
 }

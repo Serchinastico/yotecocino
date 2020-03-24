@@ -1,11 +1,12 @@
 import React from "react";
 import WelcomeScreen from "feature/welcome/WelcomeScreen";
 import SearchScreen from "feature/search/SearchScreen";
-import FoodOfferScreen from "feature/cook/FoodOfferScreen";
+import FoodOfferScreen from "feature/food/FoodOfferScreen";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import SearchResultsScreen from "feature/search/SearchResultsScreen";
 import { useQuery } from "foundation/router/UseQuery";
 import "./index.scss";
+import CreatedFoodOfferScreen from "./feature/food/CreatedFoodOfferScreen";
 
 const App: React.FC = () => {
   const parseLocation = (location: string) => {
@@ -34,6 +35,7 @@ const App: React.FC = () => {
           <Route exact path="/cook">
               <FoodOfferScreen />
           </Route>
+          <Route exact path="/food/:foodId" component={CreatedFoodOfferScreen}/>
         <Route path="/">
           <WelcomeScreen />
         </Route>

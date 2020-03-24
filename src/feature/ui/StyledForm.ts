@@ -22,6 +22,15 @@ export const InputTitle = styled.p`
   margin-top: 16px;
 `;
 
+export const FieldErrorDescription = styled.p`
+  font-size: 0.7rem;
+  color: #e27861;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 4px;
+  margin-top: 16px;
+`;
+
 export const TextInput = styled.input`
   border: 0.5px solid rgba(0, 0, 0, 0.2);
   height: 40px;
@@ -78,4 +87,36 @@ export const Title = styled.p`
   font-size: 1.2rem;
   margin: 0;
   margin-bottom: 16px;
+`;
+
+export const CenterDiv = styled.div`
+    text-align: center;
+`;
+
+export const Text = styled.p`
+  font-weight: light;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 4px;
+  margin-top: 16px;
+`;
+
+export const Emphasis = styled.span`
+  font-weight: bold;
+`;
+
+export const Link = styled.a`
+  font-weight: light;
+  font-family: "Pacifico", sans-serif;
+  text-decoration: none;
+  color: #000;
+`;
+
+export const FoodNameTitle = styled.p`
+  font-weight: 300;
+  color: #2997FC;
+  font-size: 2rem;
+  margin: 0;
+  margin-bottom: 16px;
+  font-family: "Pacifico", sans-serif;
 `;
