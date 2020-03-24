@@ -1,0 +1,1 @@
+{"version":3,"sources":["index.scss"],"names":[],"mappings":"AAAA,KACE,QAAS,CACT,mCAAqC,CACrC,kBAAmB","file":"main.e702b3e9.chunk.css","sourcesContent":["body {\n  margin: 0;\n  font-family: \"Montserrat\", sans-serif;\n  background: #ffdfd8;\n}\n"]}
