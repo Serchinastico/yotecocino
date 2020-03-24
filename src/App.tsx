@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import SearchResultsScreen from "feature/search/SearchResultsScreen";
 import { useQuery } from "foundation/router/UseQuery";
 import "./index.scss";
+import WorkInProgressScreen from "feature/wip/WorkInProgressScreen";
 
 const App: React.FC = () => {
   const parseLocation = (location: string) => {
@@ -16,25 +17,7 @@ const App: React.FC = () => {
   };
 
   const Routes = () => {
-    const query = useQuery();
-
-    return (
-      <Switch>
-        <Route path="/search/results">
-          <SearchResultsScreen
-            coordinates={parseLocation(query.get("location") ?? "0,0")}
-            day={query.get("day") ?? ""}
-            service={query.get("service") ?? "lunch"}
-          />
-        </Route>
-        <Route exact path="/search">
-          <SearchScreen />
-        </Route>
-        <Route path="/">
-          <WelcomeScreen />
-        </Route>
-      </Switch>
-    );
+    return <WorkInProgressScreen />;
   };
 
   return (
