@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import "react-datepicker/dist/react-datepicker.css";
-import { Coordinates } from "foundation/types/Coordinates";
 import { FoodOffer } from "foundation/types/FoodOffer";
 
 const Container = styled.div`
