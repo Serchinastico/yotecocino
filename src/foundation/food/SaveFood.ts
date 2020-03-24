@@ -6,7 +6,7 @@ export default class SaveFood {
 
     execute(food: FoodOffer): Promise<FoodOffer> {
         const foodWithId = {
-            food: Date().toString(),
+            id: Date().toString(),
             ...food
         }
         this.myCreatedFoodsRepository.save(foodWithId);

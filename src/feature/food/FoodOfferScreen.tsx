@@ -25,6 +25,7 @@ const FoodOfferScreen: React.FC = () => {
     const saveFood = new SaveFood();
     const [contact, setContact] = useState<string | null>(null);
     const [location, setLocation] = useState<Coordinates | null>(null);
+    const [description, setDescripiton] = useState<string | null>(null);
     const [date, setDate] = useState<Date | null>(null);
     const [service, setService] = useState<Service | null>(null);
     const [violations, setViolations] = useState<any>({});
@@ -44,6 +45,9 @@ const FoodOfferScreen: React.FC = () => {
         if (!service) {
             violations["service"] = "Necesitamos que nos digas si ofreces comida o cena";
         }
+        if (!service) {
+            violations["description"] = "Necesitamos que nos digas que podrías cocinar. Si no sabes que hacer, pon 'cositas ricas'";
+        }
         return violations;
     }
 
@@ -58,12 +62,13 @@ const FoodOfferScreen: React.FC = () => {
                 coordinates: location as Coordinates,
                 service: service as Service,
                 contact: contact as string,
-                date: dayjs(date || Date()).format("YYYY-MM-DD")
+                date: dayjs(date || Date()).format("YYYY-MM-DD"),
+                food: description as string
             }
 
             saveFood.execute(foodOffer).then((savdeFood) => {
                 setSaving(false);
-                history.push(`/food/${savdeFood.food}`)
+                history.push(`/food/${savdeFood.id}`)
             });
         }
     };
@@ -81,13 +86,14 @@ const FoodOfferScreen: React.FC = () => {
         }
     };
 
-    const locationError = violations.location ?
-        <FieldErrorDescription>{violations.location}</FieldErrorDescription> : null;
     const dateError = violations.date ? <FieldErrorDescription>{violations.date}</FieldErrorDescription> : null;
     const serviceError = violations.service ?
         <FieldErrorDescription>{violations.service}</FieldErrorDescription> : null;
     const contactError = violations.contact ?
         <FieldErrorDescription>{violations.contact}</FieldErrorDescription> : null;
+    const descriptionError = violations.description ?
+        <FieldErrorDescription>{violations.description}</FieldErrorDescription> : null;
+
     const saveText = saving ? "Guardando tu solicitud" : "Cocinar";
 
     return (<div>
@@ -95,8 +101,10 @@ const FoodOfferScreen: React.FC = () => {
                 <Title>
                     Completa los siguientes campos para ofrecer una comida preparada
                 </Title>
-                {locationError}
-                <LocationInput setLocation={setLocation} showMap={true}/>
+                <LocationInput label="¿Dónde será la recogida?"
+                               setLocation={setLocation}
+                               showMap={false}
+                               errorMessage={violations.location}/>
                 <label>
                     <InputTitle>¿Qué día será la recogida?</InputTitle>
                     {dateError}
@@ -128,6 +136,16 @@ const FoodOfferScreen: React.FC = () => {
                     <label htmlFor="dinner">Cena</label>
                 </label>
                 <label>
+                    <InputTitle>¿Qué podrías cocinar?</InputTitle>
+                    {descriptionError}
+                    <TextInput
+                        type="text"
+                        placeholder="Comida vegana, guisos riquisimos, ..."
+                        value={description ?? ""}
+                        onChange={event => setDescripiton(event.target.value)}
+                    />
+                </label>
+                <label>
                     <InputTitle>Forma de contacto</InputTitle>
                     {contactError}
                     <TextInput
@@ -138,8 +156,11 @@ const FoodOfferScreen: React.FC = () => {
                     />
                 </label>
                 <ButtonInput type="submit" value={saveText}/>
+
+                <Text>Haz clic <Link href="/myFood">aquí</Link> si ya tienes una comida registrada y la quieres
+                    borrar</Text>
+
             </Container>
-            <Text>Haz clic <Link href="/myFood">aquí</Link> si ya tienes una comida registrada y la quieres borrar</Text>
         </div>
     );
 };

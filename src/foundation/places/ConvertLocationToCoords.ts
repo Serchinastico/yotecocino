@@ -1,7 +1,6 @@
-import Geohash from "latlon-geohash";
-import {RichLocation} from "../types/Coordinates";
+import {Coordinates} from "../types/Coordinates";
 
-export interface PlaceSearchResult extends RichLocation {
+export interface PlaceSearchResult extends Coordinates {
     address: string
 }
 
@@ -27,12 +26,11 @@ export default class ConvertLocationToCoords {
                         return foundPlaces.features.map((place: any) => {
                             const lat = place.center[1];
                             const long = place.center[0];
-                            const geohash = Geohash.encode(lat, long, 8);
+
                             return {
                                 latitude: lat,
                                 longitude: long,
-                                address: place.place_name,
-                                geohash: geohash
+                                address: place.place_name
                             }
                         });
                     } else {

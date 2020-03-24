@@ -10,8 +10,7 @@ import ConvertLocationToCoords, {
     PlaceSearchResult,
     SearchPlaceFilter
 } from "../../foundation/places/ConvertLocationToCoords";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import SearchIcon from "@material-ui/icons/Search";
+import {FieldErrorDescription, InputTitle} from "../ui/StyledForm";
 
 const useStyles = makeStyles(theme => ({
     icon: {
@@ -20,13 +19,31 @@ const useStyles = makeStyles(theme => ({
     },
     search: {
         backgroundColor: "#FFF",
-        margin: "15px"
+        marginBottom: "15px",
+        border: "0.5px solid rgba(0, 0, 0, 0.2)",
+        height: "40px",
+        width: "470px",
+        borderRadius: "24px",
+        paddingLeft: "16px",
+        paddingRight: "16px",
+        fontSize: "0.9rem",
+        marginTop: "8px",
+        fontFamily: "'Montserrat', sans-serif",
+        "&::placeholder": {
+            fontFamily: "'Montserrat', sans-serif"
+        }
+    },
+    root: {
+        border: 0,
+        background: "#000"
     }
 }));
 
 type  SearchPlaceInputProps = {
-    onChange: (place: PlaceSearchResult) => void,
-    address?: string | null
+    onChange: (place: PlaceSearchResult) => void;
+    address?: string | null;
+    errorMessage: string | null;
+    label: string | null;
 } & SearchPlaceFilter
 
 export default function SearchPlaceInput(props: SearchPlaceInputProps) {
@@ -74,6 +91,8 @@ export default function SearchPlaceInput(props: SearchPlaceInputProps) {
         };
     }, [inputValue, fetch]);
 
+    const error = props.errorMessage ? <FieldErrorDescription>{props.errorMessage}</FieldErrorDescription> : null;
+
     return (
         <Autocomplete
             id="search-place"
@@ -85,25 +104,18 @@ export default function SearchPlaceInput(props: SearchPlaceInputProps) {
             includeInputInList
             onChange={selectPlace}
             renderInput={params => (
-                <TextField
-                    {...params}
-                    className={classes.search}
-                    label="¿Dóndde será la recogida?"
-                    fullWidth
-                    onChange={handleChange}
-                    InputProps={{
-                        ...params.InputProps,
-                        startAdornment: (
-                            <React.Fragment>
-                                <InputAdornment position="start">
-                                    <SearchIcon/>
-                                </InputAdornment>
-                                {params.InputProps.startAdornment}
-                            </React.Fragment>
-                        )
-                    }
-                    }
-                />
+                <div>
+                    <label>
+                        <InputTitle>{props.label}</InputTitle>
+                        {error}
+                        <TextField
+                            {...params}
+                            className={classes.search}
+                            variant="standard"
+                            onChange={handleChange}
+                        />
+                    </label>
+                </div>
             )}
             renderOption={option => {
                 return (

@@ -6,6 +6,7 @@ import ResultList from "./components/ResultList";
 import ResultMap from "./components/ResultMap";
 import { Service } from "../../foundation/types/Service";
 import { FoodOffer } from "foundation/types/FoodOffer";
+import FindFood from "../../foundation/food/FindFood";
 
 const Container = styled.div`
   display: flex;
@@ -46,74 +47,44 @@ const SearchResultsScreen: React.FC<Props> = ({
   day,
   service
 }) => {
-  const offers = [
-    {
-      date: "2020-03-23",
-      coordinates: { latitude: 40.3830854, longitude: -3.6922495 },
-      food: "Albóndigas con salsa",
-      contact: "@Serchinastico",
-      service: Service.lunch
-    },
-    {
-      date: "2020-03-23",
-      coordinates: { latitude: 40.3820959, longitude: -3.6932495 },
-      food: "Macarrones con queso",
-      contact: "@Serchinastico",
-      service: Service.dinner
-    },
-    {
-      date: "2020-03-23",
-      coordinates: { latitude: 40.3850959, longitude: -3.6902495 },
-      food: "Berenjenas rellenas",
-      contact: "@Serchinastico",
-      service: Service.lunch
-    },
-    {
-      date: "2020-03-23",
-      coordinates: { latitude: 40.3830959, longitude: -3.6905495 },
-      food: "Ensalada de atún",
-      contact: "@Serchinastico",
-      service: Service.lunch
-    },
-    {
-      date: "2020-03-23",
-      coordinates: { latitude: 40.3850959, longitude: -3.6912495 },
-      food: "Solomillo de vaca vieja",
-      contact: "@Serchinastico",
-      service: Service.lunch
-    },
-    {
-      date: "2020-03-23",
-      coordinates: { latitude: 40.3820959, longitude: -3.69 },
-      food: "Salmón con verduras",
-      contact: "@Serchinastico",
-      service: Service.lunch
-    },
-    {
-      date: "2020-03-23",
-      coordinates: { latitude: 40.3750959, longitude: -3.6912495 },
-      food: "Salteado de tofu",
-      contact: "@Serchinastico",
-      service: Service.lunch
+
+  const findFood = new FindFood();
+  const [offers, setOffers] = useState<FoodOffer[]>([]);
+  const [needToLoad, setNeedToLoad] = useState<boolean>(true);
+
+
+  React.useEffect(() => {
+    if (needToLoad) {
+      findFood.execute({
+        day,
+        service,
+        nearTo: coordinates
+      }).then((found) => {
+        setOffers(found);
+      });
+      setNeedToLoad(false);
     }
-  ];
+  });
+
+  console.log(offers);
 
   const [selectedOffer, setSelectedOffer] = useState<FoodOffer | undefined>(
     undefined
   );
 
+  let map = offers.length === 0 ? null : <MapContainer>
+    <ResultMap offers={offers} selectedOffer={selectedOffer} />
+  </MapContainer>;
   return (
     <Container>
       <ListContainer>
         <ResultList
-          offers={offers}
-          onOfferSelected={offer => setSelectedOffer(offer)}
-          selectedOffer={selectedOffer}
+            offers={offers}
+            onOfferSelected={offer => setSelectedOffer(offer)}
+            selectedOffer={selectedOffer}
         />
       </ListContainer>
-      <MapContainer>
-        <ResultMap offers={offers} selectedOffer={selectedOffer} />
-      </MapContainer>
+      {map}
     </Container>
   );
 };

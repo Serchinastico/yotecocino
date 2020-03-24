@@ -13,6 +13,7 @@ export const Container = styled.form`
   left: 50%;
   transform: translate(-50%, -50%);
   box-shadow: 0px 8px 0px rgba(0, 0, 0, 0.1);
+  overflow: scroll
 `;
 
 export const InputTitle = styled.p`
@@ -105,24 +106,11 @@ export const Text = styled.p`
   margin-top: 16px;
 `;
 
-export const Emphasis = styled.span`
-  font-weight: bold;
-`;
-
 export const Link = styled.a`
   font-weight: light;
   font-family: "Pacifico", sans-serif;
   text-decoration: none;
   color: #000;
-`;
-
-export const FoodNameTitle = styled.p`
-  font-weight: 300;
-  color: #2997fc;
-  font-size: 2rem;
-  margin: 0;
-  margin-bottom: 16px;
-  font-family: "Pacifico", sans-serif;
 `;
 
 export const MyCreatedFoodItem = styled.p`

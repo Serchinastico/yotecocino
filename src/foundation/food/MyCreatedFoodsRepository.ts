@@ -13,7 +13,7 @@ export default class MyCreatedFoodsRepository {
 
     find(id: String): FoodOffer | undefined {
         const allFoods = this.findAll();
-        return allFoods.find((food) => food.food === id);
+        return allFoods.find((food) => food.id === id);
     }
 
     findAll(): FoodOffer[] {
@@ -23,8 +23,8 @@ export default class MyCreatedFoodsRepository {
     delete(foodOffer: FoodOffer | string): void {
         const allFoods = this.findAll();
         const lessFood = allFoods.filter((item) => {
-            const food = typeof foodOffer === "string" ? foodOffer : foodOffer.food;
-            return item.food !== food;
+            const food = typeof foodOffer === "string" ? foodOffer : foodOffer.id;
+            return item.id !== food;
         });
         localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(lessFood));
     }

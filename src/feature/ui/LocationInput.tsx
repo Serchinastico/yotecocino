@@ -1,11 +1,11 @@
 import React from "react";
 import ReactMapGL, { Marker, ViewportProps } from "react-map-gl";
 import config from "../../foundation/Config";
-import { RichLocation } from "../../foundation/types/Coordinates";
 import SearchPlacesInput from "./SearchPlaceInput";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import { withStyles } from "@material-ui/core/styles";
 import red from "@material-ui/core/colors/red";
+import {Coordinates} from "../../foundation/types/Coordinates";
 
 const styles = () => ({
   marker: {
@@ -16,18 +16,21 @@ const styles = () => ({
 });
 
 interface Props {
-  setLocation: (location: RichLocation) => void;
+  setLocation: (location: Coordinates) => void;
   address?: string | null;
   showMap: boolean;
   mapWidth: number | string;
   mapHeight: number | string;
   classes: any;
+  errorMessage: string | null;
+  label: string | null;
 }
 
 interface DefaultProps {
   showMap: boolean;
   mapWidth: number | string;
   mapHeight: number | string;
+  errorMessage: string | null;
 }
 
 type LocationProps = Props & DefaultProps;
@@ -41,7 +44,8 @@ class LocationInput extends React.Component<LocationProps, LocationInputState> {
   public static defaultProps: Partial<LocationProps> = {
     showMap: true,
     mapWidth: "100%",
-    mapHeight: 400
+    mapHeight: 400,
+    errorMessage: null
   };
 
   constructor(props: LocationProps) {
@@ -58,7 +62,7 @@ class LocationInput extends React.Component<LocationProps, LocationInputState> {
     this.updateAddress = this.updateAddress.bind(this);
   }
 
-  updateAddress(address: RichLocation) {
+  updateAddress(address: Coordinates) {
     this.props.setLocation(address);
     this.setState((prev: any) => ({
       ...prev,
@@ -75,7 +79,7 @@ class LocationInput extends React.Component<LocationProps, LocationInputState> {
   }
 
   render() {
-    const { address, classes, showMap } = this.props;
+    const { address, classes, errorMessage, label, showMap } = this.props;
     const { marker, viewport } = this.state;
     const auth = {
       mapboxApiAccessToken: config.mapsToken
@@ -99,24 +103,26 @@ class LocationInput extends React.Component<LocationProps, LocationInputState> {
         language={config.language}
         onChange={this.updateAddress}
         address={address}
+        errorMessage={errorMessage}
+        label={label}
       />
     );
 
-    const search = showMap ? (
+    const map = showMap ? (
       <ReactMapGL
         {...auth}
         {...mapConfig}
         {...viewport}
         onViewportChange={this.updateViewPort}
       >
-        {searchPlacesInput}
         {markerInMap}
       </ReactMapGL>
-    ) : (
-      searchPlacesInput
-    );
+    ) : null;
 
-    return <div>{search}</div>;
+    return <div>
+      {searchPlacesInput}
+      {map}
+    </div>;
   }
 
   private updateViewPort(viewport: ViewportProps) {

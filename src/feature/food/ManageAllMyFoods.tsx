@@ -48,11 +48,10 @@ const ManageAllMyFoods: React.FC = () => {
         </Text>
         <div>
             {offeredFood.map((food) => {
-                const myFoodId = food.food || "";
                 const onClick = () => {
-                    setFoodId(myFoodId);
+                    setFoodId(food.id || "");
                 };
-                return <MyCreatedFoodItem onClick={onClick}>{myFoodId}</MyCreatedFoodItem>
+                return <MyCreatedFoodItem onClick={onClick}>{food.food}</MyCreatedFoodItem>
             })}
         </div>
     </div>);
