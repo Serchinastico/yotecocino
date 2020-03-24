@@ -28,7 +28,7 @@ export const FieldErrorDescription = styled.p`
   padding: 0;
   margin: 0;
   margin-bottom: 4px;
-  margin-top: 16px;
+  margin-top: 5px;
 `;
 
 export const TextInput = styled.input`
