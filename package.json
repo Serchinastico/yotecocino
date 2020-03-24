@@ -2,6 +2,7 @@
   "name": "yotecocino",
   "version": "0.0.1",
   "private": true,
+  "homepage": "http://serchinastico.github.io/yotecocino",
   "dependencies": {
     "axios": "^0.19.2",
     "dayjs": "^1.8.23",
@@ -40,9 +41,12 @@
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.18.3",
+    "gh-pages": "^2.2.0",
     "typescript": "~3.8.2"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
