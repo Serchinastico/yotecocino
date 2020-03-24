@@ -1,41 +1,67 @@
 import React from "react";
 import "react-datepicker/dist/react-datepicker.css";
-import {
-    CenterDiv,
-    Container,
-    Emphasis,
-    Link,
-    FoodNameTitle,
-    Text
-} from "../ui/StyledForm";
+import styled from "styled-components";
+
+const Container = styled.div`
+  background: #fff;
+  box-shadow: 0px 8px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 32px;
+  width: 90%;
+  max-width: 500px;
+  padding: 100px 32px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+
+const Congratulations = styled.p`
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  margin: 0;
+`;
+
+const Description = styled.p`
+  text-align: center;
+  font-size: 18px;
+  line-height: 22px;
+  margin: 8px;
+`;
+
+const Brand = styled.span`
+  font-size: 24px;
+  font-family: "Pacifico", cursive;
+`;
+
+const Identifier = styled.p`
+  font-size: 48px;
+  font-family: "Pacifico", cursive;
+  text-align: center;
+  color: #2997fc;
+  margin: 0;
+`;
 
 type CreatedFoodOfferScreenProps = {
-    match?: any
-}
+  match?: any;
+};
 
-const CreatedFoodOfferScreen: React.FC<CreatedFoodOfferScreenProps> = (props: CreatedFoodOfferScreenProps) => {
-    console.log(props);
-    return (
-        <Container>
-            <CenterDiv>
-                <Text>
-                    <Emphasis>¡Enhorabuena!</Emphasis>
-                </Text>
-                <Text>
-                    Tu ayuda ha quedado registrada.
-                    Cuando acuerdes a quién se la darás, tan solo tienes que visitar <Link
-                    href={"http://yotecocino.com"}>
-                    yotecocino.com</Link> para marcarla como asignada.
-                </Text>
-                < Text>
-                    El identificador de tu comida es:</Text>
-                <FoodNameTitle>
-                    {props.match.params.foodId}
-                </FoodNameTitle>
-            </CenterDiv>
-        </Container>
-    )
-        ;
+const CreatedFoodOfferScreen: React.FC<CreatedFoodOfferScreenProps> = ({
+  match
+}) => {
+  return (
+    <Container>
+      <Congratulations>¡Enhorabuena!</Congratulations>
+      <Description>
+        Tu ayuda ha quedado registrada. Cuando acuerdes a quién se la darás, tan
+        solo tienes que visitar <Brand>#yotecocino</Brand> para marcarla como
+        asignada.
+      </Description>
+      <br />
+      <Description>El identificador de tu comida es:</Description>
+      <Identifier>{match.params.foodId}</Identifier>
+    </Container>
+  );
 };
 
 export default CreatedFoodOfferScreen;
