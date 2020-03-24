@@ -13,7 +13,7 @@ export const Container = styled.form`
   left: 50%;
   transform: translate(-50%, -50%);
   box-shadow: 0px 8px 0px rgba(0, 0, 0, 0.1);
-  overflow: scroll
+  overflow: scroll;
 `;
 
 export const InputTitle = styled.p`
@@ -122,6 +122,6 @@ export const MyCreatedFoodItem = styled.p`
   padding-bottom: 10px;
   cursor: pointer;
   &:not(:last-child) {
-    border-bottom: 1px solid rgba(0,0,0,0.2);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   }
-`
+`;

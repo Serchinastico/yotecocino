@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
         fontFamily: "'Montserrat', sans-serif",
         "&::placeholder": {
             fontFamily: "'Montserrat', sans-serif"
-        }
+        },
     },
     root: {
         border: 0,
@@ -92,7 +92,6 @@ export default function SearchPlaceInput(props: SearchPlaceInputProps) {
     }, [inputValue, fetch]);
 
     const error = props.errorMessage ? <FieldErrorDescription>{props.errorMessage}</FieldErrorDescription> : null;
-
     return (
         <Autocomplete
             id="search-place"
@@ -101,6 +100,7 @@ export default function SearchPlaceInput(props: SearchPlaceInputProps) {
             filterOptions={x => x}
             options={options}
             autoComplete
+            freeSolo
             includeInputInList
             onChange={selectPlace}
             renderInput={params => (
@@ -111,6 +111,7 @@ export default function SearchPlaceInput(props: SearchPlaceInputProps) {
                         <TextField
                             {...params}
                             className={classes.search}
+                            placeholder="Calle y número"
                             variant="standard"
                             onChange={handleChange}
                         />

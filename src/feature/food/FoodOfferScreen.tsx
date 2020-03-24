@@ -150,16 +150,15 @@ const FoodOfferScreen: React.FC = () => {
                     {contactError}
                     <TextInput
                         type="text"
-                        placeholder="Twitter, Instagram, email, teléfono"
+                        placeholder="Twitter"
                         value={contact ?? ""}
                         onChange={event => setContact(event.target.value)}
                     />
                 </label>
                 <ButtonInput type="submit" value={saveText}/>
 
-                <Text>Haz clic <Link href="/myFood">aquí</Link> si ya tienes una comida registrada y la quieres
+            <Text>Haz clic <Link href="/myFood">aquí</Link> si ya tienes una comida registrada y la quieres
                     borrar</Text>
-
             </Container>
         </div>
     );

@@ -6,14 +6,13 @@ import { Service } from "foundation/types/Service";
 import {
   Container,
   InputTitle,
-  TextInput,
   DateInput,
   RadioInput,
   ButtonInput,
   Title
 } from "../ui/StyledForm";
 import LocationInput from "../ui/LocationInput";
-import {Coordinates} from "../../foundation/types/Coordinates";
+import { Coordinates } from "../../foundation/types/Coordinates";
 
 const SearchScreen: React.FC = () => {
   const history = useHistory();
@@ -56,9 +55,10 @@ const SearchScreen: React.FC = () => {
       <Title>
         Completa los siguientes campos para buscar una comida preparada
       </Title>
-      <LocationInput label="¿Dónde trabajas?"
-                     setLocation={setAddress}
-                     showMap={false}
+      <LocationInput
+        label="¿Dónde trabajas?"
+        setLocation={setAddress}
+        showMap={false}
       />
       <label>
         <InputTitle>¿Qué día será la recogida?</InputTitle>

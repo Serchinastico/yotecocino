@@ -3,3 +3,21 @@ body {
   font-family: "Montserrat", sans-serif;
   background: #ffdfd8;
 }
+
+.MuiAutocomplete-clearIndicator {
+  padding-top: 6px !important;
+}
+
+.MuiAutocomplete-inputRoot[class*="MuiInput-root"] .MuiAutocomplete-input:first-child {
+  padding-top: 12px !important;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.9rem;
+}
+
+.MuiInput-underline:before {
+  border-bottom: none !important;
+}
+
+.MuiInput-underline:after {
+  border-bottom: none !important;
+}
