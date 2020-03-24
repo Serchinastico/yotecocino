@@ -8,13 +8,6 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const Title = styled.div`
-  font-size: 3rem;
-  font-family: "Pacifico", cursive;
-  color: #303240;
-  margin-top: 32px;
-`;
-
 const DescriptionContainer = styled.div`
   background: #fff;
   border-radius: 16px;
@@ -23,7 +16,7 @@ const DescriptionContainer = styled.div`
   width: 310px;
   height: 400px;
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
   @media (max-width: 768px) {
@@ -62,6 +55,29 @@ const Illustration = styled.img`
   }
 `;
 
+const CreatorsDiv = styled.div`
+  background: #fff;
+  height: 80px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: 0px -8px 0px rgba(0, 0, 0, 0.1);
+`;
+const Creators = styled.p`
+  margin: 0;
+  text-align: center;
+  align-self: center;
+`;
+
+const Creator = styled.a`
+  text-decoration: none;
+  color: #2997fc;
+  font-weight: 600;
+`;
+
 const WorkInProgressScreen: React.FC = () => {
   return (
     <Container>
@@ -74,6 +90,16 @@ const WorkInProgressScreen: React.FC = () => {
         </Description>
         <Illustration src="img/il_wip.svg"></Illustration>
       </DescriptionContainer>
+      <CreatorsDiv>
+        <Creators>
+          Created with ❤️ by{" "}
+          <Creator href="https://twitter.com/Serchinastico">
+            @Serchinastico
+          </Creator>
+          , <Creator href="https://twitter.com/delr3ves">@delr3ves</Creator> y{" "}
+          <Creator href="https://twitter.com/alicarbajal">@alicarbajal</Creator>
+        </Creators>
+      </CreatorsDiv>
     </Container>
   );
 };
