@@ -97,7 +97,9 @@ const WorkInProgressScreen: React.FC = () => {
             @Serchinastico
           </Creator>
           , <Creator href="https://twitter.com/delr3ves">@delr3ves</Creator> y{" "}
-          <Creator href="https://twitter.com/alicarbajal">@alicarbajal</Creator>
+          <Creator href="https://www.linkedin.com/in/aliciacarbajalzapater/">
+            @alicarbajal
+          </Creator>
         </Creators>
       </CreatorsDiv>
     </Container>
