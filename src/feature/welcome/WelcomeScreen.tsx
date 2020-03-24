@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import {useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import Footer from "feature/ui/Footer";
 
 const Container = styled.div`
   display: flex;
@@ -26,6 +27,7 @@ const OptionsContainer = styled.div`
   @media (max-width: 768px) {
     flex-direction: column;
     margin-top: 120px;
+    margin-bottom: 120px;
   }
 `;
 
@@ -57,35 +59,36 @@ const OptionIllustration = styled.img`
 `;
 
 const WelcomeScreen: React.FC = () => {
-    const history = useHistory();
+  const history = useHistory();
 
-    const AcceptFoodButton = () => {
-        return (
-            <OptionContainer onClick={() => history.push("/search")}>
-                <OptionTitle>Acepto comida</OptionTitle>
-                <OptionIllustration src={"img/il_doctor.svg"}/>
-            </OptionContainer>
-        );
-    };
-
-    const ProvideFoodButton = () => {
-        return (
-            <OptionContainer onClick={() => history.push("/cook")}>
-                <OptionTitle>Ofrezco comida</OptionTitle>
-                <OptionIllustration src={"img/il_chef.svg"}/>
-            </OptionContainer>
-        );
-    };
-
+  const AcceptFoodButton = () => {
     return (
-        <Container>
-            <Title>#yotecocino</Title>
-            <OptionsContainer>
-                <AcceptFoodButton/>
-                <ProvideFoodButton/>
-            </OptionsContainer>
-        </Container>
+      <OptionContainer onClick={() => history.push("/search")}>
+        <OptionTitle>Acepto comida</OptionTitle>
+        <OptionIllustration src={"img/il_doctor.svg"} />
+      </OptionContainer>
     );
+  };
+
+  const ProvideFoodButton = () => {
+    return (
+      <OptionContainer onClick={() => history.push("/cook")}>
+        <OptionTitle>Ofrezco comida</OptionTitle>
+        <OptionIllustration src={"img/il_chef.svg"} />
+      </OptionContainer>
+    );
+  };
+
+  return (
+    <Container>
+      <Title>#yotecocino</Title>
+      <OptionsContainer>
+        <AcceptFoodButton />
+        <ProvideFoodButton />
+      </OptionsContainer>
+      <Footer />
+    </Container>
+  );
 };
 
 export default WelcomeScreen;
