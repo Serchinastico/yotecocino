@@ -76,7 +76,7 @@ const SearchResultsScreen: React.FC<Props> = ({
     },
     {
       date: "2020-03-23",
-      coordinates: { latitude: 40.3950959, longitude: -3.6912495 },
+      coordinates: { latitude: 40.3850959, longitude: -3.6912495 },
       food: "Solomillo de vaca vieja",
       contact: "@Serchinastico",
       service: Service.lunch
@@ -90,7 +90,7 @@ const SearchResultsScreen: React.FC<Props> = ({
     },
     {
       date: "2020-03-23",
-      coordinates: { latitude: 40.3350959, longitude: -3.6912495 },
+      coordinates: { latitude: 40.3750959, longitude: -3.6912495 },
       food: "Salteado de tofu",
       contact: "@Serchinastico",
       service: Service.lunch

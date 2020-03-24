@@ -1,6 +1,6 @@
 import React, { useState, Fragment } from "react";
 import config from "../../../foundation/Config";
-import ReactMapGL, { Marker } from "react-map-gl";
+import ReactMapGL, { Marker, WebMercatorViewport } from "react-map-gl";
 import styled from "styled-components";
 import "react-datepicker/dist/react-datepicker.css";
 import { FoodOffer } from "foundation/types/FoodOffer";
@@ -29,36 +29,35 @@ const ResultMap: React.FC<Props> = ({ offers }) => {
     zoom: 15
   };
 
+  const allCoordinates = offers.map(offer => offer.coordinates);
+  const allLatitudes = allCoordinates.map(c => c.latitude);
+  const allLongitudes = allCoordinates.map(c => c.longitude);
+  const minLatitude = allLatitudes.reduce(
+    (a: number, b: number) => (a < b ? a : b),
+    90
+  );
+  const maxLatitude = allLatitudes.reduce(
+    (a: number, b: number) => (a > b ? a : b),
+    -90
+  );
+  const minLongitude = allLongitudes.reduce(
+    (a: number, b: number) => (a < b ? a : b),
+    180
+  );
+  const maxLongitude = allLongitudes.reduce(
+    (a: number, b: number) => (a > b ? a : b),
+    -180
+  );
+
+  const [didChangeViewport, setDidChangeViewport] = useState(false);
   const [viewport, setViewport] = useState({
     latitude: 40.3850959,
     longitude: -3.6912495
   });
 
-  const MarkerIcon = () => {
-    return (
-      <svg
-        width="64"
-        height="64"
-        viewBox="0 0 64 64"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <circle cx="32" cy="32" r="32" fill="#2997FC" fill-opacity="0.4" />
-        <circle
-          cx="32"
-          cy="32"
-          r="16"
-          fill="#2997FC"
-          fill-opacity="0.2"
-          stroke="#2997FC"
-          stroke-width="0.423841"
-        />
-        <circle cx="32" cy="32" r="6" fill="#2997FC" />
-      </svg>
-    );
-  };
-
   const Markers = () => {
+    const markerIcon = require("../../../img/ic_marker.svg") as string;
+
     const markers = offers.map(offer => (
       <Marker
         key={offer.food}
@@ -67,21 +66,33 @@ const ResultMap: React.FC<Props> = ({ offers }) => {
         offsetTop={-32}
         offsetLeft={-32}
       >
-        <MarkerIcon />
+        <img src={markerIcon}></img>
       </Marker>
     ));
     return <Fragment>{markers}</Fragment>;
   };
 
+  const viewport2 = didChangeViewport
+    ? viewport
+    : new WebMercatorViewport({ width: 800, height: 600 }).fitBounds(
+        [
+          [minLongitude, minLatitude],
+          [maxLongitude, maxLatitude]
+        ],
+        { padding: 20 }
+      );
   return (
     <Container>
       <Map
         {...auth}
         {...mapConfig}
-        {...viewport}
+        {...viewport2}
         width="100%"
         height="100%"
-        onViewportChange={props => setViewport(props)}
+        onViewportChange={props => {
+          setDidChangeViewport(true);
+          setViewport(props);
+        }}
       >
         <Markers />
       </Map>
