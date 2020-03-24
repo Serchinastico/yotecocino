@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import "react-datepicker/dist/react-datepicker.css";
 import { Coordinates } from "foundation/types/Coordinates";
 import ResultList from "./components/ResultList";
 import ResultMap from "./components/ResultMap";
 import { Service } from "../../foundation/types/Service";
+import { FoodOffer } from "foundation/types/FoodOffer";
 
 const Container = styled.div`
   display: flex;
@@ -96,13 +97,22 @@ const SearchResultsScreen: React.FC<Props> = ({
       service: Service.lunch
     }
   ];
+
+  const [selectedOffer, setSelectedOffer] = useState<FoodOffer | undefined>(
+    undefined
+  );
+
   return (
     <Container>
       <ListContainer>
-        <ResultList offers={offers} />
+        <ResultList
+          offers={offers}
+          onOfferSelected={offer => setSelectedOffer(offer)}
+          selectedOffer={selectedOffer}
+        />
       </ListContainer>
       <MapContainer>
-        <ResultMap offers={offers} />
+        <ResultMap offers={offers} selectedOffer={selectedOffer} />
       </MapContainer>
     </Container>
   );

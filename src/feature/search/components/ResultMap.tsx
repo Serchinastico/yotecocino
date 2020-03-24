@@ -1,10 +1,12 @@
-import React, { useState, Fragment } from "react";
+import React, { useState } from "react";
 import config from "../../../foundation/Config";
-import ReactMapGL, { Marker, WebMercatorViewport } from "react-map-gl";
+import ReactMapGL, { WebMercatorViewport } from "react-map-gl";
 import styled from "styled-components";
 import "react-datepicker/dist/react-datepicker.css";
 import { FoodOffer } from "foundation/types/FoodOffer";
 import { useBoundingBox } from "../hooks/UseBoundingBox";
+import { Coordinates } from "foundation/types/Coordinates";
+import ResultMapMarkers from "./ResultMapMarkers";
 
 const Container = styled.div`
   display: flex;
@@ -18,9 +20,10 @@ const Map = styled(ReactMapGL)`
 
 interface Props {
   offers: FoodOffer[];
+  selectedOffer?: FoodOffer;
 }
 
-const ResultMap: React.FC<Props> = ({ offers }) => {
+const ResultMap: React.FC<Props> = ({ offers, selectedOffer }) => {
   const auth = {
     mapboxApiAccessToken: config.mapsToken
   };
@@ -34,58 +37,36 @@ const ResultMap: React.FC<Props> = ({ offers }) => {
 
   const boundingBox = useBoundingBox(allCoordinates);
 
-  const [didChangeViewport, setDidChangeViewport] = useState(false);
-  const [viewport, setViewport] = useState({
-    latitude: 40.3850959,
-    longitude: -3.6912495
-  });
+  const [viewport, setViewport] = useState<Coordinates | undefined>(undefined);
 
-  const Markers = () => {
-    const markerIcon = require("../../../img/ic_marker.svg") as string;
-
-    const markers = offers.map(offer => (
-      <Marker
-        key={offer.food}
-        longitude={offer.coordinates.longitude}
-        latitude={offer.coordinates.latitude}
-        offsetTop={-32}
-        offsetLeft={-32}
-      >
-        <img src={markerIcon}></img>
-      </Marker>
-    ));
-    return <Fragment>{markers}</Fragment>;
-  };
-
-  const viewport2 = didChangeViewport
-    ? viewport
-    : new WebMercatorViewport({ width: 800, height: 600 }).fitBounds(
-        [
+  const mapViewport =
+    viewport !== undefined
+      ? viewport
+      : new WebMercatorViewport({ width: 800, height: 600 }).fitBounds(
           [
-            boundingBox.swCoordinate.longitude,
-            boundingBox.swCoordinate.latitude
+            [
+              boundingBox.swCoordinate.longitude,
+              boundingBox.swCoordinate.latitude
+            ],
+            [
+              boundingBox.neCoordinate.longitude,
+              boundingBox.neCoordinate.latitude
+            ]
           ],
-          [
-            boundingBox.neCoordinate.longitude,
-            boundingBox.neCoordinate.latitude
-          ]
-        ],
-        { padding: 20 }
-      );
+          { padding: 20 }
+        );
+
   return (
     <Container>
       <Map
         {...auth}
         {...mapConfig}
-        {...viewport2}
+        {...mapViewport}
         width="100%"
         height="100%"
-        onViewportChange={props => {
-          setDidChangeViewport(true);
-          setViewport(props);
-        }}
+        onViewportChange={props => setViewport(props)}
       >
-        <Markers />
+        <ResultMapMarkers offers={offers} selectedOffer={selectedOffer} />
       </Map>
     </Container>
   );

@@ -11,13 +11,24 @@ const Container = styled.div`
 
 interface Props {
   offers: FoodOffer[];
+  selectedOffer?: FoodOffer;
+  onOfferSelected: (offer: FoodOffer) => void;
 }
 
-const ResultList: React.FC<Props> = ({ offers }) => {
+const ResultList: React.FC<Props> = ({
+  offers,
+  selectedOffer,
+  onOfferSelected
+}) => {
   return (
     <Container>
       {offers.map(offer => (
-        <ResultRow key={offer.food} offer={offer} />
+        <ResultRow
+          key={offer.food}
+          offer={offer}
+          onOfferSelected={onOfferSelected}
+          isSelected={offer.food === selectedOffer?.food}
+        />
       ))}
     </Container>
   );
