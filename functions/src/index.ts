@@ -13,6 +13,11 @@ interface FoodOffer {
 export const createOffer = functions
   .region("europe-west1")
   .https.onRequest(async (request, response) => {
+    if (request.method !== "POST") {
+      response.sendStatus(404);
+      return;
+    }
+
     const contact: string = request.body.contact;
     const dayInISO: string = request.body.day;
     const foodName: string = request.body.foodname;
@@ -39,6 +44,11 @@ export const createOffer = functions
 export const deleteOffer = functions
   .region("europe-west1")
   .https.onRequest(async (request, response) => {
+    if (request.method !== "DELETE") {
+      response.sendStatus(404);
+      return;
+    }
+
     const id: string = request.query.id;
 
     admin.initializeApp();
@@ -59,6 +69,11 @@ export const deleteOffer = functions
 export const offer = functions
   .region("europe-west1")
   .https.onRequest(async (request, response) => {
+    if (request.method !== "GET") {
+      response.sendStatus(404);
+      return;
+    }
+
     const rawGeohashes: string = request.query.geohashes;
     const dayInISO: string = request.query.day;
     const service: string = request.query.service;
