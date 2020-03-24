@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, memo } from "react";
 import { Marker } from "react-map-gl";
 import "react-datepicker/dist/react-datepicker.css";
 import { FoodOffer } from "foundation/types/FoodOffer";
@@ -39,11 +39,10 @@ const ResultMapMarkers: React.FC<Props> = ({ offers, selectedOffer }) => {
 
   const Markers = () => {
     const markers = offers.map(offer => <OfferMarker offer={offer} />);
-
     return <Fragment>{markers}</Fragment>;
   };
 
   return <Markers />;
 };
 
-export default ResultMapMarkers;
+export default memo(ResultMapMarkers);
