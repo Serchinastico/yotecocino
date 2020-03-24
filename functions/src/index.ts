@@ -6,30 +6,54 @@ interface FoodOffer {
   contact: string;
   day: Date;
   food_name: string;
-  location: Location;
   location_geohash: string;
   service: string;
 }
 
-export const createFoodOffer = functions
+export const createOffer = functions
   .region("europe-west1")
   .https.onRequest(async (request, response) => {
+    const contact: string = request.body.contact;
+    const dayInISO: string = request.body.day;
+    const foodName: string = request.body.foodname;
+    const locationGeohash: string = request.body.geohash;
+    const service: string = request.body.service;
+
+    const foodOffer = {
+      contact,
+      day: dayjs(dayInISO).toDate(),
+      food_name: foodName,
+      location_geohash: locationGeohash,
+      service
+    };
     admin.initializeApp();
     const document = await admin
       .firestore()
       .collection("food-offers")
-      .where("contact", "==", "@serchinastico")
-      .get();
+      .add(foodOffer);
 
-    const result: FoodOffer = document.docs[0].data() as FoodOffer;
-    response.send(`Holi: ${JSON.stringify(result)}`);
+    response.send(JSON.stringify({ id: document.id, ...foodOffer }));
     response.sendStatus(201);
   });
 
-export const deleteFoodOffer = functions
+export const deleteOffer = functions
   .region("europe-west1")
-  .https.onRequest((request, response) => {
-    response.sendStatus(200);
+  .https.onRequest(async (request, response) => {
+    const id: string = request.query.id;
+
+    admin.initializeApp();
+    const document = await admin
+      .firestore()
+      .collection("food-offers")
+      .doc(id)
+      .get();
+
+    if (!document.exists) {
+      response.sendStatus(404);
+    } else {
+      await document.ref.delete();
+      response.sendStatus(200);
+    }
   });
 
 export const offer = functions
