@@ -3,8 +3,15 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useHistory } from "react-router-dom";
 import dayjs from "dayjs";
 import { Service } from "foundation/types/Service";
-import {Container, InputTitle, TextInput, DateInput, RadioInput, ButtonInput, Title} from "../ui/StyledForm";
-
+import {
+  Container,
+  InputTitle,
+  TextInput,
+  DateInput,
+  RadioInput,
+  ButtonInput,
+  Title
+} from "../ui/StyledForm";
 
 const SearchScreen: React.FC = () => {
   const history = useHistory();

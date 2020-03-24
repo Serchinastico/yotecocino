@@ -7,9 +7,6 @@ import ResultRow from "./ResultRow";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 50%;
-  background: #002360;
-  padding-top: 24px;
 `;
 
 interface Props {
