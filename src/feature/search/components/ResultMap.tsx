@@ -4,6 +4,7 @@ import ReactMapGL, { Marker, WebMercatorViewport } from "react-map-gl";
 import styled from "styled-components";
 import "react-datepicker/dist/react-datepicker.css";
 import { FoodOffer } from "foundation/types/FoodOffer";
+import { useBoundingBox } from "../hooks/UseBoundingBox";
 
 const Container = styled.div`
   display: flex;
@@ -30,24 +31,8 @@ const ResultMap: React.FC<Props> = ({ offers }) => {
   };
 
   const allCoordinates = offers.map(offer => offer.coordinates);
-  const allLatitudes = allCoordinates.map(c => c.latitude);
-  const allLongitudes = allCoordinates.map(c => c.longitude);
-  const minLatitude = allLatitudes.reduce(
-    (a: number, b: number) => (a < b ? a : b),
-    90
-  );
-  const maxLatitude = allLatitudes.reduce(
-    (a: number, b: number) => (a > b ? a : b),
-    -90
-  );
-  const minLongitude = allLongitudes.reduce(
-    (a: number, b: number) => (a < b ? a : b),
-    180
-  );
-  const maxLongitude = allLongitudes.reduce(
-    (a: number, b: number) => (a > b ? a : b),
-    -180
-  );
+
+  const boundingBox = useBoundingBox(allCoordinates);
 
   const [didChangeViewport, setDidChangeViewport] = useState(false);
   const [viewport, setViewport] = useState({
@@ -76,8 +61,14 @@ const ResultMap: React.FC<Props> = ({ offers }) => {
     ? viewport
     : new WebMercatorViewport({ width: 800, height: 600 }).fitBounds(
         [
-          [minLongitude, minLatitude],
-          [maxLongitude, maxLatitude]
+          [
+            boundingBox.swCoordinate.longitude,
+            boundingBox.swCoordinate.latitude
+          ],
+          [
+            boundingBox.neCoordinate.longitude,
+            boundingBox.neCoordinate.latitude
+          ]
         ],
         { padding: 20 }
       );
