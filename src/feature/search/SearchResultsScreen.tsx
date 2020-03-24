@@ -13,7 +13,7 @@ const Container = styled.div`
   height: 80%;
   margin: 0;
   background: #fff;
-  border-radius: 16px;
+  border-radius: 32px;
   box-shadow: 0px 8px 0px rgba(0, 0, 0, 0.1);
   padding: 32px;
   position: absolute;
@@ -23,9 +23,15 @@ const Container = styled.div`
 `;
 
 const ListContainer = styled.div`
-  width: 360px;
   height: 100%;
   overflow-y: auto;
+  margin-right: 16px;
+  flex: 1;
+`;
+
+const MapContainer = styled.div`
+  margin-left: 16px;
+  flex: 2;
 `;
 
 interface Props {
@@ -42,50 +48,50 @@ const SearchResultsScreen: React.FC<Props> = ({
   const offers = [
     {
       date: "2020-03-23",
-      coordinates: { latitude: 40.3850959, longitude: -3.6912495 },
+      coordinates: { latitude: 40.3830854, longitude: -3.6922495 },
       food: "Albóndigas con salsa",
       contact: "@Serchinastico",
       service: Service.lunch
     },
     {
       date: "2020-03-23",
-      coordinates: { latitude: 40.3850959, longitude: -3.6912495 },
-      food: "Albóndigas con salsa",
+      coordinates: { latitude: 40.3820959, longitude: -3.6932495 },
+      food: "Macarrones con queso",
       contact: "@Serchinastico",
       service: Service.dinner
     },
     {
       date: "2020-03-23",
-      coordinates: { latitude: 40.3850959, longitude: -3.6912495 },
-      food: "Albóndigas con salsa",
+      coordinates: { latitude: 40.3850959, longitude: -3.6902495 },
+      food: "Berenjenas rellenas",
       contact: "@Serchinastico",
       service: Service.lunch
     },
     {
       date: "2020-03-23",
-      coordinates: { latitude: 40.3850959, longitude: -3.6912495 },
-      food: "Albóndigas con salsa",
+      coordinates: { latitude: 40.3830959, longitude: -3.6905495 },
+      food: "Ensalada de atún",
       contact: "@Serchinastico",
       service: Service.lunch
     },
     {
       date: "2020-03-23",
-      coordinates: { latitude: 40.3850959, longitude: -3.6912495 },
-      food: "Albóndigas con salsa",
+      coordinates: { latitude: 40.3950959, longitude: -3.6912495 },
+      food: "Solomillo de vaca vieja",
       contact: "@Serchinastico",
       service: Service.lunch
     },
     {
       date: "2020-03-23",
-      coordinates: { latitude: 40.3850959, longitude: -3.6912495 },
-      food: "Albóndigas con salsa",
+      coordinates: { latitude: 40.3820959, longitude: -3.69 },
+      food: "Salmón con verduras",
       contact: "@Serchinastico",
       service: Service.lunch
     },
     {
       date: "2020-03-23",
-      coordinates: { latitude: 40.3850959, longitude: -3.6912495 },
-      food: "Albóndigas con salsa",
+      coordinates: { latitude: 40.3350959, longitude: -3.6912495 },
+      food: "Salteado de tofu",
       contact: "@Serchinastico",
       service: Service.lunch
     }
@@ -95,7 +101,9 @@ const SearchResultsScreen: React.FC<Props> = ({
       <ListContainer>
         <ResultList offers={offers} />
       </ListContainer>
-      <ResultMap offers={offers} />
+      <MapContainer>
+        <ResultMap offers={offers} />
+      </MapContainer>
     </Container>
   );
 };

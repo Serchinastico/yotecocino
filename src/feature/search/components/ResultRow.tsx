@@ -6,7 +6,6 @@ import { FoodOffer } from "foundation/types/FoodOffer";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 80%;
   background: #f6f6f6;
   margin: 16px;
   padding: 16px;
