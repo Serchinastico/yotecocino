@@ -41,6 +41,14 @@ const SearchScreen: React.FC = () => {
     }
   };
 
+  const SearchButton = () => {
+    if (address !== null && date !== null && service !== null) {
+      return <ButtonInput type="submit" value="Buscar" />;
+    } else {
+      return <ButtonInput disabled type="submit" value="Buscar" />;
+    }
+  };
+
   return (
     <Container onSubmit={onFormSubmit}>
       <Title>
@@ -83,7 +91,7 @@ const SearchScreen: React.FC = () => {
         />
         <label htmlFor="dinner">Cena</label>
       </label>
-      <ButtonInput type="submit" value="Enviar" />
+      <SearchButton />
     </Container>
   );
 };

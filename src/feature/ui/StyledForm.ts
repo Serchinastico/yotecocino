@@ -80,6 +80,10 @@ export const ButtonInput = styled.input`
   font-weight: 600;
   color: #fff;
   align-self: center;
+
+  &:disabled {
+    background: #ccc;
+  }
 `;
 
 export const Title = styled.p`
@@ -90,7 +94,7 @@ export const Title = styled.p`
 `;
 
 export const CenterDiv = styled.div`
-    text-align: center;
+  text-align: center;
 `;
 
 export const Text = styled.p`
@@ -114,7 +118,7 @@ export const Link = styled.a`
 
 export const FoodNameTitle = styled.p`
   font-weight: 300;
-  color: #2997FC;
+  color: #2997fc;
   font-size: 2rem;
   margin: 0;
   margin-bottom: 16px;
