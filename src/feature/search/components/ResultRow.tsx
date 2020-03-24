@@ -18,10 +18,6 @@ const Food = styled.p`
   margin: 0;
 `;
 
-const Address = styled.p`
-  margin: 0;
-`;
-
 const Contact = styled.p`
   margin: 0;
   font-weight: 600;
@@ -35,7 +31,6 @@ const ResultRow: React.FC<Props> = ({ offer }) => {
   return (
     <Container>
       <Food>{offer.food}</Food>
-      <Address>{offer.address}</Address>
       <Contact>{offer.contact}</Contact>
     </Container>
   );

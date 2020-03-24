@@ -2,9 +2,9 @@ import { Coordinates } from "./Coordinates";
 import {Service} from "./Service";
 
 export interface FoodOffer {
-  address: string;
+  food?: string;
   coordinates: Coordinates;
-  food: string;
-  service: Service
+  service: Service;
   contact: string;
+  date: string;
 }

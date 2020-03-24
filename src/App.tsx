@@ -1,7 +1,7 @@
 import React from "react";
 import WelcomeScreen from "feature/welcome/WelcomeScreen";
 import SearchScreen from "feature/search/SearchScreen";
-import CookOfferScreen from "feature/cook/CookOfferScreen";
+import FoodOfferScreen from "feature/cook/FoodOfferScreen";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import SearchResultsScreen from "feature/search/SearchResultsScreen";
 import { useQuery } from "foundation/router/UseQuery";
@@ -32,7 +32,7 @@ const App: React.FC = () => {
           <SearchScreen />
         </Route>
           <Route exact path="/cook">
-              <CookOfferScreen />
+              <FoodOfferScreen />
           </Route>
         <Route path="/">
           <WelcomeScreen />

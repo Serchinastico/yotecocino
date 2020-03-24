@@ -4,23 +4,29 @@ import {useHistory} from "react-router-dom";
 import dayjs from "dayjs";
 import {Service} from "foundation/types/Service";
 import LocationInput from "../ui/LocationInput";
-import {RichLocation} from "../../foundation/types/Coordinates";
+import {Coordinates} from "../../foundation/types/Coordinates";
 import {ButtonInput, Container, DateInput, InputTitle, RadioInput, TextInput, Title} from "../ui/StyledForm";
+import {FoodOffer} from "../../foundation/types/FoodOffer";
+import SaveFood from "../../foundation/food/SaveFood";
 
-const CookOfferScreen: React.FC = () => {
+const FoodOfferScreen: React.FC = () => {
     const history = useHistory();
+    const saveFood = new SaveFood();
     const [contact, setContact] = useState<string | null>(null);
-    const [location, setLocation] = useState<RichLocation | null>(null);
+    const [location, setLocation] = useState<Coordinates | null>(null);
     const [date, setDate] = useState<Date | null>(null);
     const [service, setService] = useState<Service | null>(null);
 
     const onFormSubmit = () => {
-        const latitude = location?.latitude
-        const longitude = location?.longitude
-        const formattedDate = dayjs(date ?? Date()).format("YYYY-MM-DD");
-        history.push(
-            `/search/results?location=${latitude},${longitude}&day=${formattedDate}&service=${service}`
-        );
+
+        const foodOffer: FoodOffer = {
+            coordinates: location as Coordinates,
+            service: service as Service,
+            contact: contact as string,
+            date: dayjs(date || Date()).format("YYYY-MM-DD")
+        }
+
+        saveFood.execute(foodOffer);
     };
 
     const onServiceChange = (service: string) => {
@@ -84,4 +90,4 @@ const CookOfferScreen: React.FC = () => {
     );
 };
 
-export default CookOfferScreen;
+export default FoodOfferScreen;

@@ -49,8 +49,8 @@ export default function SearchPlaceInput(props: SearchPlaceInputProps) {
 
     const fetch = React.useMemo(
         () =>
-            throttle((address: string, convertLocation: ConvertLocationToCoords, props: SearchPlaceInputProps, callback: (results?: PlaceSearchResult[]) => void) => {
-                convertLocation.search(address, props).then(callback);
+            throttle((address: string, findPlaces: ConvertLocationToCoords, config: SearchPlaceInputProps, callback: (results?: PlaceSearchResult[]) => void) => {
+                findPlaces.search(address, config).then(callback);
             }, 200),
         []
     );

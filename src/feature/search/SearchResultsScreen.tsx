@@ -26,56 +26,56 @@ const SearchResultsScreen: React.FC<Props> = ({
 }) => {
   const offers = [
     {
-      address: "Calle embajadores",
+      date: "2020-03-23",
       coordinates: { latitude: 40.3850959, longitude: -3.6912495 },
       food: "Albóndigas con salsa",
       contact: "@Serchinastico",
       service: Service.lunch
     },
     {
-      address: "Calle embajadores",
+      date: "2020-03-23",
       coordinates: { latitude: 40.3850959, longitude: -3.6912495 },
       food: "Albóndigas con salsa",
       contact: "@Serchinastico",
       service: Service.dinner
     },
     {
-      address: "Calle embajadores",
+      date: "2020-03-23",
       coordinates: { latitude: 40.3850959, longitude: -3.6912495 },
       food: "Albóndigas con salsa",
       contact: "@Serchinastico",
       service: Service.lunch
     },
     {
-      address: "Calle embajadores",
+      date: "2020-03-23",
       coordinates: { latitude: 40.3850959, longitude: -3.6912495 },
       food: "Albóndigas con salsa",
       contact: "@Serchinastico",
       service: Service.lunch
     },
     {
-      address: "Calle embajadores",
+      date: "2020-03-23",
       coordinates: { latitude: 40.3850959, longitude: -3.6912495 },
       food: "Albóndigas con salsa",
       contact: "@Serchinastico",
       service: Service.lunch
     },
     {
-      address: "Calle embajadores",
+      date: "2020-03-23",
       coordinates: { latitude: 40.3850959, longitude: -3.6912495 },
       food: "Albóndigas con salsa",
       contact: "@Serchinastico",
       service: Service.lunch
     },
     {
-      address: "Calle embajadores",
+      date: "2020-03-23",
       coordinates: { latitude: 40.3850959, longitude: -3.6912495 },
       food: "Albóndigas con salsa",
       contact: "@Serchinastico",
       service: Service.lunch
     },
     {
-      address: "Calle embajadores",
+      date: "2020-03-23",
       coordinates: { latitude: 40.3850959, longitude: -3.6912495 },
       food: "Albóndigas con salsa",
       contact: "@Serchinastico",
