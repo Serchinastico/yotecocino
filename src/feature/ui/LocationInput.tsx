@@ -1,8 +1,8 @@
 import React from "react";
 import ReactMapGL, {DragEvent, Marker, ViewportProps} from "react-map-gl";
-import config from "../../core/Config";
+import config from "../../foundation/Config";
 import Geohash from "latlon-geohash";
-import {RichLocation} from "../../core/places/ConvertLocationToCoords";
+import {RichLocation} from "../../foundation/types/Coordinates";
 import SearchPlacesInput from "./SearchPlaceInput";
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import {withStyles} from '@material-ui/core/styles';
@@ -62,12 +62,12 @@ class LocationInput extends React.Component<LocationProps, any> {
                 ...prev,
                 viewport: {
                     ...prev.viewport,
-                    latitude: address.lat,
-                    longitude: address.long
+                    latitude: address.latitude,
+                    longitude: address.longitude
                 },
                 marker: {
-                    latitude: address.lat,
-                    longitude: address.long
+                    latitude: address.latitude,
+                    longitude: address.longitude
                 }
             }
         ));
@@ -78,8 +78,8 @@ class LocationInput extends React.Component<LocationProps, any> {
         let long = event.lngLat[0];
         this.updateAddress(
             {
-                lat: lat,
-                long: long,
+                latitude: lat,
+                longitude: long,
                 geohash: Geohash.encode(lat, long, 8)
             }
         )

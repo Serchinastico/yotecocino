@@ -1,10 +1,5 @@
 import Geohash from "latlon-geohash";
-
-export interface RichLocation {
-    lat: number,
-    long: number,
-    geohash: string
-}
+import {RichLocation} from "../types/Coordinates";
 
 export interface PlaceSearchResult extends RichLocation {
     address: string

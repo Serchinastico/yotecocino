@@ -4,7 +4,7 @@ import {useHistory} from "react-router-dom";
 import dayjs from "dayjs";
 import {Service} from "foundation/types/Service";
 import LocationInput from "../ui/LocationInput";
-import {RichLocation} from "../../core/places/ConvertLocationToCoords";
+import {RichLocation} from "../../foundation/types/Coordinates";
 import {ButtonInput, Container, DateInput, InputTitle, RadioInput, TextInput, Title} from "../ui/StyledForm";
 
 const CookOfferScreen: React.FC = () => {
@@ -15,8 +15,8 @@ const CookOfferScreen: React.FC = () => {
     const [service, setService] = useState<Service | null>(null);
 
     const onFormSubmit = () => {
-        const latitude = location?.lat
-        const longitude = location?.long
+        const latitude = location?.latitude
+        const longitude = location?.longitude
         const formattedDate = dayjs(date ?? Date()).format("YYYY-MM-DD");
         history.push(
             `/search/results?location=${latitude},${longitude}&day=${formattedDate}&service=${service}`
@@ -79,7 +79,7 @@ const CookOfferScreen: React.FC = () => {
                     onChange={event => setContact(event.target.value)}
                 />
             </label>
-            <ButtonInput type="submit" value="Cocinar" />
+            <ButtonInput type="submit" value="Cocinar"/>
         </Container>
     );
 };

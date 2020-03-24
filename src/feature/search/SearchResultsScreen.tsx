@@ -4,6 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { Coordinates } from "foundation/types/Coordinates";
 import ResultList from "./components/ResultList";
 import ResultMap from "./components/ResultMap";
+import {Service} from "../../foundation/types/Service";
 
 const Container = styled.div`
   display: flex;
@@ -28,49 +29,57 @@ const SearchResultsScreen: React.FC<Props> = ({
       address: "Calle embajadores",
       coordinates: { latitude: 40.3850959, longitude: -3.6912495 },
       food: "Albóndigas con salsa",
-      contact: "@Serchinastico"
+      contact: "@Serchinastico",
+      service: Service.lunch
     },
     {
       address: "Calle embajadores",
       coordinates: { latitude: 40.3850959, longitude: -3.6912495 },
       food: "Albóndigas con salsa",
-      contact: "@Serchinastico"
+      contact: "@Serchinastico",
+      service: Service.dinner
     },
     {
       address: "Calle embajadores",
       coordinates: { latitude: 40.3850959, longitude: -3.6912495 },
       food: "Albóndigas con salsa",
-      contact: "@Serchinastico"
+      contact: "@Serchinastico",
+      service: Service.lunch
     },
     {
       address: "Calle embajadores",
       coordinates: { latitude: 40.3850959, longitude: -3.6912495 },
       food: "Albóndigas con salsa",
-      contact: "@Serchinastico"
+      contact: "@Serchinastico",
+      service: Service.lunch
     },
     {
       address: "Calle embajadores",
       coordinates: { latitude: 40.3850959, longitude: -3.6912495 },
       food: "Albóndigas con salsa",
-      contact: "@Serchinastico"
+      contact: "@Serchinastico",
+      service: Service.lunch
     },
     {
       address: "Calle embajadores",
       coordinates: { latitude: 40.3850959, longitude: -3.6912495 },
       food: "Albóndigas con salsa",
-      contact: "@Serchinastico"
+      contact: "@Serchinastico",
+      service: Service.lunch
     },
     {
       address: "Calle embajadores",
       coordinates: { latitude: 40.3850959, longitude: -3.6912495 },
       food: "Albóndigas con salsa",
-      contact: "@Serchinastico"
+      contact: "@Serchinastico",
+      service: Service.lunch
     },
     {
       address: "Calle embajadores",
       coordinates: { latitude: 40.3850959, longitude: -3.6912495 },
       food: "Albóndigas con salsa",
-      contact: "@Serchinastico"
+      contact: "@Serchinastico",
+      service: Service.lunch
     }
   ];
   return (

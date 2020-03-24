@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import throttle from 'lodash/throttle';
-import ConvertLocationToCoords, {PlaceSearchResult, SearchPlaceFilter} from "../../core/places/ConvertLocationToCoords";
+import ConvertLocationToCoords, {PlaceSearchResult, SearchPlaceFilter} from "../../foundation/places/ConvertLocationToCoords";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from "@material-ui/icons/Search";
 
