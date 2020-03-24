@@ -1,5 +1,6 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
+import * as dayjs from "dayjs";
 
 interface FoodOffer {
   contact: string;
@@ -31,8 +32,43 @@ export const deleteFoodOffer = functions
     response.sendStatus(200);
   });
 
-export const searchFoodOffers = functions
+export const offer = functions
   .region("europe-west1")
-  .https.onRequest((request, response) => {
-    response.sendStatus(200);
+  .https.onRequest(async (request, response) => {
+    const rawGeohashes: string = request.query.geohashes;
+    const dayInISO: string = request.query.day;
+    const service: string = request.query.service;
+
+    const geohashes = rawGeohashes.split(",");
+    const day = dayjs(dayInISO);
+
+    if (geohashes.length > 8) {
+      response.sendStatus(400);
+      return;
+    }
+
+    admin.initializeApp();
+
+    const document = await admin
+      .firestore()
+      .collection("food-offers")
+      .where("location_geohash", "in", geohashes)
+      .where("day", ">=", day.startOf("day").toDate())
+      .where(
+        "day",
+        "<",
+        day
+          .add(1, "day")
+          .startOf("day")
+          .toDate()
+      )
+      .where("service", "==", service)
+      .get();
+
+    if (document.docs.length === 0) {
+      response.sendStatus(404);
+    } else {
+      response.send(document.docs[0].data() as FoodOffer);
+      response.sendStatus(200);
+    }
   });
