@@ -52,7 +52,7 @@ const CookOfferScreen: React.FC = () => {
 
     return (
         <Container onSubmit={onFormSubmit}>
-            <LocationInput address={address} setAddress={setAddress} setLocation={setLocation}/>
+            <LocationInput address={address} setAddress={setAddress} setLocation={setLocation} showMap={true}/>
             <label>
                 ¿Día?
                 <ReactDatePicker

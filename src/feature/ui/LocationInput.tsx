@@ -1,9 +1,20 @@
 import React from "react";
-import ReactMapGL, {GeolocateControl, ViewportProps} from "react-map-gl";
+import ReactMapGL, {DragEvent, Marker, ViewportProps} from "react-map-gl";
 import config from "../../core/Config";
-import * as Geohash from "latlon-geohash";
-import ConvertLocationToCoords, {RichLocation} from "../../core/places/ConvertLocationToCoords";
+import Geohash from "latlon-geohash";
+import {RichLocation} from "../../core/places/ConvertLocationToCoords";
 import SearchPlacesInput from "./SearchPlaceInput";
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import {withStyles} from '@material-ui/core/styles';
+import red from '@material-ui/core/colors/red';
+
+const styles = () => ({
+    marker: {
+        color: red[500],
+        height: 35,
+        width: 35,
+    }
+});
 
 interface Props {
     setAddress: (address: string) => void,
@@ -12,120 +23,114 @@ interface Props {
     showMap: boolean,
     mapWidth: number | string,
     mapHeight: number | string,
-    convertLocation: ConvertLocationToCoords
+    classes: any
 }
 
 interface DefaultProps {
     showMap: boolean,
     mapWidth: number | string,
     mapHeight: number | string
-    convertLocation: ConvertLocationToCoords
 }
 
 type LocationProps = Props & DefaultProps;
-
-const geolocateStyle = {
-    top: 0,
-    left: 0,
-    margin: 10
-};
 
 class LocationInput extends React.Component<LocationProps, any> {
     public static defaultProps: Partial<LocationProps> = {
         showMap: true,
         mapWidth: "100%",
-        mapHeight: 400,
-        convertLocation: new ConvertLocationToCoords()
+        mapHeight: 400
     };
 
     constructor(props: LocationProps) {
         super(props);
         this.state = {
             viewport: {
-                width: props.mapWidth,
-                height: props.mapHeight,
-                mapStyle: config.mapLayout,
                 longitude: -3.703790,
                 latitude: 40.416775,
                 zoom: 14
-            }
+            },
+            marker: null
         };
         this.updateViewPort = this.updateViewPort.bind(this);
-        this.logLocation = this.logLocation.bind(this);
-        this.searchAddress = this.searchAddress.bind(this);
+        this.updateAddress = this.updateAddress.bind(this);
+        this.moveMarker = this.moveMarker.bind(this);
     }
 
-    searchAddress(address: string) {
-        this.props.convertLocation.search(address)
-            .then(console.log)
-            .catch(console.error);
-        this.props.setAddress(address);
+    updateAddress(address: RichLocation) {
+        this.props.setLocation(address);
+        this.setState((prev: any) => (
+            {
+                ...prev,
+                viewport: {
+                    ...prev.viewport,
+                    latitude: address.lat,
+                    longitude: address.long
+                },
+                marker: {
+                    latitude: address.lat,
+                    longitude: address.long
+                }
+            }
+        ));
+    }
+
+    moveMarker(event: DragEvent) {
+        let lat = event.lngLat[1];
+        let long = event.lngLat[0];
+        this.updateAddress(
+            {
+                lat: lat,
+                long: long,
+                geohash: Geohash.encode(lat, long, 8)
+            }
+        )
     }
 
     render() {
-        const {address} = this.props;
-        const {viewport} = this.state;
+        const {showMap, classes} = this.props;
+        const {marker, viewport} = this.state;
         const auth = {
             mapboxApiAccessToken: config.mapsToken
         }
-        return <div>
-            <div>
-                <ReactMapGL
-                    {...auth}
-                    {...viewport}
-                    onViewportChange={this.updateViewPort}>
-{/*
-                    <GeolocateControl
-                        label="Foooo"
-                        style={geolocateStyle}
-                        positionOptions={{enableHighAccuracy: true}}
-                        trackUserLocation={true}
-                        showUserLocation={true}
-                        onGeolocate={this.logLocation}
-                    />
-*/}
-                        <SearchPlacesInput/>
-{/*
-                    <input
-                        type="text"
-                        value={address ?? ""}
-                        onChange={event => this.searchAddress(event.target.value)}
-                    />
-*/}
-                </ReactMapGL>
-            </div>
-        </div>
-    }
+        const mapConfig = {
+            width: this.props.mapWidth,
+            height: this.props.mapHeight,
+            mapStyle: config.mapLayout
+        }
 
-    private logLocation(location: any) {
-        const lat = location.coords.latitude;
-        const long = location.coords.longitude;
-        const geohash = Geohash.default.encode(lat, long, 8);
-        this.props.setLocation({
-            lat: lat,
-            long: long,
-            geohash: geohash
-        });
-        this.updateViewPort(
-            {
-                ...this.state.viewport,
-                longitude: long,
-                latitude: lat,
-                zoom: 16
-            }
-        );
+        const markerInMap = marker ?
+            <Marker {...marker} draggable={false} onDrag={this.moveMarker}>
+                <LocationOnIcon className={classes.marker}/>
+            </Marker>
+            : null;
+
+        const searchPlacesInput = <SearchPlacesInput
+            {...auth}
+            country={config.country}
+            language={config.language}
+            onChange={this.updateAddress}
+        />;
+
+        const search = showMap ?
+            <ReactMapGL
+                {...auth}
+                {...mapConfig}
+                {...viewport}
+                onViewportChange={this.updateViewPort}>
+                {searchPlacesInput}
+                {markerInMap}
+            </ReactMapGL>
+            : searchPlacesInput;
+
+        return <div>{search}</div>;
     }
 
     private updateViewPort(viewport: ViewportProps) {
-        const viewPortWithToken = {
-            ...viewport,
-            mapboxApiAccessToken: config.mapsToken,
-            width: this.props.mapWidth,
-            height: this.props.mapHeight,
-            mapStyle: config.mapLayout,
-        };
-        return this.setState({viewport: viewPortWithToken});
+        return this.setState((prev: any) => ({
+            ...prev,
+            viewport
+        }));
     }
 }
 
-export default LocationInput;
+export default withStyles(styles)(LocationInput);

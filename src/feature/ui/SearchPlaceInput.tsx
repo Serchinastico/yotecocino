@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import throttle from 'lodash/throttle';
-import ConvertLocationToCoords, {PlaceSearchResult} from "../../core/places/ConvertLocationToCoords";
+import ConvertLocationToCoords, {PlaceSearchResult, SearchPlaceFilter} from "../../core/places/ConvertLocationToCoords";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from "@material-ui/icons/Search";
 
@@ -21,9 +21,14 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default function GoogleMaps() {
+type  SearchPlaceInputProps = {
+    onChange: (place: PlaceSearchResult) => void,
+    address?: string
+} & SearchPlaceFilter
+
+export default function SearchPlaceInput(props: SearchPlaceInputProps) {
     const classes = useStyles();
-    const [inputValue, setInputValue] = React.useState('');
+    const [inputValue, setInputValue] = React.useState(props.address || "");
     const [options, setOptions] = React.useState<PlaceSearchResult[]>([]);
 
     const convertLocation = new ConvertLocationToCoords();
@@ -33,12 +38,18 @@ export default function GoogleMaps() {
         setInputValue(event.target.value);
     };
 
+    const selectPlace = (event: any, value: PlaceSearchResult | null, reason: any) => {
+        if (value) {
+            props.onChange(value);
+        }
+    }
+
     const fetch = React.useMemo(
         () =>
             throttle((address: string, callback: (results?: PlaceSearchResult[]) => void) => {
-                convertLocation.search(address).then(callback);
+                convertLocation.search(address, props).then(callback);
             }, 200),
-        [],
+        [convertLocation, props],
     );
 
     React.useEffect(() => {
@@ -62,57 +73,43 @@ export default function GoogleMaps() {
 
     return (
         <Autocomplete
-            id="google-map-demo"
+            id="search-place"
             style={{maxWidth: 400}}
             getOptionLabel={option => (typeof option === 'string' ? option : option.address)}
             filterOptions={x => x}
             options={options}
             autoComplete
             includeInputInList
+            onChange={selectPlace}
             renderInput={params => (
                 <TextField
                     {...params}
                     className={classes.search}
-                    label="Add a location"
+                    label="Dóndde"
                     variant="outlined"
                     fullWidth
                     onChange={handleChange}
                     InputProps={{
                         ...params.InputProps,
                         startAdornment: (
-                        <React.Fragment>
-                        <InputAdornment position="start">
-                        <SearchIcon/>
-                        </InputAdornment>
-                        {params.InputProps.startAdornment}
-                        </React.Fragment>
+                            <React.Fragment>
+                                <InputAdornment position="start">
+                                    <SearchIcon/>
+                                </InputAdornment>
+                                {params.InputProps.startAdornment}
+                            </React.Fragment>
                         )
                     }
                     }
                 />
             )}
             renderOption={option => {
-                /*
-                                const matches = option.structured_formatting.main_text_matched_substrings;
-                                const parts = parse(
-                                    option.structured_formatting.main_text,
-                                    matches.map((match: any) => [match.offset, match.offset + match.length]),
-                                );
-                */
-
                 return (
                     <Grid container alignItems="center">
                         <Grid item>
                             <LocationOnIcon className={classes.icon}/>
                         </Grid>
                         <Grid item xs>
-                            {/*
-                            {parts.map((part, index) => (
-                                <span key={index} style={{ fontWeight: part.highlight ? 700 : 400 }}>
-                  {part.text}
-                </span>
-                            ))}
-*/}
                             <Typography variant="body2" color="textSecondary">
                                 {option.address}
                             </Typography>
