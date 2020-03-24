@@ -124,3 +124,16 @@ export const FoodNameTitle = styled.p`
   margin-bottom: 16px;
   font-family: "Pacifico", sans-serif;
 `;
+
+export const MyCreatedFoodItem = styled.p`
+  font-weight: lighter;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 4px;
+  margin-top: 16px;
+  padding-bottom: 10px;
+  cursor: pointer;
+  &:not(:last-child) {
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+  }
+`

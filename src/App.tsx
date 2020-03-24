@@ -7,6 +7,7 @@ import SearchResultsScreen from "feature/search/SearchResultsScreen";
 import { useQuery } from "foundation/router/UseQuery";
 import "./index.scss";
 import CreatedFoodOfferScreen from "./feature/food/CreatedFoodOfferScreen";
+import ManageAllMyFoods from "./feature/food/ManageAllMyFoods";
 
 const App: React.FC = () => {
   const parseLocation = (location: string) => {
@@ -17,31 +18,34 @@ const App: React.FC = () => {
     };
   };
 
-  const Routes = () => {
-    const query = useQuery();
+    const Routes = () => {
+        const query = useQuery();
 
-    return (
-      <Switch>
-        <Route path="/search/results">
-          <SearchResultsScreen
-            coordinates={parseLocation(query.get("location") ?? "0,0")}
-            day={query.get("day") ?? ""}
-            service={query.get("service") ?? "lunch"}
-          />
-        </Route>
-        <Route exact path="/search">
-          <SearchScreen />
-        </Route>
-        <Route exact path="/cook">
-          <FoodOfferScreen />
-        </Route>
-        <Route exact path="/food/:foodId" component={CreatedFoodOfferScreen} />
-        <Route path="/">
-          <WelcomeScreen />
-        </Route>
-      </Switch>
-    );
-  };
+        return (
+            <Switch>
+                <Route path="/search/results">
+                    <SearchResultsScreen
+                        coordinates={parseLocation(query.get("location") ?? "0,0")}
+                        day={query.get("day") ?? ""}
+                        service={query.get("service") ?? "lunch"}
+                    />
+                </Route>
+                <Route exact path="/search">
+                    <SearchScreen/>
+                </Route>
+                <Route exact path="/cook">
+                    <FoodOfferScreen/>
+                </Route>
+                <Route exact path="/myFood">
+                    <ManageAllMyFoods/>
+                </Route>
+                <Route exact path="/food/:foodId" component={CreatedFoodOfferScreen}/>
+                <Route path="/">
+                    <WelcomeScreen/>
+                </Route>
+            </Switch>
+        );
+    };
 
   return (
     <div>

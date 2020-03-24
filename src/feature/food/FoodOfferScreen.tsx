@@ -10,7 +10,9 @@ import {
     DateInput,
     FieldErrorDescription,
     InputTitle,
+    Link,
     RadioInput,
+    Text,
     TextInput,
     Title
 } from "../ui/StyledForm";
@@ -47,7 +49,6 @@ const FoodOfferScreen: React.FC = () => {
 
     const onFormSubmit = (event: any) => {
         event.preventDefault();
-        console.log("test");
         const violations = validateForm();
         if (Object.keys(violations).length !== 0) {
             setViolations(violations);
@@ -80,61 +81,66 @@ const FoodOfferScreen: React.FC = () => {
         }
     };
 
-    const locationError = violations.location ? <FieldErrorDescription>{violations.location}</FieldErrorDescription> : null;
+    const locationError = violations.location ?
+        <FieldErrorDescription>{violations.location}</FieldErrorDescription> : null;
     const dateError = violations.date ? <FieldErrorDescription>{violations.date}</FieldErrorDescription> : null;
-    const serviceError = violations.service ? <FieldErrorDescription>{violations.service}</FieldErrorDescription> : null;
-    const contactError = violations.contact ? <FieldErrorDescription>{violations.contact}</FieldErrorDescription> : null;
+    const serviceError = violations.service ?
+        <FieldErrorDescription>{violations.service}</FieldErrorDescription> : null;
+    const contactError = violations.contact ?
+        <FieldErrorDescription>{violations.contact}</FieldErrorDescription> : null;
     const saveText = saving ? "Guardando tu solicitud" : "Cocinar";
 
-    return (
-        <Container onSubmit={onFormSubmit}>
-            <Title>
-                Completa los siguientes campos para ofrecer una comida preparada
-            </Title>
-            {locationError}
-            <LocationInput setLocation={setLocation} showMap={false}/>
-            <label>
-                <InputTitle>¿Qué día será la recogida?</InputTitle>
-                {dateError}
-                <DateInput
-                    placeholderText="Selecciona el día"
-                    selected={date}
-                    onChange={date => setDate(date)}
-                    minDate={new Date()}
-                />
-            </label>
-            <label>
-                <InputTitle>¿Comida o cena?</InputTitle>
-                {serviceError}
-                <RadioInput
-                    type="radio"
-                    id="lunch"
-                    name="food_service"
-                    value="lunch"
-                    onChange={event => onServiceChange(event.target.value)}
-                />
-                <label htmlFor="lunch">Comida</label>
-                <RadioInput
-                    type="radio"
-                    id="dinner"
-                    name="food_service"
-                    value="dinner"
-                    onChange={event => onServiceChange(event.target.value)}
-                />
-                <label htmlFor="dinner">Cena</label>
-            </label>
-            <label>
-                <InputTitle>Forma de contacto</InputTitle>
-                {contactError}
-                <TextInput
-                    type="text"
-                    placeholder="Twitter, Instagram, email, teléfono"
-                    value={contact ?? ""}
-                    onChange={event => setContact(event.target.value)}
-                />
-            </label>
-            <ButtonInput type="submit" value={saveText} />
-        </Container>
+    return (<div>
+            <Container onSubmit={onFormSubmit}>
+                <Title>
+                    Completa los siguientes campos para ofrecer una comida preparada
+                </Title>
+                {locationError}
+                <LocationInput setLocation={setLocation} showMap={true}/>
+                <label>
+                    <InputTitle>¿Qué día será la recogida?</InputTitle>
+                    {dateError}
+                    <DateInput
+                        placeholderText="Selecciona el día"
+                        selected={date}
+                        onChange={date => setDate(date)}
+                        minDate={new Date()}
+                    />
+                </label>
+                <label>
+                    <InputTitle>¿Comida o cena?</InputTitle>
+                    {serviceError}
+                    <RadioInput
+                        type="radio"
+                        id="lunch"
+                        name="food_service"
+                        value="lunch"
+                        onChange={event => onServiceChange(event.target.value)}
+                    />
+                    <label htmlFor="lunch">Comida</label>
+                    <RadioInput
+                        type="radio"
+                        id="dinner"
+                        name="food_service"
+                        value="dinner"
+                        onChange={event => onServiceChange(event.target.value)}
+                    />
+                    <label htmlFor="dinner">Cena</label>
+                </label>
+                <label>
+                    <InputTitle>Forma de contacto</InputTitle>
+                    {contactError}
+                    <TextInput
+                        type="text"
+                        placeholder="Twitter, Instagram, email, teléfono"
+                        value={contact ?? ""}
+                        onChange={event => setContact(event.target.value)}
+                    />
+                </label>
+                <ButtonInput type="submit" value={saveText}/>
+            </Container>
+            <Text>Haz clic <Link href="/myFood">aquí</Link> si ya tienes una comida registrada y la quieres borrar</Text>
+        </div>
     );
 };
 
