@@ -35,7 +35,7 @@ const Brand = styled.span`
 `;
 
 const Identifier = styled.p`
-  font-size: 48px;
+  font-size: 2rem;
   font-family: "Pacifico", cursive;
   text-align: center;
   color: #2997fc;

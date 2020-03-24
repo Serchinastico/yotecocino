@@ -94,7 +94,7 @@ const FoodOfferScreen: React.FC = () => {
     const descriptionError = violations.description ?
         <FieldErrorDescription>{violations.description}</FieldErrorDescription> : null;
 
-    const saveText = saving ? "Guardando tu solicitud" : "Cocinar";
+    const saveText = saving ? "Guardando" : "Cocinar";
 
     return (<div>
             <Container onSubmit={onFormSubmit}>
