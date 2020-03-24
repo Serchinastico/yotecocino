@@ -25,6 +25,8 @@ export default class SaveFood {
       }
     );
 
+    console.log(response);
+
     const foodWithId = {
       id: response.data.id,
       ...food

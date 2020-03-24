@@ -58,6 +58,8 @@ export const createOffer = functions
 export const deleteOffer = functions
   .region("europe-west1")
   .https.onRequest(async (request, response) => {
+    response.set("Access-Control-Allow-Origin", "*");
+
     switch (request.method) {
       case "OPTIONS":
         setCorsResponse(response, "DELETE");
@@ -85,6 +87,8 @@ export const deleteOffer = functions
 export const offer = functions
   .region("europe-west1")
   .https.onRequest(async (request, response) => {
+    response.set("Access-Control-Allow-Origin", "*");
+
     switch (request.method) {
       case "OPTIONS":
         setCorsResponse(response, "GET");

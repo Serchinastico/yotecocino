@@ -29,6 +29,18 @@ const Description = styled.p`
   margin: 8px;
 `;
 
+const Footer = styled.p`
+  text-align: center;
+  font-size: 18px;
+  margin-top: 24px;
+`;
+
+const Link = styled.a`
+  text-decoration: none;
+  color: #2997fc;
+  font-weight: 600;
+`;
+
 const Brand = styled.span`
   font-size: 24px;
   font-family: "Pacifico", cursive;
@@ -60,6 +72,9 @@ const CreatedFoodOfferScreen: React.FC<CreatedFoodOfferScreenProps> = ({
       <br />
       <Description>El identificador de tu comida es:</Description>
       <Identifier>{match.params.foodId}</Identifier>
+      <Footer>
+        Puedes ver tu comida <Link href="/myFood">aquí</Link>
+      </Footer>
     </Container>
   );
 };
