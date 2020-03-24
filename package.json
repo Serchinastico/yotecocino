@@ -2,7 +2,7 @@
   "name": "yotecocino",
   "version": "0.0.1",
   "private": true,
-  "homepage": "http://serchinastico.github.io/yotecocino",
+  "homepage": "http://yotecocino.com",
   "dependencies": {
     "axios": "^0.19.2",
     "dayjs": "^1.8.23",

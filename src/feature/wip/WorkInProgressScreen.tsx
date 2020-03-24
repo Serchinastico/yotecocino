@@ -28,6 +28,7 @@ const DescriptionContainer = styled.div`
   transform: translate(-50%, -50%);
   @media (max-width: 768px) {
     margin-top: 60px;
+    width: 50%;
   }
 `;
 
@@ -49,6 +50,16 @@ const Illustration = styled.img`
   position: relative;
   bottom: 40px;
   right: 100px;
+  @media (max-width: 768px) {
+    width: 120%;
+    right: 23%;
+    bottom: 50px;
+  }
+  @media (max-width: 320px) {
+    width: 140%;
+    right: 36%;
+    bottom: 100px;
+  }
 `;
 
 const WorkInProgressScreen: React.FC = () => {
