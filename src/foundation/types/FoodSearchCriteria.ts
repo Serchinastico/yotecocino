@@ -6,3 +6,5 @@ export interface FoodSearchCriteria {
     service: Service,
     nearTo: Coordinates
 }
+
+

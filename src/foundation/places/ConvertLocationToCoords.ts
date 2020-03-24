@@ -29,8 +29,8 @@ export default class ConvertLocationToCoords {
                             const long = place.center[0];
                             const geohash = Geohash.encode(lat, long, 8);
                             return {
-                                lat: lat,
-                                long: long,
+                                latitude: lat,
+                                longitude: long,
                                 address: place.place_name,
                                 geohash: geohash
                             }

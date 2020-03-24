@@ -6,7 +6,10 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import throttle from 'lodash/throttle';
-import ConvertLocationToCoords, {PlaceSearchResult, SearchPlaceFilter} from "../../foundation/places/ConvertLocationToCoords";
+import ConvertLocationToCoords, {
+    PlaceSearchResult,
+    SearchPlaceFilter
+} from "../../foundation/places/ConvertLocationToCoords";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from "@material-ui/icons/Search";
 
@@ -46,10 +49,10 @@ export default function SearchPlaceInput(props: SearchPlaceInputProps) {
 
     const fetch = React.useMemo(
         () =>
-            throttle((address: string, callback: (results?: PlaceSearchResult[]) => void) => {
+            throttle((address: string, convertLocation: ConvertLocationToCoords, props: SearchPlaceInputProps, callback: (results?: PlaceSearchResult[]) => void) => {
                 convertLocation.search(address, props).then(callback);
             }, 200),
-        [convertLocation, props],
+        []
     );
 
     React.useEffect(() => {
@@ -60,7 +63,7 @@ export default function SearchPlaceInput(props: SearchPlaceInputProps) {
             return undefined;
         }
 
-        fetch(inputValue, (results?: PlaceSearchResult[]) => {
+        fetch(inputValue, convertLocation, props, (results?: PlaceSearchResult[]) => {
             if (active) {
                 setOptions(results || []);
             }
@@ -85,8 +88,7 @@ export default function SearchPlaceInput(props: SearchPlaceInputProps) {
                 <TextField
                     {...params}
                     className={classes.search}
-                    label="Dóndde"
-                    variant="outlined"
+                    label="¿Dóndde será la recogida?"
                     fullWidth
                     onChange={handleChange}
                     InputProps={{

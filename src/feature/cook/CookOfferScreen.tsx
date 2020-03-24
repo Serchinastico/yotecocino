@@ -41,6 +41,7 @@ const CookOfferScreen: React.FC = () => {
             <Title>
                 Completa los siguientes campos para ofrecer una comida preparada
             </Title>
+            <LocationInput setLocation={setLocation} showMap={false}/>
             <label>
                 <InputTitle>¿Qué día será la recogida?</InputTitle>
                 <DateInput
@@ -50,7 +51,6 @@ const CookOfferScreen: React.FC = () => {
                     minDate={new Date()}
                 />
             </label>
-            <LocationInput setLocation={setLocation}/>
             <label>
                 <InputTitle>¿Comida o cena?</InputTitle>
                 <RadioInput
