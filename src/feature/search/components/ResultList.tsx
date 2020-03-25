@@ -61,7 +61,7 @@ const ResultList: React.FC<Props> = ({
   onOfferSelected,
   onOfferHovered,
   classes,
-                                       address
+  address
 }) => {
   const Loading = () => {
     return (
@@ -72,7 +72,8 @@ const ResultList: React.FC<Props> = ({
   };
 
   const EmptyCase = () => {
-    const message = `Alguien se anima a echar una manilla por la zona de "${address}"?`;
+    const message =
+      "¡Acabo de solicitar un tupper a través de yotecocino.com! La iniciativa que pone en contacto a sanitarios y otros profesionales en primera línea con cocinillas.";
     return (
       <Fragment>
         <NotFoundIllustration src={"img/il_empty.svg"} />
@@ -80,7 +81,7 @@ const ResultList: React.FC<Props> = ({
           Ooh :(, parece que no hay nadie cocinando en tu zona.
         </NoFoundText>
         <ShareInTwitterButton
-          label="busca a tu cocinillas :)"
+          label="Busca a tu cocinillas :)"
           text={message}
           hashtag={config.hashtag}
           url={config.url}

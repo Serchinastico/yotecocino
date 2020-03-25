@@ -46,7 +46,7 @@ const Identifier = styled.p`
 
 const Centered = styled.div`
   margin: 20px auto;
-`
+`;
 type CreatedFoodOfferScreenProps = {
   match?: any;
 };
@@ -56,7 +56,8 @@ const CreatedFoodOfferScreen: React.FC<CreatedFoodOfferScreenProps> = ({
 }) => {
   const history = useHistory();
 
-  const shareText = "Acabo de apuntarme al reto de #yotecocino. ¿Te unes?";
+  const shareText =
+    "¡Acabo de registrar un tupper a través de yotecocino.com! La iniciativa que pone en contacto a sanitarios y otros profesionales en primera línea con cocinillas ¡Únete tú también y pon tu granito de arena!";
   return (
     <div>
       <HomeButton />
@@ -75,6 +76,7 @@ const CreatedFoodOfferScreen: React.FC<CreatedFoodOfferScreenProps> = ({
           <ShareInTwitterButton
             text={shareText}
             label={"compártelo"}
+            hashtag={config.hashtag}
             url={config.url}
           />
         </Centered>
