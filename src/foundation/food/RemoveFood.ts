@@ -12,15 +12,19 @@ export default class FindFood {
         : food;
 
     if (effectiveFood) {
-      const response = await axios.delete(
-        `https://europe-west1-yotecocino-d6292.cloudfunctions.net/deleteOffer?id=${effectiveFood?.id}`
-      );
+      try {
+        const response = await axios.delete(
+          `https://europe-west1-yotecocino-d6292.cloudfunctions.net/deleteOffer?id=${effectiveFood?.id}`
+        );
 
-      if (response.status === 200) {
-        this.myCreatedFoodsRepository.delete(effectiveFood);
+        if (response.status === 200) {
+          this.myCreatedFoodsRepository.delete(effectiveFood);
+        }
+
+        return response.status === 200;
+      } catch (_) {
+        return false;
       }
-      
-      return response.status === 200;
     } else {
       return false;
     }

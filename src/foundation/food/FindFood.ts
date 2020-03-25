@@ -29,10 +29,14 @@ export default class FindFood {
     ];
     const service = criteria.service.toString();
 
-    const response = await axios.get(
-      `https://europe-west1-yotecocino-d6292.cloudfunctions.net/offer?geohashes=${allGeohashes}&day=${day}&service=${service}`
-    );
+    try {
+      const response = await axios.get(
+        `https://europe-west1-yotecocino-d6292.cloudfunctions.net/offer?geohashes=${allGeohashes}&day=${day}&service=${service}`
+      );
 
-    return response.data ?? [];
+      return response?.data ?? [];
+    } catch (_) {
+      return [];
+    }
   }
 }
