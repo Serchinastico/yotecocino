@@ -18,7 +18,7 @@ export default class SaveFood {
       "https://europe-west1-yotecocino-d6292.cloudfunctions.net/createOffer",
       {
         contact: food.contact,
-        day: dayjs(food.date).format("YYYY-MM-dd"),
+        day: dayjs(food.date).format("YYYY-MM-DD"),
         foodname: food.food,
         geohash: geohash,
         latitude: food.coordinates.latitude,
