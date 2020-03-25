@@ -8,15 +8,11 @@ export const Container = styled.form`
   max-width: 500px;
   background: #ffffff;
   border-radius: 32px;
-  position: fixed;
+  position: relative;
   padding: 32px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  margin: 32px auto;
   box-shadow: 0px 8px 0px rgba(0, 0, 0, 0.1);
   overflow: scroll;
-  @media (max-width: 768px) {
-  }
 `;
 
 export const InputTitle = styled.p`
