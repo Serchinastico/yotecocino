@@ -26,7 +26,7 @@ const OptionsContainer = styled.div`
 
   @media (max-width: 768px) {
     flex-direction: column;
-    margin-top: 120px;
+    margin-top: 150px;
     margin-bottom: 120px;
   }
 `;
