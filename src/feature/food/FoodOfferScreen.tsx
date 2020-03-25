@@ -12,9 +12,7 @@ import {
   DateInput,
   FieldErrorDescription,
   InputTitle,
-  Link,
   RadioInput,
-  Text,
   TextInput,
   Title,
   HorizontalButtons

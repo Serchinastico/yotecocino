@@ -1,15 +1,13 @@
 import React from "react";
 
-import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import {withStyles} from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+import { withStyles } from "@material-ui/core/styles";
 
 type SecondaryButtonProps = {
   label: string;
   onClick: () => void;
   classes: any;
-}
-
+};
 
 const noTransformText: React.CSSProperties = {
   textTransform: "none"
@@ -38,14 +36,14 @@ const styles = {
   }
 };
 
-const SecondaryButton: React.FC<SecondaryButtonProps> = (props) => {
-  const {classes, onClick, label} = props;
+const SecondaryButton: React.FC<SecondaryButtonProps> = props => {
+  const { classes, onClick, label } = props;
 
-  return <Button
-    className={classes.activeButton}
-    onClick={onClick}>
-    {label}
-  </Button>;
-}
+  return (
+    <Button className={classes.activeButton} onClick={onClick}>
+      {label}
+    </Button>
+  );
+};
 
 export default withStyles(styles)(SecondaryButton);
