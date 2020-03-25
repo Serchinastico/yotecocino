@@ -2,6 +2,9 @@ import React from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
+import SecondaryButton from "feature/ui/SecondaryButton";
+import SubmitButton from "feature/ui/SubmitButton";
+import { HorizontalButtons } from "feature/ui/StyledForm";
 
 const Container = styled.div`
   background: #fff;
@@ -9,7 +12,7 @@ const Container = styled.div`
   border-radius: 32px;
   width: 90%;
   max-width: 500px;
-  padding: 100px 32px;
+  padding: 32px;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -30,16 +33,8 @@ const Description = styled.p`
   margin: 8px;
 `;
 
-const Footer = styled.p`
-  text-align: center;
-  font-size: 18px;
-  margin-top: 24px;
-`;
-
-const Link = styled.a`
-  text-decoration: none;
-  color: #2997fc;
-  font-weight: 600;
+const Footer = styled.div`
+  margin-top: 16px;
 `;
 
 const Brand = styled.span`
@@ -63,7 +58,7 @@ const CreatedFoodOfferScreen: React.FC<CreatedFoodOfferScreenProps> = ({
   match
 }) => {
   const history = useHistory();
-  
+
   return (
     <Container>
       <Congratulations>¡Enhorabuena!</Congratulations>
@@ -76,7 +71,18 @@ const CreatedFoodOfferScreen: React.FC<CreatedFoodOfferScreenProps> = ({
       <Description>El identificador de tu comida es:</Description>
       <Identifier>{match.params.foodId}</Identifier>
       <Footer>
-        Puedes ver tu comida <Link onClick={() => history.push("/myFood")}>aquí</Link>
+        <HorizontalButtons>
+          <SecondaryButton
+            label="Ver comida registrada"
+            onClick={() => history.push("/myFood")}
+          />
+          <SubmitButton
+            label="Registrar otra"
+            onClick={() => history.push("/cook")}
+            loading={false}
+            disabled={false}
+          />
+        </HorizontalButtons>
       </Footer>
     </Container>
   );

@@ -8,7 +8,8 @@ type SubmitButtonProps = {
   loading?: boolean;
   disabled?: boolean;
   label: string;
-  onSubmit: (event: any) => void;
+  onSubmit?: (event: any) => void;
+  onClick?: (event: any) => void;
   classes: any;
 }
 
@@ -45,13 +46,14 @@ const styles = {
 
 const SubmitButton: React.FC<SubmitButtonProps> = (props) => {
   const disabled = props.disabled || false;
-  const {classes, loading, onSubmit} = props;
+  const {classes, loading, onSubmit, onClick} = props;
   const submit = loading ? () => {} : onSubmit;
 
   const buttonContent = loading ? <CircularProgress className={classes.progressStyle} size={24}/> : props.label;
   return <Button
     className={classes.activeButton}
     onSubmit={submit}
+    onClick={onClick}
     type="submit"
     disabled={disabled}>
     {buttonContent}
