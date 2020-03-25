@@ -25,9 +25,13 @@ const OptionsContainer = styled.div`
   transform: translate(-50%, -50%);
 
   @media (max-width: 768px) {
+    position: relative;
     flex-direction: column;
-    margin-top: 150px;
-    margin-bottom: 120px;
+    top: unset;
+    left: unset;
+    transform: unset;
+    margin-top: 24px;
+    margin-bottom: 128px;
   }
 `;
 
@@ -42,6 +46,10 @@ const OptionContainer = styled.div`
   margin: 40px;
   justify-content: center;
   cursor: pointer;
+
+  @media (max-width: 768px) {
+    margin-top: 16px;
+  }
 `;
 
 const OptionTitle = styled.p`

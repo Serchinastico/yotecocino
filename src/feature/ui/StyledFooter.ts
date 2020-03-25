@@ -38,6 +38,10 @@ export const FooterContainer = styled.div`
       opacity: 1;
     }
   }
+
+  @media (max-width: 768px) {
+    height: 120px;
+  }
 `;
 
 export const FooterContent = styled.p`
