@@ -12,10 +12,16 @@ type SubmitButtonProps = {
   classes: any;
 }
 
+
+const noTransformText: React.CSSProperties = {
+  textTransform: "none"
+};
+
 const styles = {
   activeButton: {
+    ...noTransformText,
     background: "#e27861",
-    padding: "16px",
+    padding: "10px",
     marginTop: "16px",
     borderRadius: "48px",
     border: "none",
