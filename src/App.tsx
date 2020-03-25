@@ -21,7 +21,7 @@ const App: React.FC = () => {
   };
 
   const parseService = (service: string) => {
-    switch (service) {
+    switch (service.toLowerCase()) {
       case "lunch":
         return Service.lunch;
       case "dinner":
