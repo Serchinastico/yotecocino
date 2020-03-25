@@ -6,6 +6,8 @@ import SecondaryButton from "feature/ui/SecondaryButton";
 import SubmitButton from "feature/ui/SubmitButton";
 import { HorizontalButtons, Container } from "feature/ui/StyledForm";
 import HomeButton from "feature/ui/HomeButton";
+import ShareInTwitterButton from "../ui/ShareInTwitterButton";
+import config from "../../foundation/Config";
 
 const Congratulations = styled.p`
   text-align: center;
@@ -42,6 +44,9 @@ const Identifier = styled.p`
   }
 `;
 
+const Centered = styled.div`
+  margin: 20px auto;
+`
 type CreatedFoodOfferScreenProps = {
   match?: any;
 };
@@ -51,6 +56,7 @@ const CreatedFoodOfferScreen: React.FC<CreatedFoodOfferScreenProps> = ({
 }) => {
   const history = useHistory();
 
+  const shareText = "Acabo de apuntarme al reto de #yotecocino. ¿Te unes?";
   return (
     <div>
       <HomeButton />
@@ -64,6 +70,14 @@ const CreatedFoodOfferScreen: React.FC<CreatedFoodOfferScreenProps> = ({
         <br />
         <Description>El identificador de tu comida es:</Description>
         <Identifier>{match.params.foodId}</Identifier>
+
+        <Centered>
+          <ShareInTwitterButton
+            text={shareText}
+            label={"compártelo"}
+            url={config.url}
+          />
+        </Centered>
         <Footer>
           <HorizontalButtons>
             <SecondaryButton

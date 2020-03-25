@@ -5,7 +5,7 @@ import SearchPlacesInput from "./SearchPlaceInput";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import { withStyles } from "@material-ui/core/styles";
 import red from "@material-ui/core/colors/red";
-import { Coordinates } from "../../foundation/types/Coordinates";
+import {PlaceSearchResult} from "../../foundation/places/ConvertLocationToCoords";
 
 const styles = () => ({
   marker: {
@@ -16,7 +16,7 @@ const styles = () => ({
 });
 
 interface Props {
-  setLocation: (location: Coordinates) => void;
+  setLocation: (location: PlaceSearchResult) => void;
   address?: string | null;
   showMap: boolean;
   mapWidth: number | string;
@@ -63,7 +63,7 @@ class LocationInput extends React.Component<LocationProps, LocationInputState> {
     this.updateAddress = this.updateAddress.bind(this);
   }
 
-  updateAddress(address: Coordinates) {
+  updateAddress(address: PlaceSearchResult) {
     this.props.setLocation(address);
     this.setState((prev: any) => ({
       ...prev,

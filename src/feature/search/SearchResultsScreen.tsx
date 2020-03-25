@@ -30,12 +30,14 @@ interface Props {
   coordinates: Coordinates;
   day: Date;
   service: Service;
+  address?: string;
 }
 
 const SearchResultsScreen: React.FC<Props> = ({
   coordinates,
   day,
-  service
+  service,
+                                                address
 }) => {
   const findFood = new FindFood();
   const [offers, setOffers] = useState<FoodOffer[]>([]);
@@ -76,6 +78,7 @@ const SearchResultsScreen: React.FC<Props> = ({
               onOfferSelected={offer => setSelectedOffer(offer)}
               onOfferHovered={offer => setHoveredOffer(offer)}
               selectedOffer={selectedOffer}
+              address={address}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={8}>
