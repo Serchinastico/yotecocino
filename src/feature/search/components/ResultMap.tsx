@@ -53,7 +53,7 @@ const ResultMap: React.FC<Props> = ({ offers, selectedOffer }) => {
               boundingBox.neCoordinate.latitude
             ]
           ],
-          { padding: 20 }
+          { padding: 150 }
         );
 
   return (
