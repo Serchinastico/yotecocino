@@ -6,13 +6,18 @@ import { FoodOffer } from "foundation/types/FoodOffer";
 interface Props {
   offers: FoodOffer[];
   selectedOffer?: FoodOffer;
+  onOfferSelected: (offer: FoodOffer) => void;
 }
 
 interface OfferMarkerProps {
   offer: FoodOffer;
 }
 
-const ResultMapMarkers: React.FC<Props> = ({ offers, selectedOffer }) => {
+const ResultMapMarkers: React.FC<Props> = ({
+  offers,
+  selectedOffer,
+  onOfferSelected
+}) => {
   const markerIcon = require("../../../img/ic_marker.svg") as string;
   const selectedMarkerIcon = require("../../../img/ic_marker_selected.svg") as string;
 
@@ -32,7 +37,7 @@ const ResultMapMarkers: React.FC<Props> = ({ offers, selectedOffer }) => {
         offsetTop={-32}
         offsetLeft={-32}
       >
-        <img src={icon}></img>
+        <img src={icon} onClick={() => onOfferSelected(offer)} alt=""></img>
       </Marker>
     );
   };

@@ -21,9 +21,14 @@ const Map = styled(ReactMapGL)`
 interface Props {
   offers: FoodOffer[];
   selectedOffer?: FoodOffer;
+  onOfferSelected: (offer: FoodOffer) => void;
 }
 
-const ResultMap: React.FC<Props> = ({ offers, selectedOffer }) => {
+const ResultMap: React.FC<Props> = ({
+  offers,
+  selectedOffer,
+  onOfferSelected
+}) => {
   const auth = {
     mapboxApiAccessToken: config.mapsToken
   };
@@ -66,7 +71,11 @@ const ResultMap: React.FC<Props> = ({ offers, selectedOffer }) => {
         height="100%"
         onViewportChange={props => setViewport(props)}
       >
-        <ResultMapMarkers offers={offers} selectedOffer={selectedOffer} />
+        <ResultMapMarkers
+          offers={offers}
+          selectedOffer={selectedOffer}
+          onOfferSelected={onOfferSelected}
+        />
       </Map>
     </Container>
   );

@@ -75,7 +75,11 @@ const SearchResultsScreen: React.FC<Props> = ({
   let map =
     offers.length === 0 ? null : (
       <MapContainer>
-        <ResultMap offers={offers} selectedOffer={selectedOffer} />
+        <ResultMap
+          offers={offers}
+          selectedOffer={selectedOffer}
+          onOfferSelected={offer => setSelectedOffer(offer)}
+        />
       </MapContainer>
     );
   return (
