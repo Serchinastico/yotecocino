@@ -21,6 +21,7 @@ import SecondaryButton from "feature/ui/SecondaryButton";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import HomeButton from "feature/ui/HomeButton";
+import { Service } from "foundation/types/Service";
 
 const InputContainer = styled.div`
   width: 100%;
@@ -77,8 +78,11 @@ const ManageAllMyFoods: React.FC = () => {
           const onClick = () => {
             setFoodId(food.id || "");
           };
+          const service = food.service === Service.lunch ? "Comida" : "Cena";
           return (
-            <MyCreatedFoodItem onClick={onClick}>{food.food}</MyCreatedFoodItem>
+            <MyCreatedFoodItem onClick={onClick}>
+              <b>{food.food}</b> • <i>{food.date}</i> • {service}
+            </MyCreatedFoodItem>
           );
         })}
       </OptionsContainer>
