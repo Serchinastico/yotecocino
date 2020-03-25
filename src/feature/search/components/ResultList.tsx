@@ -1,19 +1,23 @@
-import React from "react";
+import React, { Fragment } from "react";
 import styled from "styled-components";
 import "react-datepicker/dist/react-datepicker.css";
-import {FoodOffer} from "foundation/types/FoodOffer";
+import { FoodOffer } from "foundation/types/FoodOffer";
 import ResultRow from "./ResultRow";
+import { CircularProgress, withStyles } from "@material-ui/core";
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  height: 100%;
 `;
 
 interface Props {
   offers: FoodOffer[];
+  isLoading: boolean;
   selectedOffer?: FoodOffer;
   onOfferSelected: (offer: FoodOffer) => void;
   onOfferHovered: (offer?: FoodOffer) => void;
+  classes: any;
 }
 
 const NotFoundIllustration = styled.img`
@@ -28,36 +32,67 @@ const NoFoundText = styled.p`
   margin: 0;
   margin-bottom: 16px;
   text-align: center;
-`
+`;
+
+const LoadingContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  align-content: center;
+  align-items: center;
+`;
+
+const styles = {
+  progressStyle: {
+    color: "#E27861"
+  }
+};
 
 const ResultList: React.FC<Props> = ({
-                                       offers,
-                                       selectedOffer,
-                                       onOfferSelected,
-                                       onOfferHovered
-                                     }) => {
-    const results = offers.length === 0 ?
-      <>
-        <NotFoundIllustration src={"img/empty-resultset.svg"}/>
-        <NoFoundText>Ooh :(, parece que no hay nadie cocinando en tu zona.</NoFoundText>
-      </>
-
-      :
-      offers.map(offer => (
-        <ResultRow
-          key={offer.food}
-          offer={offer}
-          onOfferSelected={onOfferSelected}
-          onOfferHovered={onOfferHovered}
-          isSelected={offer.food === selectedOffer?.food}
-        />
-      ));
+  offers,
+  isLoading,
+  selectedOffer,
+  onOfferSelected,
+  onOfferHovered,
+  classes
+}) => {
+  const Loading = () => {
     return (
-      <Container>
-        {results}
-      </Container>
+      <LoadingContainer>
+        <CircularProgress className={classes.progressStyle} />
+      </LoadingContainer>
     );
-  }
-;
+  };
 
-export default ResultList;
+  const EmptyCase = () => {
+    return (
+      <Fragment>
+        <NotFoundIllustration src={"img/il_empty.svg"} />
+        <NoFoundText>
+          Ooh :(, parece que no hay nadie cocinando en tu zona.
+        </NoFoundText>
+      </Fragment>
+    );
+  };
+
+  let results;
+  if (isLoading) {
+    results = <Loading />;
+  } else if (offers.length === 0) {
+    results = <EmptyCase />;
+  } else {
+    results = offers.map(offer => (
+      <ResultRow
+        key={offer.food}
+        offer={offer}
+        onOfferSelected={onOfferSelected}
+        onOfferHovered={onOfferHovered}
+        isSelected={offer.food === selectedOffer?.food}
+      />
+    ));
+  }
+
+  return <Container>{results}</Container>;
+};
+
+export default withStyles(styles)(ResultList);

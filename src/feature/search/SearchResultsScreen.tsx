@@ -1,13 +1,13 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import "react-datepicker/dist/react-datepicker.css";
-import {Coordinates} from "foundation/types/Coordinates";
+import { Coordinates } from "foundation/types/Coordinates";
 import ResultList from "./components/ResultList";
 import ResultMap from "./components/ResultMap";
-import {Service} from "../../foundation/types/Service";
-import {FoodOffer} from "foundation/types/FoodOffer";
+import { Service } from "../../foundation/types/Service";
+import { FoodOffer } from "foundation/types/FoodOffer";
 import FindFood from "../../foundation/food/FindFood";
-import Grid from '@material-ui/core/Grid';
+import Grid from "@material-ui/core/Grid";
 
 const Container = styled.div`
   display: flex;
@@ -32,10 +32,10 @@ interface Props {
 }
 
 const SearchResultsScreen: React.FC<Props> = ({
-                                                coordinates,
-                                                day,
-                                                service
-                                              }) => {
+  coordinates,
+  day,
+  service
+}) => {
   const findFood = new FindFood();
   const [offers, setOffers] = useState<FoodOffer[]>([]);
   const [needToLoad, setNeedToLoad] = useState<boolean>(true);
@@ -50,10 +50,11 @@ const SearchResultsScreen: React.FC<Props> = ({
         })
         .then(found => {
           setOffers(found);
+          setNeedToLoad(false);
         });
-      setNeedToLoad(false);
     }
-  }, [needToLoad, findFood, day, service, coordinates]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const [selectedOffer, setSelectedOffer] = useState<FoodOffer | undefined>(
     undefined
@@ -68,6 +69,7 @@ const SearchResultsScreen: React.FC<Props> = ({
         <Grid item xs={12} md={6} lg={4}>
           <ResultList
             offers={offers}
+            isLoading={needToLoad}
             onOfferSelected={offer => setSelectedOffer(offer)}
             onOfferHovered={offer => setHoveredOffer(offer)}
             selectedOffer={selectedOffer}
