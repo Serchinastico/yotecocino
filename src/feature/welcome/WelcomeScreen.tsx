@@ -19,19 +19,11 @@ const Title = styled.div`
 const OptionsContainer = styled.div`
   display: flex;
   flex-direction: row;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
+  margin-top: 24px;
+  margin-bottom: 128px;
+  
   @media (max-width: 768px) {
-    position: relative;
     flex-direction: column;
-    top: unset;
-    left: unset;
-    transform: unset;
-    margin-top: 24px;
-    margin-bottom: 128px;
   }
 `;
 
