@@ -25,6 +25,9 @@ const NotFoundIllustration = styled.img`
   justify-self: flex-end;
   max-height: 450px;
   height: 100%;
+  @media (max-width: 960px) {
+    height: 0;
+  }
 `;
 
 const NoFoundText = styled.p`

@@ -12,7 +12,7 @@ import Grid from "@material-ui/core/Grid";
 const Container = styled.div`
   display: flex;
   flex-direction: row;
-  width: 85%;
+  width: 80%;
   height: 80%;
   margin: 0;
   background: #fff;
