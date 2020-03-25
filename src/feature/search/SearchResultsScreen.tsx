@@ -66,7 +66,6 @@ const SearchResultsScreen: React.FC<Props> = ({
     }
   }, [needToLoad, findFood, day, service, coordinates]);
 
-  console.log(offers);
 
   const [selectedOffer, setSelectedOffer] = useState<FoodOffer | undefined>(
     undefined

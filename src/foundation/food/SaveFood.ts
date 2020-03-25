@@ -7,7 +7,7 @@ import Geohash from "latlon-geohash";
 export default class SaveFood {
   private myCreatedFoodsRepository = new MyCreatedFoodsRepository();
 
-  async execute(food: FoodOffer): Promise<FoodOffer> {
+  async execute(food: FoodOffer): Promise<FoodOffer|undefined> {
     const geohash = Geohash.encode(
       food.coordinates.latitude,
       food.coordinates.longitude,
@@ -27,7 +27,9 @@ export default class SaveFood {
       }
     );
 
-    console.log(response);
+    if (response.status !== 201 || response.data === undefined) {
+      return undefined;
+    }
 
     const foodWithId = {
       id: response.data.id,
