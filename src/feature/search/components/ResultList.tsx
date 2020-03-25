@@ -13,12 +13,14 @@ interface Props {
   offers: FoodOffer[];
   selectedOffer?: FoodOffer;
   onOfferSelected: (offer: FoodOffer) => void;
+  onOfferHovered: (offer?: FoodOffer) => void;
 }
 
 const ResultList: React.FC<Props> = ({
   offers,
   selectedOffer,
-  onOfferSelected
+  onOfferSelected,
+  onOfferHovered
 }) => {
   return (
     <Container>
@@ -27,6 +29,7 @@ const ResultList: React.FC<Props> = ({
           key={offer.food}
           offer={offer}
           onOfferSelected={onOfferSelected}
+          onOfferHovered={onOfferHovered}
           isSelected={offer.food === selectedOffer?.food}
         />
       ))}

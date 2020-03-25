@@ -71,6 +71,9 @@ const SearchResultsScreen: React.FC<Props> = ({
   const [selectedOffer, setSelectedOffer] = useState<FoodOffer | undefined>(
     undefined
   );
+  const [hoveredOffer, setHoveredOffer] = useState<FoodOffer | undefined>(
+    undefined
+  );
 
   let map =
     offers.length === 0 ? null : (
@@ -78,6 +81,7 @@ const SearchResultsScreen: React.FC<Props> = ({
         <ResultMap
           offers={offers}
           selectedOffer={selectedOffer}
+          hoveredOffer={hoveredOffer}
           onOfferSelected={offer => setSelectedOffer(offer)}
         />
       </MapContainer>
@@ -88,6 +92,7 @@ const SearchResultsScreen: React.FC<Props> = ({
         <ResultList
           offers={offers}
           onOfferSelected={offer => setSelectedOffer(offer)}
+          onOfferHovered={offer => setHoveredOffer(offer)}
           selectedOffer={selectedOffer}
         />
       </ListContainer>

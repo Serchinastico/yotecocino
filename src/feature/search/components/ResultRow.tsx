@@ -40,11 +40,22 @@ interface Props {
   offer: FoodOffer;
   isSelected: boolean;
   onOfferSelected: (offer: FoodOffer) => void;
+  onOfferHovered: (offer?: FoodOffer) => void;
 }
 
-const ResultRow: React.FC<Props> = ({ offer, isSelected, onOfferSelected }) => {
+const ResultRow: React.FC<Props> = ({
+  offer,
+  isSelected,
+  onOfferSelected,
+  onOfferHovered
+}) => {
   return (
-    <Container onClick={() => onOfferSelected(offer)} isSelected={isSelected}>
+    <Container
+      onClick={() => onOfferSelected(offer)}
+      onMouseEnter={() => onOfferHovered(offer)}
+      onMouseLeave={() => onOfferHovered(undefined)}
+      isSelected={isSelected}
+    >
       <Food>{offer.food}</Food>
       <Contact>{offer.contact}</Contact>
     </Container>

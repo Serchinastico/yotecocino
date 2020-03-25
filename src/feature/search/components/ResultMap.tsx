@@ -21,12 +21,14 @@ const Map = styled(ReactMapGL)`
 interface Props {
   offers: FoodOffer[];
   selectedOffer?: FoodOffer;
+  hoveredOffer?: FoodOffer;
   onOfferSelected: (offer: FoodOffer) => void;
 }
 
 const ResultMap: React.FC<Props> = ({
   offers,
   selectedOffer,
+  hoveredOffer,
   onOfferSelected
 }) => {
   const auth = {
@@ -74,6 +76,7 @@ const ResultMap: React.FC<Props> = ({
         <ResultMapMarkers
           offers={offers}
           selectedOffer={selectedOffer}
+          hoveredOffer={hoveredOffer}
           onOfferSelected={onOfferSelected}
         />
       </Map>

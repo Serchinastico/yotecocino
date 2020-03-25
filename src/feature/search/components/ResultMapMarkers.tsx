@@ -6,6 +6,7 @@ import { FoodOffer } from "foundation/types/FoodOffer";
 interface Props {
   offers: FoodOffer[];
   selectedOffer?: FoodOffer;
+  hoveredOffer?: FoodOffer;
   onOfferSelected: (offer: FoodOffer) => void;
 }
 
@@ -16,18 +17,31 @@ interface OfferMarkerProps {
 const ResultMapMarkers: React.FC<Props> = ({
   offers,
   selectedOffer,
+  hoveredOffer,
   onOfferSelected
 }) => {
   const markerIcon = require("../../../img/ic_marker.svg") as string;
   const selectedMarkerIcon = require("../../../img/ic_marker_selected.svg") as string;
+  const hoveredMarkerIcon = require("../../../img/ic_marker_hovered.svg") as string;
 
   const OfferMarker = ({ offer }: OfferMarkerProps) => {
-    const icon =
+    let icon;
+
+    if (
       selectedOffer?.food === offer.food &&
       selectedOffer?.coordinates.latitude === offer.coordinates.latitude &&
       selectedOffer?.coordinates.longitude === offer.coordinates.longitude
-        ? selectedMarkerIcon
-        : markerIcon;
+    ) {
+      icon = selectedMarkerIcon;
+    } else if (
+      hoveredOffer?.food === offer.food &&
+      hoveredOffer?.coordinates.latitude === offer.coordinates.latitude &&
+      hoveredOffer?.coordinates.longitude === offer.coordinates.longitude
+    ) {
+      icon = hoveredMarkerIcon;
+    } else {
+      icon = markerIcon;
+    }
 
     return (
       <Marker
