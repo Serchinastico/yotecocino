@@ -1,17 +1,19 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import config from "../../../foundation/Config";
-import ReactMapGL, { WebMercatorViewport } from "react-map-gl";
+import ReactMapGL, {WebMercatorViewport} from "react-map-gl";
 import styled from "styled-components";
 import "react-datepicker/dist/react-datepicker.css";
-import { FoodOffer } from "foundation/types/FoodOffer";
-import { useBoundingBox } from "../hooks/UseBoundingBox";
-import { Coordinates } from "foundation/types/Coordinates";
+import {FoodOffer} from "foundation/types/FoodOffer";
+import {useBoundingBox} from "../hooks/UseBoundingBox";
+import {Coordinates} from "foundation/types/Coordinates";
 import ResultMapMarkers from "./ResultMapMarkers";
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
+  overflow: scroll;
+  min-height: 450px;
 `;
 
 const Map = styled(ReactMapGL)`
@@ -19,6 +21,7 @@ const Map = styled(ReactMapGL)`
 `;
 
 interface Props {
+  searchedArea: Coordinates;
   offers: FoodOffer[];
   selectedOffer?: FoodOffer;
   hoveredOffer?: FoodOffer;
@@ -26,11 +29,12 @@ interface Props {
 }
 
 const ResultMap: React.FC<Props> = ({
-  offers,
-  selectedOffer,
-  hoveredOffer,
-  onOfferSelected
-}) => {
+                                      searchedArea,
+                                      offers,
+                                      selectedOffer,
+                                      hoveredOffer,
+                                      onOfferSelected
+                                    }) => {
   const auth = {
     mapboxApiAccessToken: config.mapsToken
   };
@@ -40,29 +44,45 @@ const ResultMap: React.FC<Props> = ({
     zoom: 15
   };
 
-  const allCoordinates = offers.map(offer => offer.coordinates);
+  let noOffersFound = offers.length === 0;
+  const allCoordinates = noOffersFound ? [searchedArea] : offers.map(offer => offer.coordinates);
 
   const boundingBox = useBoundingBox(allCoordinates);
 
   const [viewport, setViewport] = useState<Coordinates | undefined>(undefined);
 
+
+
+  let locationViewPort = allCoordinates.length === 1 ?
+    {
+      ...allCoordinates[0],
+      zoom: 15
+    }
+    :
+    new WebMercatorViewport({width: 800, height: 600}).fitBounds(
+      [
+        [
+          boundingBox.swCoordinate.longitude,
+          boundingBox.swCoordinate.latitude
+        ],
+        [
+          boundingBox.neCoordinate.longitude,
+          boundingBox.neCoordinate.latitude
+        ]
+      ],
+      {padding: 150}
+    );
   const mapViewport =
     viewport !== undefined
       ? viewport
-      : new WebMercatorViewport({ width: 800, height: 600 }).fitBounds(
-          [
-            [
-              boundingBox.swCoordinate.longitude,
-              boundingBox.swCoordinate.latitude
-            ],
-            [
-              boundingBox.neCoordinate.longitude,
-              boundingBox.neCoordinate.latitude
-            ]
-          ],
-          { padding: 150 }
-        );
+      : locationViewPort;
 
+  let resultMapMarkers = noOffersFound ? null : <ResultMapMarkers
+    offers={offers}
+    selectedOffer={selectedOffer}
+    hoveredOffer={hoveredOffer}
+    onOfferSelected={onOfferSelected}
+  />;
   return (
     <Container>
       <Map
@@ -73,12 +93,7 @@ const ResultMap: React.FC<Props> = ({
         height="100%"
         onViewportChange={props => setViewport(props)}
       >
-        <ResultMapMarkers
-          offers={offers}
-          selectedOffer={selectedOffer}
-          hoveredOffer={hoveredOffer}
-          onOfferSelected={onOfferSelected}
-        />
+        {resultMapMarkers}
       </Map>
     </Container>
   );
