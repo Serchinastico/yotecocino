@@ -23,6 +23,11 @@ export const InputTitle = styled.p`
   margin-top: 16px;
 `;
 
+export const InputHint = styled.span`
+  color: #9c9c9c;
+  font-size: 0.9rem;
+`;
+
 export const FieldErrorDescription = styled.p`
   font-size: 0.7rem;
   color: #e27861;
@@ -76,11 +81,11 @@ export const ButtonInput = styled.input`
   margin-top: 16px;
   border-radius: 48px;
   border: none;
-  width: 116px;
+  width: 45%;
   font-size: 1rem;
   font-weight: 600;
   color: #fff;
-  align-self: center;
+  align-self: flex-end;
 
   &:disabled {
     background: #ccc;

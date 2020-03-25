@@ -4,11 +4,16 @@ body {
   background: #ffdfd8;
 }
 
+.MuiAutocomplete-root {
+  max-width: 600px !important;
+}
+
 .MuiAutocomplete-clearIndicator {
   padding-top: 6px !important;
 }
 
-.MuiAutocomplete-inputRoot[class*="MuiInput-root"] .MuiAutocomplete-input:first-child {
+.MuiAutocomplete-inputRoot[class*="MuiInput-root"]
+  .MuiAutocomplete-input:first-child {
   padding-top: 12px !important;
   font-family: "Montserrat", sans-serif;
   font-size: 0.9rem;

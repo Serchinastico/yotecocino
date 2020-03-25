@@ -59,6 +59,7 @@ const SearchScreen: React.FC = () => {
         label="¿Dónde trabajas?"
         setLocation={setAddress}
         showMap={false}
+        hint="Puede ser una dirección aproximada"
       />
       <label>
         <InputTitle>¿Qué día será la recogida?</InputTitle>

@@ -5,7 +5,7 @@ import SearchPlacesInput from "./SearchPlaceInput";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import { withStyles } from "@material-ui/core/styles";
 import red from "@material-ui/core/colors/red";
-import {Coordinates} from "../../foundation/types/Coordinates";
+import { Coordinates } from "../../foundation/types/Coordinates";
 
 const styles = () => ({
   marker: {
@@ -24,6 +24,7 @@ interface Props {
   classes: any;
   errorMessage: string | null;
   label: string | null;
+  hint?: string;
 }
 
 interface DefaultProps {
@@ -79,7 +80,7 @@ class LocationInput extends React.Component<LocationProps, LocationInputState> {
   }
 
   render() {
-    const { address, classes, errorMessage, label, showMap } = this.props;
+    const { address, classes, errorMessage, label, showMap, hint } = this.props;
     const { marker, viewport } = this.state;
     const auth = {
       mapboxApiAccessToken: config.mapsToken
@@ -105,6 +106,7 @@ class LocationInput extends React.Component<LocationProps, LocationInputState> {
         address={address}
         errorMessage={errorMessage}
         label={label}
+        hint={hint}
       />
     );
 
@@ -119,10 +121,12 @@ class LocationInput extends React.Component<LocationProps, LocationInputState> {
       </ReactMapGL>
     ) : null;
 
-    return <div>
-      {searchPlacesInput}
-      {map}
-    </div>;
+    return (
+      <div>
+        {searchPlacesInput}
+        {map}
+      </div>
+    );
   }
 
   private updateViewPort(viewport: ViewportProps) {
