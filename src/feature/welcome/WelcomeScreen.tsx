@@ -21,7 +21,7 @@ const OptionsContainer = styled.div`
   flex-direction: row;
   margin-top: 24px;
   margin-bottom: 128px;
-  
+
   @media (max-width: 768px) {
     flex-direction: column;
   }
@@ -58,6 +58,23 @@ const OptionIllustration = styled.img`
   justify-self: flex-end;
 `;
 
+const HelpContainer = styled.div`
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0px 8px 0px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+`;
+
+const HelpLink = styled.a`
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #2997fc;
+  text-decoration: underline;
+`;
+
 const WelcomeScreen: React.FC = () => {
   const history = useHistory();
 
@@ -82,6 +99,9 @@ const WelcomeScreen: React.FC = () => {
   return (
     <Container>
       <Title>#yotecocino</Title>
+      <HelpContainer>
+        <HelpLink href="how.pdf">¿Cómo funciona?</HelpLink>
+      </HelpContainer>
       <OptionsContainer>
         <AcceptFoodButton />
         <ProvideFoodButton />
