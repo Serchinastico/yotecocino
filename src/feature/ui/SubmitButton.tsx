@@ -1,8 +1,8 @@
 import React from "react";
 
-import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import {withStyles} from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import { withStyles } from "@material-ui/core/styles";
 
 type SubmitButtonProps = {
   loading?: boolean;
@@ -11,8 +11,7 @@ type SubmitButtonProps = {
   onSubmit?: (event: any) => void;
   onClick?: (event: any) => void;
   classes: any;
-}
-
+};
 
 const noTransformText: React.CSSProperties = {
   textTransform: "none"
@@ -30,7 +29,7 @@ const styles = {
     fontSize: "0.9rem",
     fontWeight: 700,
     color: "#fff",
-    alignSelf: "flex-end",
+    alignSelf: "center",
     fontFamily: "Montserrat, sans-serif",
     "&:disabled": {
       background: "#ccc"
@@ -44,20 +43,27 @@ const styles = {
   }
 };
 
-const SubmitButton: React.FC<SubmitButtonProps> = (props) => {
+const SubmitButton: React.FC<SubmitButtonProps> = props => {
   const disabled = props.disabled || false;
-  const {classes, loading, onSubmit, onClick} = props;
+  const { classes, loading, onSubmit, onClick } = props;
   const submit = loading ? () => {} : onSubmit;
 
-  const buttonContent = loading ? <CircularProgress className={classes.progressStyle} size={24}/> : props.label;
-  return <Button
-    className={classes.activeButton}
-    onSubmit={submit}
-    onClick={onClick}
-    type="submit"
-    disabled={disabled}>
-    {buttonContent}
-  </Button>;
-}
+  const buttonContent = loading ? (
+    <CircularProgress className={classes.progressStyle} size={24} />
+  ) : (
+    props.label
+  );
+  return (
+    <Button
+      className={classes.activeButton}
+      onSubmit={submit}
+      onClick={onClick}
+      type="submit"
+      disabled={disabled}
+    >
+      {buttonContent}
+    </Button>
+  );
+};
 
 export default withStyles(styles)(SubmitButton);

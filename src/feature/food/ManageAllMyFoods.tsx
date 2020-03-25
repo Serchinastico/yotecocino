@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 
 import {
   Container,
@@ -12,19 +12,25 @@ import {
   HorizontalButtons
 } from "../ui/StyledForm";
 import FindOfferedFoods from "../../foundation/food/FindOfferedFoods";
-import {FoodOffer} from "../../foundation/types/FoodOffer";
+import { FoodOffer } from "../../foundation/types/FoodOffer";
 import RemoveFood from "../../foundation/food/RemoveFood";
-import {Snackbar} from "@material-ui/core";
+import { Snackbar } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 import SubmitButton from "../ui/SubmitButton";
 import SecondaryButton from "feature/ui/SecondaryButton";
 import { useHistory } from "react-router-dom";
+import styled from "styled-components";
+
+const InputContainer = styled.div`
+  width: 100%;
+  display: flex;
+`;
 
 const ManageAllMyFoods: React.FC = () => {
   const findAllMyFood = new FindOfferedFoods();
   const removeFood = new RemoveFood();
 
-  const history = useHistory()
+  const history = useHistory();
   const [saving, setSaving] = useState<boolean>(false);
   const [offeredFood, setOfferedFood] = useState<FoodOffer[]>([]);
   const [foodId, setFoodId] = useState<string | null>(null);
@@ -42,19 +48,22 @@ const ManageAllMyFoods: React.FC = () => {
   const deleteFood = (event: any) => {
     event.preventDefault();
     setSaving(true);
-    removeFood.execute(foodId || "").then(success => {
-      setSaving(false);
-      if (!success) {
-        setShowError(true);
-      } else {
-        setFoodId(null);
-        setNeedToLoadMyFoods(true);
-      }
-    }).catch(() => {
+    removeFood
+      .execute(foodId || "")
+      .then(success => {
+        setSaving(false);
+        if (!success) {
+          setShowError(true);
+        } else {
+          setFoodId(null);
+          setNeedToLoadMyFoods(true);
+        }
+      })
+      .catch(() => {
         setSaving(false);
         setFoodId(null);
         setShowError(true);
-    });
+      });
   };
 
   const createdFoodList = (
@@ -84,34 +93,36 @@ const ManageAllMyFoods: React.FC = () => {
       {list}
       <label>
         <InputTitle>O introducir el identificador de tu comida:</InputTitle>
-        <TextInput
-          type="text"
-          placeholder="e.g. mbqrK6xagwsjbzysVulv"
-          value={foodId ?? ""}
-          onChange={event => setFoodId(event.target.value)}
-        />
+        <InputContainer>
+          <TextInput
+            type="text"
+            placeholder="e.g. mbqrK6xagwsjbzysVulv"
+            value={foodId ?? ""}
+            onChange={event => setFoodId(event.target.value)}
+          />
+        </InputContainer>
       </label>
       <Warning>
         Recuerda que este paso eliminará de forma permanente la comida
         registrada. Para hacer modificaciones, tendrás que registrar una nueva.
       </Warning>
-      <br/>
+      <br />
       <HorizontalButtons>
-      <SecondaryButton
-            label="Registrar comida"
-            onClick={() => history.push("/cook")}
-          />
-      <SubmitButton
-        label="Eliminar"
-        loading={saving}
-        disabled={nothingToBeDeleted}
-        onSubmit={deleteFood}
-      />
+        <SecondaryButton
+          label="Registrar comida"
+          onClick={() => history.push("/cook")}
+        />
+        <SubmitButton
+          label="Eliminar"
+          loading={saving}
+          disabled={nothingToBeDeleted}
+          onSubmit={deleteFood}
+        />
       </HorizontalButtons>
       <Snackbar
         anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'center',
+          vertical: "bottom",
+          horizontal: "center"
         }}
         open={showError}
         autoHideDuration={4000}
