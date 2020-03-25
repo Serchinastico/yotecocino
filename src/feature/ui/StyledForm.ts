@@ -53,6 +53,18 @@ export const TextInput = styled.input`
   }
 `;
 
+export const CheckboxContainer = styled.label`
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const CheckboxInput = styled.input`
+  margin-top: 4px;
+  margin-right: 24px;
+`;
+
 export const DateInput = styled(ReactDatePicker)`
   border: 0.5px solid rgba(0, 0, 0, 0.2);
   height: 40px;

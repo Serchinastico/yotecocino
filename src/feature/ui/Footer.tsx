@@ -1,24 +1,25 @@
 import React from "react";
-import { CreatorsDiv, Creator, Creators } from "./StyledFooter";
+import { FooterContainer, FooterLink, FooterContent } from "./StyledFooter";
 
 const Footer: React.FC = () => {
   return (
-    <CreatorsDiv>
-      <Creators>
+    <FooterContainer>
+      <FooterContent>
         Creado con mucho{" "}
         <span role="img" aria-label="amor">
           ❤️
         </span>{" "}
         por{" "}
-        <Creator href="https://twitter.com/Serchinastico">
+        <FooterLink href="https://twitter.com/Serchinastico">
           @Serchinastico
-        </Creator>
-        , <Creator href="https://twitter.com/delr3ves">@delr3ves</Creator> y{" "}
-        <Creator href="https://www.linkedin.com/in/aliciacarbajalzapater/">
+        </FooterLink>
+        , <FooterLink href="https://twitter.com/delr3ves">@delr3ves</FooterLink>{" "}
+        y{" "}
+        <FooterLink href="https://www.linkedin.com/in/aliciacarbajalzapater/">
           @alicarbajal
-        </Creator>
-      </Creators>
-    </CreatorsDiv>
+        </FooterLink>
+      </FooterContent>
+    </FooterContainer>
   );
 };
 

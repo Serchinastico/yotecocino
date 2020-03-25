@@ -5,6 +5,8 @@ import { Service } from "foundation/types/Service";
 import LocationInput from "../ui/LocationInput";
 import { Coordinates } from "../../foundation/types/Coordinates";
 import {
+  CheckboxContainer,
+  CheckboxInput,
   Container,
   DateInput,
   FieldErrorDescription,
@@ -18,6 +20,7 @@ import {
 import { FoodOffer } from "../../foundation/types/FoodOffer";
 import SaveFood from "../../foundation/food/SaveFood";
 import { useHistory } from "react-router-dom";
+import { FooterLink } from "feature/ui/StyledFooter";
 import SubmitButton from "../ui/SubmitButton";
 
 const FoodOfferScreen: React.FC = () => {
@@ -28,6 +31,9 @@ const FoodOfferScreen: React.FC = () => {
   const [description, setDescripiton] = useState<string | null>(null);
   const [date, setDate] = useState<Date | null>(null);
   const [service, setService] = useState<Service | null>(null);
+  const [acceptPrivacyPolicy, setAcceptPrivacyPolicy] = useState<boolean>(
+    false
+  );
   const [violations, setViolations] = useState<any>({});
   const [saving, setSaving] = useState<boolean>(false);
 
@@ -52,6 +58,10 @@ const FoodOfferScreen: React.FC = () => {
     if (!service) {
       violations["description"] =
         "Necesitamos que nos digas que podrías cocinar. Si no sabes que hacer, pon 'cositas ricas'";
+    }
+    if (!acceptPrivacyPolicy) {
+      violations["privacyPolicy"] =
+        "Necesitamos que aceptes la política de privacidad";
     }
     return violations;
   };
@@ -104,6 +114,9 @@ const FoodOfferScreen: React.FC = () => {
   ) : null;
   const descriptionError = violations.description ? (
     <FieldErrorDescription>{violations.description}</FieldErrorDescription>
+  ) : null;
+  const privacyPolicyError = violations.description ? (
+    <FieldErrorDescription>{violations.privacyPolicy}</FieldErrorDescription>
   ) : null;
 
   return (
@@ -168,6 +181,20 @@ const FoodOfferScreen: React.FC = () => {
             onChange={event => setContact(event.target.value)}
           />
         </label>
+        <CheckboxContainer>
+          {privacyPolicyError}
+          <CheckboxInput
+            type="checkbox"
+            checked={acceptPrivacyPolicy}
+            onChange={event => setAcceptPrivacyPolicy(event.target.checked)}
+          />
+          <label onClick={() => setAcceptPrivacyPolicy(!acceptPrivacyPolicy)}>
+            Acepto la{" "}
+            <FooterLink href="privacypolicy.html">
+              política de privacidad
+            </FooterLink>
+          </label>
+        </CheckboxContainer>
         <SubmitButton label="Cocinar" onSubmit={onFormSubmit} loading={saving} disabled={!containsValidData}/>
 
         <Text>

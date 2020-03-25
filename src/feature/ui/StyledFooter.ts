@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const CreatorsDiv = styled.div`
+export const FooterContainer = styled.div`
   background: #fff;
   height: 80px;
   position: fixed;
@@ -40,13 +40,13 @@ export const CreatorsDiv = styled.div`
   }
 `;
 
-export const Creators = styled.p`
+export const FooterContent = styled.p`
   margin: 0;
   text-align: center;
   align-self: center;
 `;
 
-export const Creator = styled.a`
+export const FooterLink = styled.a`
   text-decoration: none;
   color: #2997fc;
   font-weight: 600;
