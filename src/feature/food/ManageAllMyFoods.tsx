@@ -8,7 +8,8 @@ import {
   Text,
   TextInput,
   Title,
-  Warning
+  Warning,
+  HorizontalButtons
 } from "../ui/StyledForm";
 import FindOfferedFoods from "../../foundation/food/FindOfferedFoods";
 import {FoodOffer} from "../../foundation/types/FoodOffer";
@@ -16,11 +17,14 @@ import RemoveFood from "../../foundation/food/RemoveFood";
 import {Snackbar} from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 import SubmitButton from "../ui/SubmitButton";
+import SecondaryButton from "feature/ui/SecondaryButton";
+import { useHistory } from "react-router-dom";
 
 const ManageAllMyFoods: React.FC = () => {
   const findAllMyFood = new FindOfferedFoods();
   const removeFood = new RemoveFood();
 
+  const history = useHistory()
   const [saving, setSaving] = useState<boolean>(false);
   const [offeredFood, setOfferedFood] = useState<FoodOffer[]>([]);
   const [foodId, setFoodId] = useState<string | null>(null);
@@ -92,12 +96,18 @@ const ManageAllMyFoods: React.FC = () => {
         registrada. Para hacer modificaciones, tendrás que registrar una nueva.
       </Warning>
       <br/>
+      <HorizontalButtons>
+      <SecondaryButton
+            label="Registrar comida"
+            onClick={() => history.push("/cook")}
+          />
       <SubmitButton
         label="Eliminar"
         loading={saving}
         disabled={nothingToBeDeleted}
         onSubmit={deleteFood}
       />
+      </HorizontalButtons>
       <Snackbar
         anchorOrigin={{
           vertical: 'bottom',

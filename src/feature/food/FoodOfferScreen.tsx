@@ -16,13 +16,15 @@ import {
   RadioInput,
   Text,
   TextInput,
-  Title
+  Title,
+  HorizontalButtons
 } from "../ui/StyledForm";
 import { FoodOffer } from "../../foundation/types/FoodOffer";
 import SaveFood from "../../foundation/food/SaveFood";
 import { useHistory } from "react-router-dom";
 import { FooterLink } from "feature/ui/StyledFooter";
 import SubmitButton from "../ui/SubmitButton";
+import SecondaryButton from "../ui/SecondaryButton";
 import { Snackbar } from "@material-ui/core";
 
 const FoodOfferScreen: React.FC = () => {
@@ -202,17 +204,23 @@ const FoodOfferScreen: React.FC = () => {
             </FooterLink>
           </label>
         </CheckboxContainer>
-        <SubmitButton label="Cocinar" onSubmit={onFormSubmit} loading={saving} disabled={!containsValidData}/>
-
-        <Text>
-          Haz clic <Link onClick={() => history.push("/myFood")}>aquí</Link> si ya tienes una comida
-          registrada y la quieres borrar
-        </Text>
+        <HorizontalButtons>
+          <SecondaryButton
+            label="Ver comida registrada"
+            onClick={() => history.push("/myFood")}
+          />
+          <SubmitButton
+            label="Registrar"
+            onSubmit={onFormSubmit}
+            loading={saving}
+            disabled={!containsValidData}
+          />
+        </HorizontalButtons>
 
         <Snackbar
           anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'center',
+            vertical: "bottom",
+            horizontal: "center"
           }}
           open={showError}
           autoHideDuration={4000}

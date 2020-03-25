@@ -136,3 +136,9 @@ export const OptionsContainer = styled.div`
     border: 0.5px solid rgba(0, 0, 0, 0.2);
     border-radius: 16px;
 `;
+
+export const HorizontalButtons = styled.div`
+  display: flex;
+  flex-direction: center;
+  justify-content: space-between;
+`;
