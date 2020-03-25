@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
     marginBottom: "15px",
     border: "0.5px solid rgba(0, 0, 0, 0.2)",
     height: "40px",
-    width: "470px",
+    width: "100%",
     borderRadius: "24px",
     paddingLeft: "16px",
     paddingRight: "16px",

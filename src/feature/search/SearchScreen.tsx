@@ -7,6 +7,7 @@ import {
   Container,
   InputTitle,
   DateInput,
+  DateInputContainer,
   RadioInput,
   Title
 } from "../ui/StyledForm";
@@ -42,9 +43,10 @@ const SearchScreen: React.FC = () => {
     }
   };
 
-  const criteriaToSearchIsCompleted = address !== null && date !== null && service !== null;
+  const criteriaToSearchIsCompleted =
+    address !== null && date !== null && service !== null;
 
-    return (
+  return (
     <Container onSubmit={onFormSubmit}>
       <Title>
         Completa los siguientes campos para buscar una comida preparada
@@ -57,12 +59,14 @@ const SearchScreen: React.FC = () => {
       />
       <label>
         <InputTitle>¿Qué día será la recogida?</InputTitle>
-        <DateInput
-          placeholderText="Selecciona el día"
-          selected={date}
-          onChange={date => setDate(date)}
-          minDate={new Date()}
-        />
+        <DateInputContainer>
+          <DateInput
+            placeholderText="Selecciona el día"
+            selected={date}
+            onChange={date => setDate(date)}
+            minDate={new Date()}
+          />
+        </DateInputContainer>
       </label>
       <label>
         <InputTitle>¿Comida o cena?</InputTitle>
@@ -83,7 +87,11 @@ const SearchScreen: React.FC = () => {
         />
         <label htmlFor="dinner">Cena</label>
       </label>
-      <SubmitButton label="Buscar" onSubmit={onFormSubmit} disabled={!criteriaToSearchIsCompleted}/>
+      <SubmitButton
+        label="Buscar"
+        onSubmit={onFormSubmit}
+        disabled={!criteriaToSearchIsCompleted}
+      />
     </Container>
   );
 };

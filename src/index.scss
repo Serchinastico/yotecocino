@@ -17,6 +17,17 @@ body {
   padding-top: 12px !important;
   font-family: "Montserrat", sans-serif;
   font-size: 0.9rem;
+  padding-left: 0px !important;
+}
+
+.MuiInputBase-root,
+.MuiInput-root {
+  padding-left: 16px !important;
+}
+
+.MuiFormControl-root,
+.MuiTextField-root {
+  padding: 0 !important;
 }
 
 .MuiInput-underline:before {
@@ -25,4 +36,13 @@ body {
 
 .MuiInput-underline:after {
   border-bottom: none !important;
+}
+
+.react-datepicker-wrapper,
+.react-datepicker__input-container {
+  display: flex;
+}
+
+.react-datepicker-wrapper {
+  width: 100%;
 }

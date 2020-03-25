@@ -4,7 +4,8 @@ import ReactDatePicker from "react-datepicker";
 export const Container = styled.form`
   display: flex;
   flex-direction: column;
-  width: 500px;
+  width: 80%;
+  max-width: 500px;
   background: #ffffff;
   border-radius: 32px;
   position: fixed;
@@ -14,6 +15,8 @@ export const Container = styled.form`
   transform: translate(-50%, -50%);
   box-shadow: 0px 8px 0px rgba(0, 0, 0, 0.1);
   overflow: scroll;
+  @media (max-width: 768px) {
+  }
 `;
 
 export const InputTitle = styled.p`
@@ -40,7 +43,7 @@ export const FieldErrorDescription = styled.p`
 export const TextInput = styled.input`
   border: 0.5px solid rgba(0, 0, 0, 0.2);
   height: 40px;
-  width: 470px;
+  width: 50%;
   border-radius: 24px;
   padding-left: 16px;
   padding-right: 16px;
@@ -65,10 +68,16 @@ export const CheckboxInput = styled.input`
   margin-right: 24px;
 `;
 
+export const DateInputContainer = styled.div`
+  width: 100%;
+  display: flex;
+`;
+
 export const DateInput = styled(ReactDatePicker)`
   border: 0.5px solid rgba(0, 0, 0, 0.2);
   height: 40px;
-  width: 470px;
+  width: 100%;
+  max-width: 470px;
   border-radius: 24px;
   padding-left: 16px;
   padding-right: 16px;
@@ -123,18 +132,18 @@ export const MyCreatedFoodItem = styled.p`
 `;
 
 export const Warning = styled.p`
-    font-weight: 500;
-    padding: 0;
-    margin: 0;
-    margin-bottom: 4px;
-    margin-top: 16px;
-    text-align: center;
+  font-weight: 500;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 4px;
+  margin-top: 16px;
+  text-align: center;
 `;
 
 export const OptionsContainer = styled.div`
-    margin-top: 16px;
-    border: 0.5px solid rgba(0, 0, 0, 0.2);
-    border-radius: 16px;
+  margin-top: 16px;
+  border: 0.5px solid rgba(0, 0, 0, 0.2);
+  border-radius: 16px;
 `;
 
 export const HorizontalButtons = styled.div`
