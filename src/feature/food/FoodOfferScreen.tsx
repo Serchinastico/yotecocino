@@ -5,7 +5,6 @@ import { Service } from "foundation/types/Service";
 import LocationInput from "../ui/LocationInput";
 import { Coordinates } from "../../foundation/types/Coordinates";
 import {
-  ButtonInput,
   CheckboxContainer,
   CheckboxInput,
   Container,
@@ -22,6 +21,7 @@ import { FoodOffer } from "../../foundation/types/FoodOffer";
 import SaveFood from "../../foundation/food/SaveFood";
 import { useHistory } from "react-router-dom";
 import { FooterLink } from "feature/ui/StyledFooter";
+import SubmitButton from "../ui/SubmitButton";
 
 const FoodOfferScreen: React.FC = () => {
   const history = useHistory();
@@ -101,6 +101,8 @@ const FoodOfferScreen: React.FC = () => {
     }
   };
 
+  const containsValidData = Object.keys(validateForm()).length === 0;
+
   const dateError = violations.date ? (
     <FieldErrorDescription>{violations.date}</FieldErrorDescription>
   ) : null;
@@ -116,8 +118,6 @@ const FoodOfferScreen: React.FC = () => {
   const privacyPolicyError = violations.description ? (
     <FieldErrorDescription>{violations.privacyPolicy}</FieldErrorDescription>
   ) : null;
-
-  const saveText = saving ? "Guardando" : "Cocinar";
 
   return (
     <div>
@@ -195,10 +195,10 @@ const FoodOfferScreen: React.FC = () => {
             </FooterLink>
           </label>
         </CheckboxContainer>
-        <ButtonInput type="submit" value={saveText} />
+        <SubmitButton label="Cocinar" onSubmit={onFormSubmit} loading={saving} disabled={!containsValidData}/>
 
         <Text>
-          Haz clic <Link href="/myFood">aquí</Link> si ya tienes una comida
+          Haz clic <Link onClick={() => history.push("/myFood")}>aquí</Link> si ya tienes una comida
           registrada y la quieres borrar
         </Text>
       </Container>

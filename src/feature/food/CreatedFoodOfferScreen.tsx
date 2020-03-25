@@ -1,6 +1,7 @@
 import React from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 
 const Container = styled.div`
   background: #fff;
@@ -61,6 +62,8 @@ type CreatedFoodOfferScreenProps = {
 const CreatedFoodOfferScreen: React.FC<CreatedFoodOfferScreenProps> = ({
   match
 }) => {
+  const history = useHistory();
+  
   return (
     <Container>
       <Congratulations>¡Enhorabuena!</Congratulations>
@@ -73,7 +76,7 @@ const CreatedFoodOfferScreen: React.FC<CreatedFoodOfferScreenProps> = ({
       <Description>El identificador de tu comida es:</Description>
       <Identifier>{match.params.foodId}</Identifier>
       <Footer>
-        Puedes ver tu comida <Link href="/myFood">aquí</Link>
+        Puedes ver tu comida <Link onClick={() => history.push("/myFood")}>aquí</Link>
       </Footer>
     </Container>
   );

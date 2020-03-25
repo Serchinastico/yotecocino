@@ -2,6 +2,7 @@
   "name": "yotecocino",
   "version": "0.0.1",
   "private": true,
+  "homepage": "https://yotecocino.com",
   "dependencies": {
     "@material-ui/core": "^4.9.7",
     "@material-ui/icons": "^4.9.1",

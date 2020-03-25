@@ -87,32 +87,11 @@ export const RadioInput = styled.input`
   font-size: 1rem;
 `;
 
-export const ButtonInput = styled.input`
-  background: #e27861;
-  padding: 16px;
-  margin-top: 16px;
-  border-radius: 48px;
-  border: none;
-  width: 45%;
-  font-size: 1rem;
-  font-weight: 600;
-  color: #fff;
-  align-self: flex-end;
-
-  &:disabled {
-    background: #ccc;
-  }
-`;
-
 export const Title = styled.p`
   font-weight: 600;
   font-size: 1.2rem;
   margin: 0;
   margin-bottom: 16px;
-`;
-
-export const CenterDiv = styled.div`
-  text-align: center;
 `;
 
 export const Text = styled.p`

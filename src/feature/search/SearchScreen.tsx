@@ -8,11 +8,11 @@ import {
   InputTitle,
   DateInput,
   RadioInput,
-  ButtonInput,
   Title
 } from "../ui/StyledForm";
 import LocationInput from "../ui/LocationInput";
 import { Coordinates } from "../../foundation/types/Coordinates";
+import SubmitButton from "../ui/SubmitButton";
 
 const SearchScreen: React.FC = () => {
   const history = useHistory();
@@ -42,15 +42,9 @@ const SearchScreen: React.FC = () => {
     }
   };
 
-  const SearchButton = () => {
-    if (address !== null && date !== null && service !== null) {
-      return <ButtonInput type="submit" value="Buscar" />;
-    } else {
-      return <ButtonInput disabled type="submit" value="Buscar" />;
-    }
-  };
+  const criteriaToSearchIsCompleted = address !== null && date !== null && service !== null;
 
-  return (
+    return (
     <Container onSubmit={onFormSubmit}>
       <Title>
         Completa los siguientes campos para buscar una comida preparada
@@ -89,7 +83,7 @@ const SearchScreen: React.FC = () => {
         />
         <label htmlFor="dinner">Cena</label>
       </label>
-      <SearchButton />
+      <SubmitButton label="Buscar" onSubmit={onFormSubmit} disabled={!criteriaToSearchIsCompleted}/>
     </Container>
   );
 };
