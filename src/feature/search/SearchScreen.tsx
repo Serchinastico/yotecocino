@@ -63,7 +63,11 @@ const SearchScreen: React.FC = () => {
           <DateInput
             placeholderText="Selecciona el día"
             selected={date}
-            onChange={date => setDate(date)}
+            onChange={(date, event) => {
+              setDate(date);
+              event?.preventDefault();
+            }}
+            preventOpenOnFocus={true}
             minDate={new Date()}
           />
         </DateInputContainer>
