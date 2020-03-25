@@ -66,10 +66,9 @@ const HelpContainer = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 32px;
-  cursor: pointer;
 `;
 
-const HelpLink = styled.p`
+const HelpLink = styled.a`
   font-size: 1.3rem;
   font-weight: 800;
   color: #2997fc;
@@ -101,8 +100,8 @@ const WelcomeScreen: React.FC = () => {
   return (
     <Container>
       <Title>#yotecocino</Title>
-      <HelpContainer onClick={() => history.push("how.pdf")}>
-        <HelpLink>¿Cómo funciona?</HelpLink>
+      <HelpContainer>
+        <HelpLink href="/how.pdf">¿Cómo funciona?</HelpLink>
       </HelpContainer>
       <OptionsContainer>
         <AcceptFoodButton />
