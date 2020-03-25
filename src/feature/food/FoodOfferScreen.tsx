@@ -171,7 +171,7 @@ const FoodOfferScreen: React.FC = () => {
         <ButtonInput type="submit" value={saveText} />
 
         <Text>
-          Haz clic <Link href="/myFood">aquí</Link> si ya tienes una comida
+          Haz clic <Link onClick={() => history.push("/myFood")}>aquí</Link> si ya tienes una comida
           registrada y la quieres borrar
         </Text>
       </Container>

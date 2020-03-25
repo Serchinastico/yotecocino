@@ -2,7 +2,7 @@ import React from "react";
 import WelcomeScreen from "feature/welcome/WelcomeScreen";
 import SearchScreen from "feature/search/SearchScreen";
 import FoodOfferScreen from "feature/food/FoodOfferScreen";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import SearchResultsScreen from "feature/search/SearchResultsScreen";
 import { useQuery } from "foundation/router/UseQuery";
 import "./index.scss";
