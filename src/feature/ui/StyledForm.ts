@@ -43,7 +43,7 @@ export const FieldErrorDescription = styled.p`
 export const TextInput = styled.input`
   border: 0.5px solid rgba(0, 0, 0, 0.2);
   height: 40px;
-  width: 50%;
+  width: 100%;
   border-radius: 24px;
   padding-left: 16px;
   padding-right: 16px;

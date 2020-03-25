@@ -24,6 +24,12 @@ import { FooterLink } from "feature/ui/StyledFooter";
 import SubmitButton from "../ui/SubmitButton";
 import SecondaryButton from "../ui/SecondaryButton";
 import { Snackbar } from "@material-ui/core";
+import styled from "styled-components";
+
+const InputContainer = styled.div`
+  width: 100%;
+  display: flex;
+`;
 
 const FoodOfferScreen: React.FC = () => {
   const history = useHistory();
@@ -174,22 +180,26 @@ const FoodOfferScreen: React.FC = () => {
         <label>
           <InputTitle>¿Qué podrías cocinar?</InputTitle>
           {descriptionError}
-          <TextInput
-            type="text"
-            placeholder="Comida vegana, guisos riquisimos, ..."
-            value={description ?? ""}
-            onChange={event => setDescripiton(event.target.value)}
-          />
+          <InputContainer>
+            <TextInput
+              type="text"
+              placeholder="Comida vegana, guisos riquisimos, ..."
+              value={description ?? ""}
+              onChange={event => setDescripiton(event.target.value)}
+            />
+          </InputContainer>
         </label>
         <label>
           <InputTitle>Forma de contacto</InputTitle>
           {contactError}
-          <TextInput
-            type="text"
-            placeholder="Twitter"
-            value={contact ?? ""}
-            onChange={event => setContact(event.target.value)}
-          />
+          <InputContainer>
+            <TextInput
+              type="text"
+              placeholder="Twitter"
+              value={contact ?? ""}
+              onChange={event => setContact(event.target.value)}
+            />
+          </InputContainer>
         </label>
         <CheckboxContainer>
           {privacyPolicyError}
