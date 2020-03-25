@@ -10,7 +10,7 @@ export const Container = styled.form`
   border-radius: 32px;
   position: relative;
   padding: 32px;
-  margin: 32px auto;
+  margin: 48px auto;
   box-shadow: 0px 8px 0px rgba(0, 0, 0, 0.1);
   overflow: scroll;
 `;
