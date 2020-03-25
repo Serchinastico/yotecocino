@@ -4,6 +4,7 @@ import { FooterContainer, FooterLink, FooterContent } from "./StyledFooter";
 const Footer: React.FC = () => {
   return (
     <FooterContainer>
+      <FooterContent><b>¡Estamos de pruebas!</b></FooterContent>
       <FooterContent>
         Creado con mucho{" "}
         <span role="img" aria-label="amor">
