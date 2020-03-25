@@ -6,6 +6,8 @@ import LocationInput from "../ui/LocationInput";
 import { Coordinates } from "../../foundation/types/Coordinates";
 import {
   ButtonInput,
+  CheckboxContainer,
+  CheckboxInput,
   Container,
   DateInput,
   FieldErrorDescription,
@@ -28,6 +30,9 @@ const FoodOfferScreen: React.FC = () => {
   const [description, setDescripiton] = useState<string | null>(null);
   const [date, setDate] = useState<Date | null>(null);
   const [service, setService] = useState<Service | null>(null);
+  const [acceptPrivacyPolicy, setAcceptPrivacyPolicy] = useState<boolean>(
+    false
+  );
   const [violations, setViolations] = useState<any>({});
   const [saving, setSaving] = useState<boolean>(false);
 
@@ -52,6 +57,10 @@ const FoodOfferScreen: React.FC = () => {
     if (!service) {
       violations["description"] =
         "Necesitamos que nos digas que podrías cocinar. Si no sabes que hacer, pon 'cositas ricas'";
+    }
+    if (!acceptPrivacyPolicy) {
+      violations["privacyPolicy"] =
+        "Necesitamos que aceptes la política de privacidad";
     }
     return violations;
   };
@@ -102,6 +111,9 @@ const FoodOfferScreen: React.FC = () => {
   ) : null;
   const descriptionError = violations.description ? (
     <FieldErrorDescription>{violations.description}</FieldErrorDescription>
+  ) : null;
+  const privacyPolicyError = violations.description ? (
+    <FieldErrorDescription>{violations.privacyPolicy}</FieldErrorDescription>
   ) : null;
 
   const saveText = saving ? "Guardando" : "Cocinar";
@@ -168,6 +180,17 @@ const FoodOfferScreen: React.FC = () => {
             onChange={event => setContact(event.target.value)}
           />
         </label>
+        <CheckboxContainer>
+          {privacyPolicyError}
+          <CheckboxInput
+            type="checkbox"
+            checked={acceptPrivacyPolicy}
+            onChange={event => setAcceptPrivacyPolicy(event.target.checked)}
+          />
+          <label onClick={() => setAcceptPrivacyPolicy(!acceptPrivacyPolicy)}>
+            Acepto la <a href="privacypolicy.html">política de privacidad</a>
+          </label>
+        </CheckboxContainer>
         <ButtonInput type="submit" value={saveText} />
 
         <Text>
