@@ -8,13 +8,14 @@ import { Service } from "../../foundation/types/Service";
 import { FoodOffer } from "foundation/types/FoodOffer";
 import FindFood from "../../foundation/food/FindFood";
 import Grid from "@material-ui/core/Grid";
+import HomeButton from "feature/ui/HomeButton";
 
 const Container = styled.div`
   display: flex;
   flex-direction: row;
   width: 80%;
   height: 80%;
-  margin: 0;
+  margin: 32px 0;
   background: #fff;
   border-radius: 32px;
   box-shadow: 0px 8px 0px rgba(0, 0, 0, 0.1);
@@ -64,28 +65,31 @@ const SearchResultsScreen: React.FC<Props> = ({
   );
 
   return (
-    <Container>
-      <Grid container={true} spacing={3}>
-        <Grid item xs={12} md={6} lg={4}>
-          <ResultList
-            offers={offers}
-            isLoading={needToLoad}
-            onOfferSelected={offer => setSelectedOffer(offer)}
-            onOfferHovered={offer => setHoveredOffer(offer)}
-            selectedOffer={selectedOffer}
-          />
+    <div>
+      <HomeButton />
+      <Container>
+        <Grid container={true} spacing={3}>
+          <Grid item xs={12} md={6} lg={4}>
+            <ResultList
+              offers={offers}
+              isLoading={needToLoad}
+              onOfferSelected={offer => setSelectedOffer(offer)}
+              onOfferHovered={offer => setHoveredOffer(offer)}
+              selectedOffer={selectedOffer}
+            />
+          </Grid>
+          <Grid item xs={12} md={6} lg={8}>
+            <ResultMap
+              searchedArea={coordinates}
+              offers={offers}
+              selectedOffer={selectedOffer}
+              hoveredOffer={hoveredOffer}
+              onOfferSelected={offer => setSelectedOffer(offer)}
+            />
+          </Grid>
         </Grid>
-        <Grid item xs={12} md={6} lg={8}>
-          <ResultMap
-            searchedArea={coordinates}
-            offers={offers}
-            selectedOffer={selectedOffer}
-            hoveredOffer={hoveredOffer}
-            onOfferSelected={offer => setSelectedOffer(offer)}
-          />
-        </Grid>
-      </Grid>
-    </Container>
+      </Container>
+    </div>
   );
 };
 

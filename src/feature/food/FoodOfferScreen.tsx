@@ -25,6 +25,7 @@ import SubmitButton from "../ui/SubmitButton";
 import SecondaryButton from "../ui/SecondaryButton";
 import { Snackbar } from "@material-ui/core";
 import styled from "styled-components";
+import HomeButton from "feature/ui/HomeButton";
 
 const InputContainer = styled.div`
   width: 100%;
@@ -134,6 +135,7 @@ const FoodOfferScreen: React.FC = () => {
 
   return (
     <div>
+      <HomeButton />
       <Container onSubmit={onFormSubmit}>
         <Title>
           Completa los siguientes campos para ofrecer una comida preparada

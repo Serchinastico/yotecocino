@@ -4,20 +4,8 @@ import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import SecondaryButton from "feature/ui/SecondaryButton";
 import SubmitButton from "feature/ui/SubmitButton";
-import { HorizontalButtons } from "feature/ui/StyledForm";
-
-const Container = styled.div`
-  background: #fff;
-  box-shadow: 0px 8px 0px rgba(0, 0, 0, 0.1);
-  border-radius: 32px;
-  width: 80%;
-  max-width: 500px;
-  padding: 32px;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-`;
+import { HorizontalButtons, Container } from "feature/ui/StyledForm";
+import HomeButton from "feature/ui/HomeButton";
 
 const Congratulations = styled.p`
   text-align: center;
@@ -48,6 +36,10 @@ const Identifier = styled.p`
   text-align: center;
   color: #2997fc;
   margin: 0;
+
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+  }
 `;
 
 type CreatedFoodOfferScreenProps = {
@@ -60,31 +52,34 @@ const CreatedFoodOfferScreen: React.FC<CreatedFoodOfferScreenProps> = ({
   const history = useHistory();
 
   return (
-    <Container>
-      <Congratulations>¡Enhorabuena!</Congratulations>
-      <Description>
-        Tu ayuda ha quedado registrada. Cuando acuerdes a quién se la darás, tan
-        solo tienes que visitar <Brand>#yotecocino</Brand> para marcarla como
-        asignada.
-      </Description>
-      <br />
-      <Description>El identificador de tu comida es:</Description>
-      <Identifier>{match.params.foodId}</Identifier>
-      <Footer>
-        <HorizontalButtons>
-          <SecondaryButton
-            label="Ver comida registrada"
-            onClick={() => history.push("/myFood")}
-          />
-          <SubmitButton
-            label="Registrar otra"
-            onClick={() => history.push("/cook")}
-            loading={false}
-            disabled={false}
-          />
-        </HorizontalButtons>
-      </Footer>
-    </Container>
+    <div>
+      <HomeButton />
+      <Container>
+        <Congratulations>¡Enhorabuena!</Congratulations>
+        <Description>
+          Tu ayuda ha quedado registrada. Cuando acuerdes a quién se la darás,
+          tan solo tienes que visitar <Brand>#yotecocino</Brand> para marcarla
+          como asignada.
+        </Description>
+        <br />
+        <Description>El identificador de tu comida es:</Description>
+        <Identifier>{match.params.foodId}</Identifier>
+        <Footer>
+          <HorizontalButtons>
+            <SecondaryButton
+              label="Ver comida registrada"
+              onClick={() => history.push("/myFood")}
+            />
+            <SubmitButton
+              label="Registrar otra"
+              onClick={() => history.push("/cook")}
+              loading={false}
+              disabled={false}
+            />
+          </HorizontalButtons>
+        </Footer>
+      </Container>
+    </div>
   );
 };
 

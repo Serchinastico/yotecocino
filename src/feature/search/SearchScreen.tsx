@@ -14,6 +14,8 @@ import {
 import LocationInput from "../ui/LocationInput";
 import { Coordinates } from "../../foundation/types/Coordinates";
 import SubmitButton from "../ui/SubmitButton";
+import styled from "styled-components";
+import HomeButton from "feature/ui/HomeButton";
 
 const SearchScreen: React.FC = () => {
   const history = useHistory();
@@ -47,56 +49,59 @@ const SearchScreen: React.FC = () => {
     address !== null && date !== null && service !== null;
 
   return (
-    <Container onSubmit={onFormSubmit}>
-      <Title>
-        Completa los siguientes campos para buscar una comida preparada
-      </Title>
-      <LocationInput
-        label="¿Dónde trabajas?"
-        setLocation={setAddress}
-        showMap={false}
-        hint="Puede ser una dirección aproximada"
-      />
-      <label>
-        <InputTitle>¿Qué día será la recogida?</InputTitle>
-        <DateInputContainer>
-          <DateInput
-            placeholderText="Selecciona el día"
-            selected={date}
-            onChange={(date, event) => {
-              setDate(date);
-              event?.preventDefault();
-            }}
-            preventOpenOnFocus={true}
-            minDate={new Date()}
+    <div>
+      <HomeButton />
+      <Container onSubmit={onFormSubmit}>
+        <Title>
+          Completa los siguientes campos para buscar una comida preparada
+        </Title>
+        <LocationInput
+          label="¿Dónde trabajas?"
+          setLocation={setAddress}
+          showMap={false}
+          hint="Puede ser una dirección aproximada"
+        />
+        <label>
+          <InputTitle>¿Qué día será la recogida?</InputTitle>
+          <DateInputContainer>
+            <DateInput
+              placeholderText="Selecciona el día"
+              selected={date}
+              onChange={(date, event) => {
+                setDate(date);
+                event?.preventDefault();
+              }}
+              preventOpenOnFocus={true}
+              minDate={new Date()}
+            />
+          </DateInputContainer>
+        </label>
+        <label>
+          <InputTitle>¿Comida o cena?</InputTitle>
+          <RadioInput
+            type="radio"
+            id="lunch"
+            name="food_service"
+            value="lunch"
+            onChange={event => onServiceChange(event.target.value)}
           />
-        </DateInputContainer>
-      </label>
-      <label>
-        <InputTitle>¿Comida o cena?</InputTitle>
-        <RadioInput
-          type="radio"
-          id="lunch"
-          name="food_service"
-          value="lunch"
-          onChange={event => onServiceChange(event.target.value)}
+          <label htmlFor="lunch">Comida</label>
+          <RadioInput
+            type="radio"
+            id="dinner"
+            name="food_service"
+            value="dinner"
+            onChange={event => onServiceChange(event.target.value)}
+          />
+          <label htmlFor="dinner">Cena</label>
+        </label>
+        <SubmitButton
+          label="Buscar"
+          onSubmit={onFormSubmit}
+          disabled={!criteriaToSearchIsCompleted}
         />
-        <label htmlFor="lunch">Comida</label>
-        <RadioInput
-          type="radio"
-          id="dinner"
-          name="food_service"
-          value="dinner"
-          onChange={event => onServiceChange(event.target.value)}
-        />
-        <label htmlFor="dinner">Cena</label>
-      </label>
-      <SubmitButton
-        label="Buscar"
-        onSubmit={onFormSubmit}
-        disabled={!criteriaToSearchIsCompleted}
-      />
-    </Container>
+      </Container>
+    </div>
   );
 };
 

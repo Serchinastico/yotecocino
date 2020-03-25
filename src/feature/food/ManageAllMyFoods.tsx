@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import {
   Container,
@@ -20,6 +20,7 @@ import SubmitButton from "../ui/SubmitButton";
 import SecondaryButton from "feature/ui/SecondaryButton";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
+import HomeButton from "feature/ui/HomeButton";
 
 const InputContainer = styled.div`
   width: 100%;
@@ -38,7 +39,7 @@ const ManageAllMyFoods: React.FC = () => {
   const [showError, setShowError] = useState(false);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  React.useEffect(() => {
+  useEffect(() => {
     if (needToLoadMyFoods) {
       findAllMyFood.execute().then(setOfferedFood);
       setNeedToLoadMyFoods(false);
@@ -88,50 +89,54 @@ const ManageAllMyFoods: React.FC = () => {
   const nothingToBeDeleted = !foodId;
 
   return (
-    <Container onSubmit={deleteFood}>
-      <Title>Introduce el identificador de tu comida registrada</Title>
-      {list}
-      <label>
-        <InputTitle>O introducir el identificador de tu comida:</InputTitle>
-        <InputContainer>
-          <TextInput
-            type="text"
-            placeholder="e.g. mbqrK6xagwsjbzysVulv"
-            value={foodId ?? ""}
-            onChange={event => setFoodId(event.target.value)}
+    <div>
+      <HomeButton />
+      <Container onSubmit={deleteFood}>
+        <Title>Introduce el identificador de tu comida registrada</Title>
+        {list}
+        <label>
+          <InputTitle>O introducir el identificador de tu comida:</InputTitle>
+          <InputContainer>
+            <TextInput
+              type="text"
+              placeholder="e.g. mbqrK6xagwsjbzysVulv"
+              value={foodId ?? ""}
+              onChange={event => setFoodId(event.target.value)}
+            />
+          </InputContainer>
+        </label>
+        <Warning>
+          Recuerda que este paso eliminará de forma permanente la comida
+          registrada. Para hacer modificaciones, tendrás que registrar una
+          nueva.
+        </Warning>
+        <br />
+        <HorizontalButtons>
+          <SecondaryButton
+            label="Registrar comida"
+            onClick={() => history.push("/cook")}
           />
-        </InputContainer>
-      </label>
-      <Warning>
-        Recuerda que este paso eliminará de forma permanente la comida
-        registrada. Para hacer modificaciones, tendrás que registrar una nueva.
-      </Warning>
-      <br />
-      <HorizontalButtons>
-        <SecondaryButton
-          label="Registrar comida"
-          onClick={() => history.push("/cook")}
-        />
-        <SubmitButton
-          label="Eliminar"
-          loading={saving}
-          disabled={nothingToBeDeleted}
-          onSubmit={deleteFood}
-        />
-      </HorizontalButtons>
-      <Snackbar
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "center"
-        }}
-        open={showError}
-        autoHideDuration={4000}
-      >
-        <Alert onClose={() => setShowError(false)} severity="error">
-          ¡Oh no! Algo ha ido mal. Vuelve a intentarlo en un rato.
-        </Alert>
-      </Snackbar>
-    </Container>
+          <SubmitButton
+            label="Eliminar"
+            loading={saving}
+            disabled={nothingToBeDeleted}
+            onSubmit={deleteFood}
+          />
+        </HorizontalButtons>
+        <Snackbar
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "center"
+          }}
+          open={showError}
+          autoHideDuration={4000}
+        >
+          <Alert onClose={() => setShowError(false)} severity="error">
+            ¡Oh no! Algo ha ido mal. Vuelve a intentarlo en un rato.
+          </Alert>
+        </Snackbar>
+      </Container>
+    </div>
   );
 };
 
