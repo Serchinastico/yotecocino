@@ -12,6 +12,8 @@ import {
 import FindOfferedFoods from "../../foundation/food/FindOfferedFoods";
 import {FoodOffer} from "../../foundation/types/FoodOffer";
 import RemoveFood from "../../foundation/food/RemoveFood";
+import {Snackbar} from "@material-ui/core";
+import Alert from "@material-ui/lab/Alert";
 import SubmitButton from "../ui/SubmitButton";
 
 const ManageAllMyFoods: React.FC = () => {
@@ -22,6 +24,7 @@ const ManageAllMyFoods: React.FC = () => {
   const [offeredFood, setOfferedFood] = useState<FoodOffer[]>([]);
   const [foodId, setFoodId] = useState<string | null>(null);
   const [needToLoadMyFoods, setNeedToLoadMyFoods] = useState<boolean>(true);
+  const [showError, setShowError] = useState(false);
 
   React.useEffect(() => {
     if (needToLoadMyFoods) {
@@ -33,16 +36,19 @@ const ManageAllMyFoods: React.FC = () => {
   const deleteFood = (event: any) => {
     event.preventDefault();
     setSaving(true);
-    removeFood.execute(foodId || "").then(() => {
+    removeFood.execute(foodId || "").then(success => {
       setSaving(false);
-      setFoodId(null);
-      setNeedToLoadMyFoods(true);
+      if (!success) {
+        setShowError(true)
+      } else {
+        setFoodId(null);
+        setNeedToLoadMyFoods(true);
+      }
     }).catch(() => {
-      setSaving(false);
-      setFoodId(null);
+        setSaving(false);
+        setShowError(true)
     });
   }
-
   const createdFoodList = (<div>
     <Text>
       O puedes elegir uno de los que ya has creado en este dispositivo:
@@ -83,6 +89,18 @@ const ManageAllMyFoods: React.FC = () => {
       loading={saving}
       disabled={nothingToBeDeleted}
       onSubmit={deleteFood}/>
+    <Snackbar
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'center',
+      }}
+      open={showError}
+      autoHideDuration={4000}
+    >
+      <Alert onClose={() => setShowError(false)} severity="error">
+        ¡Oh no! Algo ha ido mal. Vuelve a intentarlo en un rato.
+      </Alert>
+    </Snackbar>
   </Container>
 }
 
