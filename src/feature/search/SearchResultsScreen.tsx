@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import "react-datepicker/dist/react-datepicker.css";
 import { Coordinates } from "foundation/types/Coordinates";
@@ -51,7 +51,7 @@ const SearchResultsScreen: React.FC<Props> = ({
   const [offers, setOffers] = useState<FoodOffer[]>([]);
   const [needToLoad, setNeedToLoad] = useState<boolean>(true);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (needToLoad) {
       findFood
         .execute({
@@ -65,8 +65,6 @@ const SearchResultsScreen: React.FC<Props> = ({
       setNeedToLoad(false);
     }
   }, [needToLoad, findFood, day, service, coordinates]);
-
-  console.log(offers);
 
   const [selectedOffer, setSelectedOffer] = useState<FoodOffer | undefined>(
     undefined

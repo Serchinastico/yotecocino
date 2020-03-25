@@ -16,7 +16,7 @@ export default class FindFood {
       6
     );
     const neighborGeohashes = Geohash.neighbours(geohash);
-    const neighbors = [
+    const allGeohashes = [
       neighborGeohashes.nw,
       neighborGeohashes.n,
       neighborGeohashes.ne,
@@ -30,8 +30,9 @@ export default class FindFood {
     const service = criteria.service.toString();
 
     const response = await axios.get(
-      `https://europe-west1-yotecocino-d6292.cloudfunctions.net/offer?geohashes=${neighbors}&day=${day}&service=${service}`
+      `https://europe-west1-yotecocino-d6292.cloudfunctions.net/offer?geohashes=${allGeohashes}&day=${day}&service=${service}`
     );
-    return response.data;
+
+    return response.data ?? [];
   }
 }

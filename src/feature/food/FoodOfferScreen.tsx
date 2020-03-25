@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 import { Service } from "foundation/types/Service";
 import LocationInput from "../ui/LocationInput";
 import { Coordinates } from "../../foundation/types/Coordinates";
+import Alert from "@material-ui/lab/Alert";
 import {
   CheckboxContainer,
   CheckboxInput,
@@ -22,6 +23,7 @@ import SaveFood from "../../foundation/food/SaveFood";
 import { useHistory } from "react-router-dom";
 import { FooterLink } from "feature/ui/StyledFooter";
 import SubmitButton from "../ui/SubmitButton";
+import { Snackbar } from "@material-ui/core";
 
 const FoodOfferScreen: React.FC = () => {
   const history = useHistory();
@@ -35,6 +37,7 @@ const FoodOfferScreen: React.FC = () => {
     false
   );
   const [violations, setViolations] = useState<any>({});
+  const [showError, setShowError] = React.useState(false);
   const [saving, setSaving] = useState<boolean>(false);
 
   const validateForm = () => {
@@ -83,7 +86,11 @@ const FoodOfferScreen: React.FC = () => {
 
       saveFood.execute(foodOffer).then(savedFood => {
         setSaving(false);
-        history.push(`/food/${savedFood.id}`);
+        if (savedFood === undefined) {
+          setShowError(true);
+        } else {
+          history.push(`/food/${savedFood!!.id}`);
+        }
       });
     }
   };
@@ -201,6 +208,19 @@ const FoodOfferScreen: React.FC = () => {
           Haz clic <Link onClick={() => history.push("/myFood")}>aquí</Link> si ya tienes una comida
           registrada y la quieres borrar
         </Text>
+
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center',
+          }}
+          open={showError}
+          autoHideDuration={4000}
+        >
+          <Alert onClose={() => setShowError(false)} severity="error">
+            ¡Oh no! Algo ha ido mal. Vuelve a intentarlo en un rato.
+          </Alert>
+        </Snackbar>
       </Container>
     </div>
   );
