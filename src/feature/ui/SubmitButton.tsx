@@ -38,12 +38,13 @@ const styles = {
 
 const SubmitButton: React.FC<SubmitButtonProps> = (props) => {
   const disabled = props.disabled || false;
-  const {classes, onSubmit} = props;
+  const {classes, loading, onSubmit} = props;
+  const submit = loading ? () => {} : onSubmit;
 
-  const buttonContent = props.loading ? <CircularProgress className={classes.progressStyle}/> : props.label;
+  const buttonContent = loading ? <CircularProgress className={classes.progressStyle}/> : props.label;
   return <Button
     className={classes.activeButton}
-    onSubmit={onSubmit}
+    onSubmit={submit}
     type="submit"
     disabled={disabled}>
     {buttonContent}
