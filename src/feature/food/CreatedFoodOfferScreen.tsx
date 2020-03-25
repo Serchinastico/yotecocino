@@ -6,6 +6,8 @@ import SecondaryButton from "feature/ui/SecondaryButton";
 import SubmitButton from "feature/ui/SubmitButton";
 import { HorizontalButtons, Container } from "feature/ui/StyledForm";
 import HomeButton from "feature/ui/HomeButton";
+import ShareInTwitterButton from "../ui/ShareInTwitterButton";
+import config from "../../foundation/Config";
 
 const Congratulations = styled.p`
   text-align: center;
@@ -42,6 +44,9 @@ const Identifier = styled.p`
   }
 `;
 
+const Centered = styled.div`
+  margin: 20px auto;
+`;
 type CreatedFoodOfferScreenProps = {
   match?: any;
 };
@@ -51,6 +56,8 @@ const CreatedFoodOfferScreen: React.FC<CreatedFoodOfferScreenProps> = ({
 }) => {
   const history = useHistory();
 
+  const shareText =
+    "¡Acabo de registrar un tupper a través de yotecocino.com! La iniciativa que pone en contacto a sanitarios y otros profesionales en primera línea con cocinillas ¡Únete tú también y pon tu granito de arena!";
   return (
     <div>
       <HomeButton />
@@ -64,6 +71,15 @@ const CreatedFoodOfferScreen: React.FC<CreatedFoodOfferScreenProps> = ({
         <br />
         <Description>El identificador de tu comida es:</Description>
         <Identifier>{match.params.foodId}</Identifier>
+
+        <Centered>
+          <ShareInTwitterButton
+            text={shareText}
+            label={"compártelo"}
+            hashtag={config.hashtag}
+            url={config.url}
+          />
+        </Centered>
         <Footer>
           <HorizontalButtons>
             <SecondaryButton

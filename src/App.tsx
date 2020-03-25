@@ -41,6 +41,7 @@ const App: React.FC = () => {
             coordinates={parseLocation(query.get("location") ?? "0,0")}
             day={dayjs(query.get("day") ?? "").toDate()}
             service={parseService(query.get("service") ?? "")}
+            address={decodeURI(query.get("address") ?? "")}
           />
         </Route>
         <Route exact path="/search">

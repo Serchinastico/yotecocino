@@ -4,6 +4,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import { FoodOffer } from "foundation/types/FoodOffer";
 import ResultRow from "./ResultRow";
 import { CircularProgress, withStyles } from "@material-ui/core";
+import ShareInTwitterButton from "../../ui/ShareInTwitterButton";
+import config from "../../../foundation/Config";
 
 const Container = styled.div`
   display: flex;
@@ -18,6 +20,7 @@ interface Props {
   onOfferSelected: (offer: FoodOffer) => void;
   onOfferHovered: (offer?: FoodOffer) => void;
   classes: any;
+  address?: string;
 }
 
 const NotFoundIllustration = styled.img`
@@ -57,7 +60,8 @@ const ResultList: React.FC<Props> = ({
   selectedOffer,
   onOfferSelected,
   onOfferHovered,
-  classes
+  classes,
+  address
 }) => {
   const Loading = () => {
     return (
@@ -68,12 +72,20 @@ const ResultList: React.FC<Props> = ({
   };
 
   const EmptyCase = () => {
+    const message =
+      "¡Acabo de solicitar un tupper a través de yotecocino.com! La iniciativa que pone en contacto a sanitarios y otros profesionales en primera línea con cocinillas.";
     return (
       <Fragment>
         <NotFoundIllustration src={"img/il_empty.svg"} />
         <NoFoundText>
           Ooh :(, parece que no hay nadie cocinando en tu zona.
         </NoFoundText>
+        <ShareInTwitterButton
+          label="Busca a tu cocinillas :)"
+          text={message}
+          hashtag={config.hashtag}
+          url={config.url}
+        />
       </Fragment>
     );
   };

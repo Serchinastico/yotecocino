@@ -12,23 +12,24 @@ import {
   Title
 } from "../ui/StyledForm";
 import LocationInput from "../ui/LocationInput";
-import { Coordinates } from "../../foundation/types/Coordinates";
 import SubmitButton from "../ui/SubmitButton";
-import styled from "styled-components";
 import HomeButton from "feature/ui/HomeButton";
+import {PlaceSearchResult} from "../../foundation/places/ConvertLocationToCoords";
 
 const SearchScreen: React.FC = () => {
   const history = useHistory();
-  const [address, setAddress] = useState<Coordinates | null>(null);
+  const [address, setAddress] = useState<PlaceSearchResult | null>(null);
   const [date, setDate] = useState<Date | null>(null);
   const [service, setService] = useState<Service | null>(null);
 
   const onFormSubmit = () => {
+    console.log("llega");
     const latitude = address?.latitude;
     const longitude = address?.longitude;
+    const rawAddress = address?.address || "";
     const formattedDate = dayjs(date ?? Date()).format("YYYY-MM-DD");
     history.push(
-      `/search/results?location=${latitude},${longitude}&day=${formattedDate}&service=${service}`
+      `/search/results?location=${latitude},${longitude}&day=${formattedDate}&service=${service}&address=${encodeURI(rawAddress)}`
     );
   };
 
