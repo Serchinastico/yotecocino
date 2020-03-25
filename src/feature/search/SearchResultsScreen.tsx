@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import styled from "styled-components";
 import "react-datepicker/dist/react-datepicker.css";
-import { Coordinates } from "foundation/types/Coordinates";
+import {Coordinates} from "foundation/types/Coordinates";
 import ResultList from "./components/ResultList";
 import ResultMap from "./components/ResultMap";
-import { Service } from "../../foundation/types/Service";
-import { FoodOffer } from "foundation/types/FoodOffer";
+import {Service} from "../../foundation/types/Service";
+import {FoodOffer} from "foundation/types/FoodOffer";
 import FindFood from "../../foundation/food/FindFood";
+import Grid from '@material-ui/core/Grid';
 
 const Container = styled.div`
   display: flex;
@@ -24,18 +25,6 @@ const Container = styled.div`
   transform: translate(-50%, -50%);
 `;
 
-const ListContainer = styled.div`
-  height: 100%;
-  overflow-y: auto;
-  margin-right: 16px;
-  flex: 1;
-`;
-
-const MapContainer = styled.div`
-  margin-left: 16px;
-  flex: 2;
-`;
-
 interface Props {
   coordinates: Coordinates;
   day: Date;
@@ -43,10 +32,10 @@ interface Props {
 }
 
 const SearchResultsScreen: React.FC<Props> = ({
-  coordinates,
-  day,
-  service
-}) => {
+                                                coordinates,
+                                                day,
+                                                service
+                                              }) => {
   const findFood = new FindFood();
   const [offers, setOffers] = useState<FoodOffer[]>([]);
   const [needToLoad, setNeedToLoad] = useState<boolean>(true);
@@ -73,28 +62,27 @@ const SearchResultsScreen: React.FC<Props> = ({
     undefined
   );
 
-  let map =
-    offers.length === 0 ? null : (
-      <MapContainer>
-        <ResultMap
-          offers={offers}
-          selectedOffer={selectedOffer}
-          hoveredOffer={hoveredOffer}
-          onOfferSelected={offer => setSelectedOffer(offer)}
-        />
-      </MapContainer>
-    );
   return (
     <Container>
-      <ListContainer>
-        <ResultList
-          offers={offers}
-          onOfferSelected={offer => setSelectedOffer(offer)}
-          onOfferHovered={offer => setHoveredOffer(offer)}
-          selectedOffer={selectedOffer}
-        />
-      </ListContainer>
-      {map}
+      <Grid container={true} spacing={3}>
+        <Grid item xs={12} md={6} lg={4}>
+          <ResultList
+            offers={offers}
+            onOfferSelected={offer => setSelectedOffer(offer)}
+            onOfferHovered={offer => setHoveredOffer(offer)}
+            selectedOffer={selectedOffer}
+          />
+        </Grid>
+        <Grid item xs={12} md={6} lg={8}>
+          <ResultMap
+            searchedArea={coordinates}
+            offers={offers}
+            selectedOffer={selectedOffer}
+            hoveredOffer={hoveredOffer}
+            onOfferSelected={offer => setSelectedOffer(offer)}
+          />
+        </Grid>
+      </Grid>
     </Container>
   );
 };
