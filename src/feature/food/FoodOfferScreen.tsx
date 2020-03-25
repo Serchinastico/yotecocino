@@ -5,7 +5,6 @@ import { Service } from "foundation/types/Service";
 import LocationInput from "../ui/LocationInput";
 import { Coordinates } from "../../foundation/types/Coordinates";
 import {
-  ButtonInput,
   Container,
   DateInput,
   FieldErrorDescription,
@@ -19,6 +18,7 @@ import {
 import { FoodOffer } from "../../foundation/types/FoodOffer";
 import SaveFood from "../../foundation/food/SaveFood";
 import { useHistory } from "react-router-dom";
+import SubmitButton from "../ui/SubmitButton";
 
 const FoodOfferScreen: React.FC = () => {
   const history = useHistory();
@@ -91,6 +91,8 @@ const FoodOfferScreen: React.FC = () => {
     }
   };
 
+  const containsValidData = Object.keys(validateForm()).length === 0;
+
   const dateError = violations.date ? (
     <FieldErrorDescription>{violations.date}</FieldErrorDescription>
   ) : null;
@@ -103,8 +105,6 @@ const FoodOfferScreen: React.FC = () => {
   const descriptionError = violations.description ? (
     <FieldErrorDescription>{violations.description}</FieldErrorDescription>
   ) : null;
-
-  const saveText = saving ? "Guardando" : "Cocinar";
 
   return (
     <div>
@@ -168,7 +168,7 @@ const FoodOfferScreen: React.FC = () => {
             onChange={event => setContact(event.target.value)}
           />
         </label>
-        <ButtonInput type="submit" value={saveText} />
+        <SubmitButton label="Cocinar" onSubmit={onFormSubmit} loading={saving} disabled={!containsValidData}/>
 
         <Text>
           Haz clic <Link href="/myFood">aquí</Link> si ya tienes una comida
