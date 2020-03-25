@@ -9,6 +9,7 @@ const Icon = styled.img`
   top: 8px;
   left: 50%;
   transform: translate(-50%, 0%);
+  cursor: pointer;
 `;
 
 const HomeButton = () => {
