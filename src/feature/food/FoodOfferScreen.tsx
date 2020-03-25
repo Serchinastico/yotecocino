@@ -21,6 +21,7 @@ import {
 import { FoodOffer } from "../../foundation/types/FoodOffer";
 import SaveFood from "../../foundation/food/SaveFood";
 import { useHistory } from "react-router-dom";
+import { FooterLink } from "feature/ui/StyledFooter";
 
 const FoodOfferScreen: React.FC = () => {
   const history = useHistory();
@@ -188,7 +189,10 @@ const FoodOfferScreen: React.FC = () => {
             onChange={event => setAcceptPrivacyPolicy(event.target.checked)}
           />
           <label onClick={() => setAcceptPrivacyPolicy(!acceptPrivacyPolicy)}>
-            Acepto la <a href="privacypolicy.html">política de privacidad</a>
+            Acepto la{" "}
+            <FooterLink href="privacypolicy.html">
+              política de privacidad
+            </FooterLink>
           </label>
         </CheckboxContainer>
         <ButtonInput type="submit" value={saveText} />
