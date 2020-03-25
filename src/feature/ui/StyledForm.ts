@@ -112,12 +112,27 @@ export const Link = styled.a`
 export const MyCreatedFoodItem = styled.p`
   font-weight: lighter;
   padding: 0;
+  padding-left: 24px;
   margin: 0;
-  margin-bottom: 4px;
-  margin-top: 16px;
-  padding-bottom: 10px;
+  padding-top: 12px;
+  padding-bottom: 12px;
   cursor: pointer;
   &:not(:last-child) {
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   }
+`;
+
+export const Warning = styled.p`
+    font-weight: 500;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 4px;
+    margin-top: 16px;
+    text-align: center;
+`;
+
+export const OptionsContainer = styled.div`
+    margin-top: 16px;
+    border: 0.5px solid rgba(0, 0, 0, 0.2);
+    border-radius: 16px;
 `;

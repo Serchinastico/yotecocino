@@ -4,10 +4,11 @@ import {
   Container,
   MyCreatedFoodItem,
   InputTitle,
+  OptionsContainer,
   Text,
   TextInput,
   Title,
-
+  Warning
 } from "../ui/StyledForm";
 import FindOfferedFoods from "../../foundation/food/FindOfferedFoods";
 import {FoodOffer} from "../../foundation/types/FoodOffer";
@@ -26,12 +27,13 @@ const ManageAllMyFoods: React.FC = () => {
   const [needToLoadMyFoods, setNeedToLoadMyFoods] = useState<boolean>(true);
   const [showError, setShowError] = useState(false);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   React.useEffect(() => {
     if (needToLoadMyFoods) {
       findAllMyFood.execute().then(setOfferedFood);
       setNeedToLoadMyFoods(false);
     }
-  });
+  }, [needToLoadMyFoods, findAllMyFood]);
 
   const deleteFood = (event: any) => {
     event.preventDefault();
@@ -39,69 +41,77 @@ const ManageAllMyFoods: React.FC = () => {
     removeFood.execute(foodId || "").then(success => {
       setSaving(false);
       if (!success) {
-        setShowError(true)
+        setShowError(true);
       } else {
         setFoodId(null);
         setNeedToLoadMyFoods(true);
       }
     }).catch(() => {
         setSaving(false);
-        setShowError(true)
+        setFoodId(null);
+        setShowError(true);
     });
-  }
-  const createdFoodList = (<div>
-    <Text>
-      O puedes elegir uno de los que ya has creado en este dispositivo:
-    </Text>
+  };
+
+  const createdFoodList = (
     <div>
-      {offeredFood.map((food) => {
-        const onClick = () => {
-          setFoodId(food.id || "");
-        };
-        return <MyCreatedFoodItem onClick={onClick}>{food.food}</MyCreatedFoodItem>
-      })}
+      <Text>
+        Puedes elegir uno de los que ya has creado en este dispositivo:
+      </Text>
+      <OptionsContainer>
+        {offeredFood.map(food => {
+          const onClick = () => {
+            setFoodId(food.id || "");
+          };
+          return (
+            <MyCreatedFoodItem onClick={onClick}>{food.food}</MyCreatedFoodItem>
+          );
+        })}
+      </OptionsContainer>
     </div>
-  </div>);
+  );
 
   const list = offeredFood.length > 0 ? createdFoodList : null;
   const nothingToBeDeleted = !foodId;
 
-  return <Container onSubmit={deleteFood}>
-    <Title>
-      Introduce el identificador de tu comida registrada
-    </Title>
-    <label>
-      <InputTitle>Identificador</InputTitle>
-      <TextInput
-        type="text"
-        placeholder="Ejemplo Cactus"
-        value={foodId ?? ""}
-        onChange={event => setFoodId(event.target.value)}
+  return (
+    <Container onSubmit={deleteFood}>
+      <Title>Introduce el identificador de tu comida registrada</Title>
+      {list}
+      <label>
+        <InputTitle>O introducir el identificador de tu comida:</InputTitle>
+        <TextInput
+          type="text"
+          placeholder="e.g. mbqrK6xagwsjbzysVulv"
+          value={foodId ?? ""}
+          onChange={event => setFoodId(event.target.value)}
+        />
+      </label>
+      <Warning>
+        Recuerda que este paso eliminará de forma permanente la comida
+        registrada. Para hacer modificaciones, tendrás que registrar una nueva.
+      </Warning>
+      <br/>
+      <SubmitButton
+        label="Eliminar"
+        loading={saving}
+        disabled={nothingToBeDeleted}
+        onSubmit={deleteFood}
       />
-    </label>
-    {list}
-    <Text>
-      Recuerda que este paso eliminará de forma permanente la comida registrada. Para hacer modificaciones,
-      tendrás que registrar una nueva.
-    </Text>
-    <SubmitButton
-      label="Eliminar"
-      loading={saving}
-      disabled={nothingToBeDeleted}
-      onSubmit={deleteFood}/>
-    <Snackbar
-      anchorOrigin={{
-        vertical: 'bottom',
-        horizontal: 'center',
-      }}
-      open={showError}
-      autoHideDuration={4000}
-    >
-      <Alert onClose={() => setShowError(false)} severity="error">
-        ¡Oh no! Algo ha ido mal. Vuelve a intentarlo en un rato.
-      </Alert>
-    </Snackbar>
-  </Container>
-}
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        open={showError}
+        autoHideDuration={4000}
+      >
+        <Alert onClose={() => setShowError(false)} severity="error">
+          ¡Oh no! Algo ha ido mal. Vuelve a intentarlo en un rato.
+        </Alert>
+      </Snackbar>
+    </Container>
+  );
+};
 
 export default ManageAllMyFoods;
