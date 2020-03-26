@@ -64,9 +64,9 @@ const CreatedFoodOfferScreen: React.FC<CreatedFoodOfferScreenProps> = ({
       <Container>
         <Congratulations>¡Enhorabuena!</Congratulations>
         <Description>
-          Tu ayuda ha quedado registrada. Cuando acuerdes a quién se la darás,
-          tan solo tienes que visitar <Brand>#yotecocino</Brand> para marcarla
-          como asignada.
+          Tu ayuda ha quedado registrada. Ahora solo tienes que esperar a que un
+          sanitario o algún otro profesional de tu zona te contacten para
+          concretar los detalles.
         </Description>
         <br />
         <Description>El identificador de tu comida es:</Description>
@@ -75,7 +75,7 @@ const CreatedFoodOfferScreen: React.FC<CreatedFoodOfferScreenProps> = ({
         <Centered>
           <ShareInTwitterButton
             text={shareText}
-            label={"compártelo"}
+            label={"Compártelo"}
             hashtag={config.hashtag}
             url={config.url}
           />
