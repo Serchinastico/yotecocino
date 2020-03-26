@@ -48,6 +48,12 @@ const LoadingContainer = styled.div`
   align-items: center;
 `;
 
+const ResultsDescription = styled.p`
+  margin: 0;
+  font-weight: 600;
+  margin-left: 24px;
+`;
+
 const styles = {
   progressStyle: {
     color: "#E27861"
@@ -96,7 +102,7 @@ const ResultList: React.FC<Props> = ({
   } else if (offers.length === 0) {
     results = <EmptyCase />;
   } else {
-    results = offers.map(offer => (
+    const list = offers.map(offer => (
       <ResultRow
         key={offer.food}
         offer={offer}
@@ -105,6 +111,15 @@ const ResultList: React.FC<Props> = ({
         isSelected={offer.food === selectedOffer?.food}
       />
     ));
+    results = (
+      <div>
+        <ResultsDescription>
+          ¡Estos cocinillas están por tu zona! Anímate a contactar a alguno de
+          ellos para acordar la entrega.
+        </ResultsDescription>
+        {list}
+      </div>
+    );
   }
 
   return <Container>{results}</Container>;

@@ -14,19 +14,11 @@ const Container = styled.div`
   flex-direction: row;
   width: 80%;
   height: 80%;
-  margin: 16px 0;
+  margin: 64px auto;
   background: #fff;
   border-radius: 32px;
   box-shadow: 0px 8px 0px rgba(0, 0, 0, 0.1);
   padding: 32px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-  @media (max-width: 960px) {
-    margin: 24px 0;
-  }
 `;
 
 interface Props {
