@@ -27,11 +27,6 @@ const Footer = styled.div`
   margin-top: 16px;
 `;
 
-const Brand = styled.span`
-  font-size: 24px;
-  font-family: "Pacifico", cursive;
-`;
-
 const Identifier = styled.p`
   font-size: 2rem;
   font-family: "Pacifico", cursive;
