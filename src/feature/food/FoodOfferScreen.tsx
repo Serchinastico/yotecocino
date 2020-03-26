@@ -133,7 +133,7 @@ const FoodOfferScreen: React.FC = () => {
           <InputContainer>
             <TextInput
               type="text"
-              placeholder="Twitter, Instagram, Whatsapp, ..."
+              placeholder="Introduce usuario de Twitter, nº de teléfono o email"
               value={contact ?? ""}
               onChange={event => setContact(event.target.value)}
             />
