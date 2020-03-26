@@ -12,7 +12,6 @@ export const Container = styled.form`
   padding: 32px;
   margin: 64px auto;
   box-shadow: 0px 8px 0px rgba(0, 0, 0, 0.1);
-  overflow: scroll;
 `;
 
 export const InputTitle = styled.p`

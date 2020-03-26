@@ -45,7 +45,7 @@ const ResultMapMarkers: React.FC<Props> = ({
 
     return (
       <Marker
-        key={offer.food}
+        key={`${offer.food}|${offer.contact}|${offer.coordinates.latitude}|${offer.coordinates.longitude}`}
         longitude={offer.coordinates.longitude}
         latitude={offer.coordinates.latitude}
         offsetTop={-32}

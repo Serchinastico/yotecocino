@@ -12,7 +12,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
-  overflow: scroll;
   min-height: 450px;
 
   @media (max-width: 960px) {
@@ -27,6 +26,7 @@ const Map = styled(ReactMapGL)`
 interface Props {
   searchedArea: Coordinates;
   offers: FoodOffer[];
+  isLoading: boolean;
   selectedOffer?: FoodOffer;
   hoveredOffer?: FoodOffer;
   onOfferSelected: (offer: FoodOffer) => void;
@@ -35,6 +35,7 @@ interface Props {
 const ResultMap: React.FC<Props> = ({
   searchedArea,
   offers,
+  isLoading,
   selectedOffer,
   hoveredOffer,
   onOfferSelected
@@ -57,26 +58,31 @@ const ResultMap: React.FC<Props> = ({
 
   const [viewport, setViewport] = useState<Coordinates | undefined>(undefined);
 
-  let locationViewPort =
-    allCoordinates.length === 1
+  const getViewport = () => {
+    return allCoordinates.length === 1
       ? {
           ...allCoordinates[0],
           zoom: 15
         }
-      : new WebMercatorViewport({ width: 800, height: 600 }).fitBounds(
+      : new WebMercatorViewport({
+          width: 600,
+          height: 600
+        }).fitBounds(
           [
-            [
-              boundingBox.swCoordinate.longitude,
-              boundingBox.swCoordinate.latitude
-            ],
             [
               boundingBox.neCoordinate.longitude,
               boundingBox.neCoordinate.latitude
+            ],
+            [
+              boundingBox.swCoordinate.longitude,
+              boundingBox.swCoordinate.latitude
             ]
           ],
-          { padding: 150 }
+          { padding: 50 }
         );
-  const mapViewport = viewport !== undefined ? viewport : locationViewPort;
+  };
+
+  const mapViewport = viewport !== undefined ? viewport : getViewport();
 
   let resultMapMarkers = noOffersFound ? null : (
     <ResultMapMarkers
@@ -86,20 +92,21 @@ const ResultMap: React.FC<Props> = ({
       onOfferSelected={onOfferSelected}
     />
   );
-  return (
-    <Container>
-      <Map
-        {...auth}
-        {...mapConfig}
-        {...mapViewport}
-        width="100%"
-        height="100%"
-        onViewportChange={props => setViewport(props)}
-      >
-        {resultMapMarkers}
-      </Map>
-    </Container>
-  );
+
+  const map = !isLoading ? (
+    <Map
+      {...auth}
+      {...mapConfig}
+      {...mapViewport}
+      width="100%"
+      height="100%"
+      onViewportChange={props => setViewport(props)}
+    >
+      {resultMapMarkers}
+    </Map>
+  ) : null;
+
+  return <Container>{map}</Container>;
 };
 
 export default ResultMap;

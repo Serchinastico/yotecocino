@@ -159,7 +159,7 @@ const FoodOfferScreen: React.FC = () => {
             onClick={() => history.push("/myFood")}
           />
           <SubmitButton
-            label="Registrar"
+            label="Finalizar"
             onSubmit={onFormSubmit}
             loading={saving}
             disabled={!containsValidData}

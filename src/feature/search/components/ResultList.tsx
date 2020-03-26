@@ -104,11 +104,16 @@ const ResultList: React.FC<Props> = ({
   } else {
     const list = offers.map(offer => (
       <ResultRow
-        key={offer.food}
+        key={`${offer.food}|${offer.contact}|${offer.coordinates.latitude}|${offer.coordinates.longitude}`}
         offer={offer}
         onOfferSelected={onOfferSelected}
         onOfferHovered={onOfferHovered}
-        isSelected={offer.food === selectedOffer?.food}
+        isSelected={
+          selectedOffer?.food === offer.food &&
+          selectedOffer?.contact === offer.contact &&
+          selectedOffer?.coordinates.latitude === offer.coordinates.latitude &&
+          selectedOffer?.coordinates.longitude === offer.coordinates.longitude
+        }
       />
     ));
     results = (

@@ -71,6 +71,7 @@ const SearchResultsScreen: React.FC<Props> = ({ coordinates, address }) => {
             <ResultMap
               searchedArea={coordinates}
               offers={offers}
+              isLoading={needToLoad}
               selectedOffer={selectedOffer}
               hoveredOffer={hoveredOffer}
               onOfferSelected={offer => setSelectedOffer(offer)}
