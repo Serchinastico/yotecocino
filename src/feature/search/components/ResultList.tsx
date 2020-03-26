@@ -87,7 +87,7 @@ const ResultList: React.FC<Props> = ({
           Ooh :(, parece que no hay nadie cocinando en tu zona.
         </NoFoundText>
         <ShareInTwitterButton
-          label="Busca a tu cocinillas :)"
+          label="Busca a tu cocinillas"
           text={message}
           hashtag={config.hashtag}
           url={config.url}
