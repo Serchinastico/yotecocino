@@ -118,7 +118,7 @@ const FoodOfferScreen: React.FC = () => {
           <InputContainer>
             <TextInput
               type="text"
-              placeholder="Comida vegana, guisos riquisimos, ..."
+              placeholder="Comida vegana, guisos riquisimos, platos sin gluten..."
               value={description ?? ""}
               onChange={event => setDescripiton(event.target.value)}
             />
@@ -133,7 +133,7 @@ const FoodOfferScreen: React.FC = () => {
           <InputContainer>
             <TextInput
               type="text"
-              placeholder="Introduce usuario de Twitter, nº de teléfono o email"
+              placeholder="Usuario de Twitter o nº de teléfono"
               value={contact ?? ""}
               onChange={event => setContact(event.target.value)}
             />
