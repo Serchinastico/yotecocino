@@ -21,7 +21,6 @@ import SecondaryButton from "feature/ui/SecondaryButton";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import HomeButton from "feature/ui/HomeButton";
-import { Service } from "foundation/types/Service";
 
 const InputContainer = styled.div`
   width: 100%;
@@ -78,10 +77,9 @@ const ManageAllMyFoods: React.FC = () => {
           const onClick = () => {
             setFoodId(food.id || "");
           };
-          const service = food.service === Service.lunch ? "Comida" : "Cena";
           return (
             <MyCreatedFoodItem onClick={onClick}>
-              <b>{food.food}</b> • <i>{food.date}</i> • {service}
+              <b>{food.food}</b>
             </MyCreatedFoodItem>
           );
         })}
@@ -99,7 +97,9 @@ const ManageAllMyFoods: React.FC = () => {
         <Title>Introduce el identificador de tu comida registrada</Title>
         {list}
         <label>
-          <InputTitle>O introducir el identificador de tu comida:</InputTitle>
+          <InputTitle>
+            También puedes introducir el identificador de tu comida:
+          </InputTitle>
           <InputContainer>
             <TextInput
               type="text"

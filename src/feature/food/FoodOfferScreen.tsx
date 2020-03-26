@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
-import dayjs from "dayjs";
-import { Service } from "foundation/types/Service";
 import LocationInput from "../ui/LocationInput";
 import { Coordinates } from "../../foundation/types/Coordinates";
 import Alert from "@material-ui/lab/Alert";
@@ -9,13 +7,12 @@ import {
   CheckboxContainer,
   CheckboxInput,
   Container,
-  DateInput,
   FieldErrorDescription,
   InputTitle,
-  RadioInput,
   TextInput,
   Title,
-  HorizontalButtons
+  HorizontalButtons,
+  InputHint
 } from "../ui/StyledForm";
 import { FoodOffer } from "../../foundation/types/FoodOffer";
 import SaveFood from "../../foundation/food/SaveFood";
@@ -38,8 +35,6 @@ const FoodOfferScreen: React.FC = () => {
   const [contact, setContact] = useState<string | null>(null);
   const [location, setLocation] = useState<Coordinates | null>(null);
   const [description, setDescripiton] = useState<string | null>(null);
-  const [date, setDate] = useState<Date | null>(null);
-  const [service, setService] = useState<Service | null>(null);
   const [acceptPrivacyPolicy, setAcceptPrivacyPolicy] = useState<boolean>(
     false
   );
@@ -53,19 +48,11 @@ const FoodOfferScreen: React.FC = () => {
       violations["location"] =
         "Necesitamos que nos digas dónde se recogerá la comida";
     }
-    if (!date) {
-      violations["date"] =
-        "Necesitamos que nos digas cuándo se recogerá la comida";
-    }
     if (!contact) {
       violations["contact"] =
         "Necesitamos que nos digas cómo podemos contactar contigo";
     }
-    if (!service) {
-      violations["service"] =
-        "Necesitamos que nos digas si ofreces comida o cena";
-    }
-    if (!service) {
+    if (!description) {
       violations["description"] =
         "Necesitamos que nos digas que podrías cocinar. Si no sabes que hacer, pon 'cositas ricas'";
     }
@@ -85,9 +72,7 @@ const FoodOfferScreen: React.FC = () => {
       setSaving(true);
       const foodOffer: FoodOffer = {
         coordinates: location as Coordinates,
-        service: service as Service,
         contact: contact as string,
-        date: dayjs(date || Date()).format("YYYY-MM-DD"),
         food: description as string
       };
 
@@ -102,27 +87,8 @@ const FoodOfferScreen: React.FC = () => {
     }
   };
 
-  const onServiceChange = (service: string) => {
-    switch (service) {
-      case "lunch":
-        setService(Service.lunch);
-        break;
-      case "dinner":
-        setService(Service.dinner);
-        break;
-      default:
-        throw new Error(`Invalid service: ${service}`);
-    }
-  };
-
   const containsValidData = Object.keys(validateForm()).length === 0;
 
-  const dateError = violations.date ? (
-    <FieldErrorDescription>{violations.date}</FieldErrorDescription>
-  ) : null;
-  const serviceError = violations.service ? (
-    <FieldErrorDescription>{violations.service}</FieldErrorDescription>
-  ) : null;
   const contactError = violations.contact ? (
     <FieldErrorDescription>{violations.contact}</FieldErrorDescription>
   ) : null;
@@ -147,39 +113,6 @@ const FoodOfferScreen: React.FC = () => {
           errorMessage={violations.location}
         />
         <label>
-          <InputTitle>¿Qué día será la recogida?</InputTitle>
-          {dateError}
-          <DateInput
-            placeholderText="Selecciona el día"
-            selected={date}
-            onChange={(date, event) => {
-              setDate(date);
-              event?.preventDefault();
-            }}
-            minDate={new Date()}
-          />
-        </label>
-        <label>
-          <InputTitle>¿Comida o cena?</InputTitle>
-          {serviceError}
-          <RadioInput
-            type="radio"
-            id="lunch"
-            name="food_service"
-            value="lunch"
-            onChange={event => onServiceChange(event.target.value)}
-          />
-          <label htmlFor="lunch">Comida</label>
-          <RadioInput
-            type="radio"
-            id="dinner"
-            name="food_service"
-            value="dinner"
-            onChange={event => onServiceChange(event.target.value)}
-          />
-          <label htmlFor="dinner">Cena</label>
-        </label>
-        <label>
           <InputTitle>¿Qué podrías cocinar?</InputTitle>
           {descriptionError}
           <InputContainer>
@@ -192,12 +125,15 @@ const FoodOfferScreen: React.FC = () => {
           </InputContainer>
         </label>
         <label>
-          <InputTitle>Forma de contacto</InputTitle>
+          <InputTitle>
+            Forma de contacto{" "}
+            <InputHint>Recuerda que esta información será pública</InputHint>
+          </InputTitle>
           {contactError}
           <InputContainer>
             <TextInput
               type="text"
-              placeholder="Twitter"
+              placeholder="Twitter, Instagram, Whatsapp, ..."
               value={contact ?? ""}
               onChange={event => setContact(event.target.value)}
             />

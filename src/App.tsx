@@ -8,8 +8,6 @@ import { useQuery } from "foundation/router/UseQuery";
 import "./index.scss";
 import CreatedFoodOfferScreen from "./feature/food/CreatedFoodOfferScreen";
 import ManageAllMyFoods from "./feature/food/ManageAllMyFoods";
-import dayjs from "dayjs";
-import { Service } from "foundation/types/Service";
 
 const App: React.FC = () => {
   const parseLocation = (location: string) => {
@@ -20,17 +18,6 @@ const App: React.FC = () => {
     };
   };
 
-  const parseService = (service: string) => {
-    switch (service.toLowerCase()) {
-      case "lunch":
-        return Service.lunch;
-      case "dinner":
-        return Service.dinner;
-      default:
-        return Service.lunch;
-    }
-  };
-
   const Routes = () => {
     const query = useQuery();
 
@@ -39,8 +26,6 @@ const App: React.FC = () => {
         <Route path="/search/results">
           <SearchResultsScreen
             coordinates={parseLocation(query.get("location") ?? "0,0")}
-            day={dayjs(query.get("day") ?? "").toDate()}
-            service={parseService(query.get("service") ?? "")}
             address={decodeURI(query.get("address") ?? "")}
           />
         </Route>

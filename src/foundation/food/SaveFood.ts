@@ -1,7 +1,6 @@
 import { FoodOffer } from "../types/FoodOffer";
 import MyCreatedFoodsRepository from "./MyCreatedFoodsRepository";
 import axios from "axios";
-import dayjs from "dayjs";
 import Geohash from "latlon-geohash";
 
 export default class SaveFood {
@@ -19,12 +18,10 @@ export default class SaveFood {
         "https://europe-west1-yotecocino-d6292.cloudfunctions.net/createOffer",
         {
           contact: food.contact,
-          day: dayjs(food.date).format("YYYY-MM-DD"),
           foodname: food.food,
           geohash: geohash,
           latitude: food.coordinates.latitude,
-          longitude: food.coordinates.longitude,
-          service: food.service
+          longitude: food.coordinates.longitude
         }
       );
 

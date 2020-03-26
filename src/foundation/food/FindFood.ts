@@ -2,14 +2,12 @@ import { FoodOffer } from "../types/FoodOffer";
 import { FoodSearchCriteria } from "../types/FoodSearchCriteria";
 import MyCreatedFoodsRepository from "./MyCreatedFoodsRepository";
 import axios from "axios";
-import dayjs from "dayjs";
 import Geohash from "latlon-geohash";
 
 export default class FindFood {
   private myCreatedFoodsRepository = new MyCreatedFoodsRepository();
 
   async execute(criteria: FoodSearchCriteria): Promise<FoodOffer[]> {
-    const day = dayjs(criteria.day).format("YYYY-MM-DD");
     const geohash = Geohash.encode(
       criteria.nearTo.latitude,
       criteria.nearTo.longitude,
@@ -27,11 +25,10 @@ export default class FindFood {
       neighborGeohashes.w,
       geohash
     ];
-    const service = criteria.service.toString();
 
     try {
       const response = await axios.get(
-        `https://europe-west1-yotecocino-d6292.cloudfunctions.net/offer?geohashes=${allGeohashes}&day=${day}&service=${service}`
+        `https://europe-west1-yotecocino-d6292.cloudfunctions.net/offer?geohashes=${allGeohashes}`
       );
 
       return response?.data ?? [];

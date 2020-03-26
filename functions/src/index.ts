@@ -4,11 +4,9 @@ import * as dayjs from "dayjs";
 
 interface FoodOffer {
   contact: string;
-  day: Date;
   food_name: string;
   location_geohash: string;
   location: admin.firestore.GeoPoint;
-  service: string;
 }
 
 function setCorsResponse(
@@ -34,20 +32,16 @@ export const createOffer = functions
         break;
       case "POST":
         const contact: string = request.body.contact;
-        const dayInISO: string = request.body.day;
         const foodName: string = request.body.foodname;
         const locationGeohash: string = request.body.geohash;
         const latitude: number = request.body.latitude;
         const longitude: number = request.body.longitude;
-        const service: string = request.body.service;
 
         const foodOffer = {
           contact,
-          day: dayjs(dayInISO).toDate(),
           food_name: foodName,
           location_geohash: locationGeohash,
-          location: new admin.firestore.GeoPoint(latitude, longitude),
-          service
+          location: new admin.firestore.GeoPoint(latitude, longitude)
         };
         const document = await admin
           .firestore()
@@ -99,11 +93,8 @@ export const offer = functions
         break;
       case "GET":
         const rawGeohashes: string = request.query.geohashes;
-        const dayInISO: string = request.query.day;
-        const service: string = request.query.service;
 
         const geohashes = rawGeohashes.split(",");
-        const day = dayjs(dayInISO);
 
         if (geohashes.length !== 9) {
           response.sendStatus(400);
@@ -114,16 +105,6 @@ export const offer = functions
           .firestore()
           .collection("food-offers")
           .where("location_geohash", "in", geohashes)
-          .where("day", ">=", day.startOf("day").toDate())
-          .where(
-            "day",
-            "<",
-            day
-              .add(1, "day")
-              .startOf("day")
-              .toDate()
-          )
-          .where("service", "==", service)
           .get();
 
         if (document.docs.length === 0) {
@@ -139,9 +120,7 @@ export const offer = functions
                     latitude: foodOffer.location.latitude,
                     longitude: foodOffer.location.longitude
                   },
-                  service: foodOffer.service,
-                  contact: foodOffer.contact,
-                  date: dayjs(foodOffer.day).format("YYYY-MM-DD")
+                  contact: foodOffer.contact
                 };
               })
           );

@@ -4,7 +4,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import { Coordinates } from "foundation/types/Coordinates";
 import ResultList from "./components/ResultList";
 import ResultMap from "./components/ResultMap";
-import { Service } from "../../foundation/types/Service";
 import { FoodOffer } from "foundation/types/FoodOffer";
 import FindFood from "../../foundation/food/FindFood";
 import Grid from "@material-ui/core/Grid";
@@ -15,7 +14,7 @@ const Container = styled.div`
   flex-direction: row;
   width: 80%;
   height: 80%;
-  margin: 32px 0;
+  margin: 16px 0;
   background: #fff;
   border-radius: 32px;
   box-shadow: 0px 8px 0px rgba(0, 0, 0, 0.1);
@@ -24,21 +23,18 @@ const Container = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
+  @media (max-width: 960px) {
+    margin: 24px 0;
+  }
 `;
 
 interface Props {
   coordinates: Coordinates;
-  day: Date;
-  service: Service;
   address?: string;
 }
 
-const SearchResultsScreen: React.FC<Props> = ({
-  coordinates,
-  day,
-  service,
-                                                address
-}) => {
+const SearchResultsScreen: React.FC<Props> = ({ coordinates, address }) => {
   const findFood = new FindFood();
   const [offers, setOffers] = useState<FoodOffer[]>([]);
   const [needToLoad, setNeedToLoad] = useState<boolean>(true);
@@ -47,8 +43,6 @@ const SearchResultsScreen: React.FC<Props> = ({
     if (needToLoad) {
       findFood
         .execute({
-          day,
-          service,
           nearTo: coordinates
         })
         .then(found => {

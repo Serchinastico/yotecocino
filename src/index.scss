@@ -25,9 +25,14 @@ body {
   padding-left: 16px !important;
 }
 
+.MuiAutocomplete-endAdornment {
+  right: 16px !important;
+}
+
 .MuiFormControl-root,
 .MuiTextField-root {
   padding: 0 !important;
+  margin-bottom: 0 !important;
 }
 
 .MuiInput-underline:before {
