@@ -79,7 +79,7 @@ const ResultList: React.FC<Props> = ({
 
   const EmptyCase = () => {
     const message =
-      "¡Acabo de solicitar un tupper a través de yotecocino.com! La iniciativa que pone en contacto a sanitarios y otros profesionales en primera línea con cocinillas.";
+      "¡Acabo de buscar un tupper a través de yotecocino.com pero no había nadie disponible en mi zona! Apúntate y aporta tu granito de arena en la iniciativa que pone en contacto profesionales en primera línea con cocinillas #yotecocino";
     return (
       <Fragment>
         <NotFoundIllustration src={"img/il_empty.svg"} />
