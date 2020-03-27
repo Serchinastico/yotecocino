@@ -1,5 +1,15 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
+import * as bent from "bent";
+
+const amplitudeApiKey = "5c31bee2a13ac300d00b08bf0f24826d";
+
+const trackInAmplitude = bent(
+  "https://api.amplitude.com/",
+  "POST",
+  "json",
+  200
+);
 
 interface FoodOffer {
   contact: string;
@@ -17,6 +27,17 @@ function setCorsResponse(
   response.set("Access-Control-Allow-Headers", "Content-Type");
   response.set("Access-Control-Max-Age", "3600");
   response.status(204).send("");
+}
+
+async function track(event: any) {
+  try {
+    await trackInAmplitude("2/httpapi", {
+      api_key: amplitudeApiKey,
+      events: [event]
+    });
+  } catch (error) {
+    console.error(`Unable to track event: ${error}`);
+  }
 }
 
 admin.initializeApp();
@@ -50,6 +71,11 @@ export const createOffer = functions
           .collection("food-offers")
           .add(foodOffer);
 
+        await track({
+          event_type: "create_food_offer",
+          event_properties: { geohash: locationGeohash }
+        });
+
         response
           .status(201)
           .send(JSON.stringify({ id: document.id, ...foodOffer }));
@@ -66,6 +92,8 @@ export const deleteOffer = functions
         setCorsResponse(response, "DELETE");
         break;
       case "DELETE":
+        functions.analytics.event("delete_food_offer");
+
         const id: string = request.query.id;
 
         const document = await admin
@@ -78,6 +106,10 @@ export const deleteOffer = functions
           response.sendStatus(404);
         } else {
           await document.ref.delete();
+          await track({
+            event_type: "delete_food_offer",
+            event_properties: { id }
+          });
           response.sendStatus(200);
         }
         break;
@@ -94,6 +126,7 @@ export const offer = functions
         setCorsResponse(response, "GET");
         break;
       case "GET":
+        functions.analytics.event("get_food_offers");
         const rawGeohashes: string = request.query.geohashes;
 
         const geohashes = rawGeohashes.split(",");
@@ -112,6 +145,13 @@ export const offer = functions
         if (document.docs.length === 0) {
           response.sendStatus(404);
         } else {
+          await track({
+            event_type: "find_food_offers",
+            event_properties: {
+              geohashes: rawGeohashes,
+              number_of_items_found: document.docs.length
+            }
+          });
           response.status(200).send(
             document.docs
               .map(doc => doc.data() as FoodOffer)
