@@ -104,11 +104,13 @@ const FoodOfferScreen: React.FC = () => {
       <HomeButton />
       <Container onSubmit={onFormSubmit}>
         <Title>
-          Completa los siguientes campos para ofrecer una comida preparada
+          Completa los siguientes campos para ofrecer una comida preparada. Si
+          hay alguien interesado, se pondrán en contacto contigo.
         </Title>
         <LocationInput
           label="¿Dónde será la recogida?"
           setLocation={setLocation}
+          hint="Puede ser una dirección aproximada"
           showMap={false}
           errorMessage={violations.location}
         />

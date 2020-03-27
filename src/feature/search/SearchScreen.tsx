@@ -33,10 +33,10 @@ const SearchScreen: React.FC = () => {
       <HomeButton />
       <Container onSubmit={onFormSubmit}>
         <LocationInput
-          label="¿Dónde trabajas?"
+          label="¿Dónde quieres buscar un cocinillas?"
           setLocation={setAddress}
           showMap={false}
-          hint="Puede ser una dirección aproximada"
+          hint="Busca cerca de tu trabajo o de tu casa para evitar desplazamientos innecesarios"
         />
         <SubmitButton
           label="Buscar"

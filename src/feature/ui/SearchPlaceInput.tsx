@@ -134,7 +134,7 @@ export default function SearchPlaceInput(props: SearchPlaceInputProps) {
           <TextField
             {...params}
             className={classes.search}
-            placeholder="Calle y número"
+            placeholder="Calle, número y población"
             variant="standard"
             onChange={handleChange}
           />
