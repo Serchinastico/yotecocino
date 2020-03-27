@@ -9,8 +9,8 @@ const questions: FAQQuestion[] = [
     answer: <p><b>#yotecocino</b> está pensado única y exclusivamente para faciliar el contacto entre personas, que por
       su situación, debe salir de casa. Por ejemplo personal sanitario, cuerpos de seguridad del estado o personal de
       tiendas de alimentación. Para evitar desplazamientos innecesarios, hemos limitado el radio de búsqueda a las
-      cercanías del lugar del trabajo de nuestros #héroes y #heroinas. De este modo, la entrega debe realizarse en el
-      lugar donde nuestros #cocinillas esté pasando el confinamiento.</p>
+      cercanías del lugar del trabajo o la casa de nuestros #héroes y #heroínas. De este modo, la entrega debe realizarse en el
+      lugar donde nuestros #cocinillas estén pasando el confinamiento.</p>
   },
   {
     question: "Me he ofrecido como #cocinillas y me habéis dado un código, ¿qué tengo que hacer con él?",
@@ -41,9 +41,9 @@ const questions: FAQQuestion[] = [
   {
     question: "Estoy buscando comida, ¿cómo puedo contactar con mi #cocinillas preferido?",
     answer:
-      <p>Nuestros héroes y heroínas, que buscan comida, realizarán una búsqueda cercana lugar de trabajo y verán las
-        ofertas poblicadas. En cada oferta se mostrará la descripción y la forma de contacto. <b>A partir de este
-          momento toda la comunicación que se realize se llevará a cabo fuera de <YoTeCocinoLogo/></b>.</p>
+      <p>Nuestros héroes y heroínas, que buscan comida, realizarán una búsqueda cercana a su casa o lugar de trabajo y verán las
+        ofertas publicadas. En cada oferta se mostrará la descripción y la forma de contacto. <b>A partir de este
+          momento toda la comunicación que se realice se llevará a cabo fuera de <YoTeCocinoLogo/></b>.</p>
   },
   {
     question: "Me he ofrecido como #cocinillas, ¿cómo sé a que hora tengo que dejar el tupper?",
@@ -51,12 +51,21 @@ const questions: FAQQuestion[] = [
       entrega.</p>
   },
   {
-    question: "Me he ofrecido como #cocinillas, ¿cómo tengo entrego el tupper?",
+    question: "Me he ofrecido como #cocinillas, ¿cómo entrego el tupper?",
     answer: <>
       <p><b>En ningún caso debería establecerse un contacto directo entre #cocinillas y #héroes</b></p>
       <p>Un una vez acordada la entrega, prepara el tupper y déjalo en una bolsa en el portal para ser recogida.</p>
       <p><b>Recuerda que no debes desplazarte</b> debido al estado de alarma. Será el profesional quién se acerque a
         recogerla.</p>
+    </>
+  },
+    {
+    question: "¿En qué recipiente preparo la comida?",
+    answer: <>
+      <p><b>Recomendamos utilizar recipientes de un solo uso para evitar contagios (por ejemplo, una fuente de aluminio desechable).
+        </b></p>
+      <p>También puedes reutilizar frascos de cristal de conservas, sellándolos al baño María para que la comida se conserve mejor.</p>
+      
     </>
   },
 ];
