@@ -189,6 +189,12 @@ export const offerCount = functions
         setCorsResponse(response, "GET");
         break;
       case "GET":
+        const secret: string = request.query.secret;
+
+        if (secret !== "gViCt8wfe3tZ!hmuect*neAAGv") {
+          response.sendStatus(404);
+        }
+
         const document = await admin
           .firestore()
           .collection("food-offers")
