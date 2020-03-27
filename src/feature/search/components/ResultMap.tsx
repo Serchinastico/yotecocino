@@ -65,8 +65,8 @@ const ResultMap: React.FC<Props> = ({
           zoom: 15
         }
       : new WebMercatorViewport({
-          width: 600,
-          height: 600
+          width: 300,
+          height: 300
         }).fitBounds(
           [
             [
