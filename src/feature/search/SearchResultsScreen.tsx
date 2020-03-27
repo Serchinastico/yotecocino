@@ -64,7 +64,7 @@ const SearchResultsScreen: React.FC<Props> = ({ coordinates, address }) => {
               onOfferSelected={offer => setSelectedOffer(offer)}
               onOfferHovered={offer => setHoveredOffer(offer)}
               selectedOffer={selectedOffer}
-              address={address}
+              hoveredOffer={hoveredOffer}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={8}>
@@ -75,6 +75,7 @@ const SearchResultsScreen: React.FC<Props> = ({ coordinates, address }) => {
               selectedOffer={selectedOffer}
               hoveredOffer={hoveredOffer}
               onOfferSelected={offer => setSelectedOffer(offer)}
+              onOfferHovered={offer => setHoveredOffer(offer)}
             />
           </Grid>
         </Grid>

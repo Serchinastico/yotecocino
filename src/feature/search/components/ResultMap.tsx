@@ -30,6 +30,7 @@ interface Props {
   selectedOffer?: FoodOffer;
   hoveredOffer?: FoodOffer;
   onOfferSelected: (offer: FoodOffer) => void;
+  onOfferHovered: (offer?: FoodOffer) => void;
 }
 
 const ResultMap: React.FC<Props> = ({
@@ -38,7 +39,8 @@ const ResultMap: React.FC<Props> = ({
   isLoading,
   selectedOffer,
   hoveredOffer,
-  onOfferSelected
+  onOfferSelected,
+  onOfferHovered
 }) => {
   const auth = {
     mapboxApiAccessToken: config.mapsToken
@@ -90,6 +92,7 @@ const ResultMap: React.FC<Props> = ({
       selectedOffer={selectedOffer}
       hoveredOffer={hoveredOffer}
       onOfferSelected={onOfferSelected}
+      onOfferHovered={onOfferHovered}
     />
   );
 

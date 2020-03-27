@@ -17,10 +17,10 @@ interface Props {
   offers: FoodOffer[];
   isLoading: boolean;
   selectedOffer?: FoodOffer;
+  hoveredOffer?: FoodOffer;
   onOfferSelected: (offer: FoodOffer) => void;
   onOfferHovered: (offer?: FoodOffer) => void;
   classes: any;
-  address?: string;
 }
 
 const NotFoundIllustration = styled.img`
@@ -64,10 +64,10 @@ const ResultList: React.FC<Props> = ({
   offers,
   isLoading,
   selectedOffer,
+  hoveredOffer,
   onOfferSelected,
   onOfferHovered,
-  classes,
-  address
+  classes
 }) => {
   const Loading = () => {
     return (
@@ -113,6 +113,12 @@ const ResultList: React.FC<Props> = ({
           selectedOffer?.contact === offer.contact &&
           selectedOffer?.coordinates.latitude === offer.coordinates.latitude &&
           selectedOffer?.coordinates.longitude === offer.coordinates.longitude
+        }
+        isHovered={
+          hoveredOffer?.food === offer.food &&
+          hoveredOffer?.contact === offer.contact &&
+          hoveredOffer?.coordinates.latitude === offer.coordinates.latitude &&
+          hoveredOffer?.coordinates.longitude === offer.coordinates.longitude
         }
       />
     ));

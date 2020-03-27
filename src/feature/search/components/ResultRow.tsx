@@ -5,7 +5,18 @@ import { FoodOffer } from "foundation/types/FoodOffer";
 
 interface ContainerProps {
   readonly isSelected: boolean;
+  readonly isHovered: boolean;
 }
+
+const getBorderColor = (props: ContainerProps) => {
+  if (props.isHovered) {
+    return "#2997fc";
+  } else if (props.isSelected) {
+    return "#D3EAFF";
+  } else {
+    return "#f6f6f6";
+  }
+};
 
 const Container = styled.div<ContainerProps>`
   display: flex;
@@ -16,7 +27,7 @@ const Container = styled.div<ContainerProps>`
   box-shadow: 0px 8px 0px
     ${props => (props.isSelected ? "#92CAFF" : "rgba(0, 0, 0, 0.1)")};
   border-radius: 8px;
-  border: 2px solid ${props => (props.isSelected ? "#D3EAFF" : "#f6f6f6")};
+  border: 2px solid ${props => getBorderColor(props)};
   cursor: pointer;
   :hover {
     border: 2px solid #2997fc;
@@ -39,6 +50,7 @@ const Contact = styled.p`
 interface Props {
   offer: FoodOffer;
   isSelected: boolean;
+  isHovered: boolean;
   onOfferSelected: (offer: FoodOffer) => void;
   onOfferHovered: (offer?: FoodOffer) => void;
 }
@@ -46,6 +58,7 @@ interface Props {
 const ResultRow: React.FC<Props> = ({
   offer,
   isSelected,
+  isHovered,
   onOfferSelected,
   onOfferHovered
 }) => {
@@ -55,6 +68,7 @@ const ResultRow: React.FC<Props> = ({
       onMouseEnter={() => onOfferHovered(offer)}
       onMouseLeave={() => onOfferHovered(undefined)}
       isSelected={isSelected}
+      isHovered={isHovered}
     >
       <Food>{offer.food}</Food>
       <Contact>{offer.contact}</Contact>

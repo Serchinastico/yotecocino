@@ -8,6 +8,7 @@ interface Props {
   selectedOffer?: FoodOffer;
   hoveredOffer?: FoodOffer;
   onOfferSelected: (offer: FoodOffer) => void;
+  onOfferHovered: (offer?: FoodOffer) => void;
 }
 
 interface OfferMarkerProps {
@@ -18,7 +19,8 @@ const ResultMapMarkers: React.FC<Props> = ({
   offers,
   selectedOffer,
   hoveredOffer,
-  onOfferSelected
+  onOfferSelected,
+  onOfferHovered
 }) => {
   const markerIcon = require("../../../img/ic_marker.svg") as string;
   const selectedMarkerIcon = require("../../../img/ic_marker_selected.svg") as string;
@@ -48,10 +50,16 @@ const ResultMapMarkers: React.FC<Props> = ({
         key={`${offer.food}|${offer.contact}|${offer.coordinates.latitude}|${offer.coordinates.longitude}`}
         longitude={offer.coordinates.longitude}
         latitude={offer.coordinates.latitude}
-        offsetTop={-32}
-        offsetLeft={-32}
+        offsetTop={-56}
+        offsetLeft={-24}
       >
-        <img src={icon} onClick={() => onOfferSelected(offer)} alt=""></img>
+        <img
+          src={icon}
+          onClick={() => onOfferSelected(offer)}
+          onMouseEnter={() => onOfferHovered(offer)}
+          onMouseLeave={() => onOfferHovered(undefined)}
+          alt=""
+        ></img>
       </Marker>
     );
   };
