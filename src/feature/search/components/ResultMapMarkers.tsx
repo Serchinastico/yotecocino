@@ -2,6 +2,7 @@ import React, { Fragment, memo } from "react";
 import { Marker } from "react-map-gl";
 import "react-datepicker/dist/react-datepicker.css";
 import { FoodOffer } from "foundation/types/FoodOffer";
+import styled from "styled-components";
 
 interface Props {
   offers: FoodOffer[];
@@ -15,6 +16,18 @@ interface OfferMarkerProps {
   offer: FoodOffer;
 }
 
+interface OfferMarkerIconProps {
+  isSelected: boolean;
+}
+
+const equalsOffer = (offerA?: FoodOffer, offerB?: FoodOffer): boolean => {
+  return (
+    offerA?.food === offerB?.food &&
+    offerA?.coordinates.latitude === offerB?.coordinates.latitude &&
+    offerA?.coordinates.longitude === offerB?.coordinates.longitude
+  );
+};
+
 const ResultMapMarkers: React.FC<Props> = ({
   offers,
   selectedOffer,
@@ -26,20 +39,28 @@ const ResultMapMarkers: React.FC<Props> = ({
   const selectedMarkerIcon = require("../../../img/ic_marker_selected.svg") as string;
   const hoveredMarkerIcon = require("../../../img/ic_marker_hovered.svg") as string;
 
+  /**
+   * This sends the hovered offer to the last position so that it's rendered last
+   * and so it appears always on top
+   * @param offers List of food offers
+   */
+  const sendingHoveredOfferToLastPosition = (offers: FoodOffer[]) => {
+    const hovered = offers.find(offer => equalsOffer(offer, hoveredOffer));
+    if (hovered === undefined) {
+      return offers;
+    }
+
+    const newoffers = offers.filter(offer => offer !== hovered);
+    newoffers.push(hovered);
+    return newoffers;
+  };
+
   const OfferMarker = ({ offer }: OfferMarkerProps) => {
     let icon;
 
-    if (
-      selectedOffer?.food === offer.food &&
-      selectedOffer?.coordinates.latitude === offer.coordinates.latitude &&
-      selectedOffer?.coordinates.longitude === offer.coordinates.longitude
-    ) {
+    if (equalsOffer(offer, selectedOffer)) {
       icon = selectedMarkerIcon;
-    } else if (
-      hoveredOffer?.food === offer.food &&
-      hoveredOffer?.coordinates.latitude === offer.coordinates.latitude &&
-      hoveredOffer?.coordinates.longitude === offer.coordinates.longitude
-    ) {
+    } else if (equalsOffer(offer, hoveredOffer)) {
       icon = hoveredMarkerIcon;
     } else {
       icon = markerIcon;
@@ -65,7 +86,8 @@ const ResultMapMarkers: React.FC<Props> = ({
   };
 
   const Markers = () => {
-    const markers = offers.map(offer => <OfferMarker offer={offer} />);
+    const updatedOffers = sendingHoveredOfferToLastPosition(offers);
+    const markers = updatedOffers.map(offer => <OfferMarker offer={offer} />);
     return <Fragment>{markers}</Fragment>;
   };
 
