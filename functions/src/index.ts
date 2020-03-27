@@ -103,8 +103,6 @@ export const deleteOffer = functions
         setCorsResponse(response, "DELETE");
         break;
       case "DELETE":
-        functions.analytics.event("delete_food_offer");
-
         const id: string = request.query.id;
 
         const document = await admin
@@ -137,7 +135,6 @@ export const offer = functions
         setCorsResponse(response, "GET");
         break;
       case "GET":
-        functions.analytics.event("get_food_offers");
         const rawGeohashes: string = request.query.geohashes;
 
         const geohashes = rawGeohashes.split(",");
@@ -178,6 +175,26 @@ export const offer = functions
               })
           );
         }
+        break;
+    }
+  });
+
+export const offerCount = functions
+  .region("europe-west1")
+  .https.onRequest(async (request, response) => {
+    response.set("Access-Control-Allow-Origin", "*");
+
+    switch (request.method) {
+      case "OPTIONS":
+        setCorsResponse(response, "GET");
+        break;
+      case "GET":
+        const document = await admin
+          .firestore()
+          .collection("food-offers")
+          .get();
+
+        response.status(200).send({ count: document.docs.length });
         break;
     }
   });
