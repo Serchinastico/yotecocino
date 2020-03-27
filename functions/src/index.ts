@@ -6,6 +6,7 @@ interface FoodOffer {
   food_name: string;
   location_geohash: string;
   location: admin.firestore.GeoPoint;
+  insertion_date: Date;
 }
 
 function setCorsResponse(
@@ -35,12 +36,14 @@ export const createOffer = functions
         const locationGeohash: string = request.body.geohash;
         const latitude: number = request.body.latitude;
         const longitude: number = request.body.longitude;
+        const insertionDate = Date();
 
         const foodOffer = {
           contact,
           food_name: foodName,
           location_geohash: locationGeohash,
-          location: new admin.firestore.GeoPoint(latitude, longitude)
+          location: new admin.firestore.GeoPoint(latitude, longitude),
+          insertion_date: insertionDate
         };
         const document = await admin
           .firestore()
