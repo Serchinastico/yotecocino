@@ -29,11 +29,22 @@ function setCorsResponse(
   response.status(204).send("");
 }
 
+function makeId(length: number) {
+  let result = "";
+  const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  const charactersLength = characters.length;
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
+
 async function track(event: any) {
   try {
     await trackInAmplitude("2/httpapi", {
       api_key: amplitudeApiKey,
-      events: [event]
+      events: [{ user_id: makeId(16), ...event }]
     });
   } catch (error) {
     console.error(`Unable to track event: ${error}`);
