@@ -29,7 +29,6 @@ const Footer = styled.div`
 
 const Identifier = styled.p`
   font-size: 2rem;
-  font-family: "Pacifico", cursive;
   text-align: center;
   color: #2997fc;
   margin: 0;
