@@ -1,8 +1,7 @@
-import React, { Fragment, memo } from "react";
-import { Marker } from "react-map-gl";
+import React, {Fragment, memo} from "react";
+import {Marker} from "react-map-gl";
 import "react-datepicker/dist/react-datepicker.css";
-import { FoodOffer } from "foundation/types/FoodOffer";
-import styled from "styled-components";
+import {FoodOffer} from "foundation/types/FoodOffer";
 
 interface Props {
   offers: FoodOffer[];

@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import ReactDatePicker from "react-datepicker";
 
 export const Container = styled.form`
   display: flex;
@@ -12,6 +11,17 @@ export const Container = styled.form`
   padding: 32px;
   margin: 64px auto;
   box-shadow: 0px 8px 0px rgba(0, 0, 0, 0.1);
+`;
+
+
+export const FullWidthContainer = styled.div`
+  width: 80%;
+  height: 80%;
+  margin: 65px auto;
+  background: #fff;
+  border-radius: 32px;
+  box-shadow: 0px 8px 0px rgba(0, 0, 0, 0.1);
+  padding: 32px;
 `;
 
 export const InputTitle = styled.p`
@@ -63,34 +73,6 @@ export const CheckboxInput = styled.input`
   margin-right: 24px;
 `;
 
-export const DateInputContainer = styled.div`
-  width: 100%;
-  display: flex;
-`;
-
-export const DateInput = styled(ReactDatePicker)`
-  border: 0.5px solid rgba(0, 0, 0, 0.2);
-  height: 40px;
-  width: 100%;
-  max-width: 470px;
-  border-radius: 24px;
-  padding-left: 16px;
-  padding-right: 16px;
-  font-size: 0.9rem;
-  margin-top: 8px;
-  font-family: "Montserrat", sans-serif;
-
-  &::placeholder {
-    font-family: "Montserrat", sans-serif;
-  }
-`;
-
-export const RadioInput = styled.input`
-  padding: 16px;
-  margin: 16px;
-  font-size: 1rem;
-`;
-
 export const Title = styled.p`
   font-weight: 600;
   font-size: 1.2rem;
@@ -104,13 +86,6 @@ export const Text = styled.p`
   margin: 0;
   margin-bottom: 4px;
   margin-top: 16px;
-`;
-
-export const Link = styled.a`
-  font-weight: light;
-  font-family: "Pacifico", sans-serif;
-  text-decoration: none;
-  color: #000;
 `;
 
 export const MyCreatedFoodItem = styled.p`
@@ -146,3 +121,10 @@ export const HorizontalButtons = styled.div`
   flex-direction: center;
   justify-content: space-between;
 `;
+
+
+export const FullWidthCentered = styled.div`
+  display: block;
+  width: 100%;
+  margin: 25px auto;
+`

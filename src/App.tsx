@@ -8,6 +8,8 @@ import { useQuery } from "foundation/router/UseQuery";
 import "./index.scss";
 import CreatedFoodOfferScreen from "./feature/food/CreatedFoodOfferScreen";
 import ManageAllMyFoods from "./feature/food/ManageAllMyFoods";
+import FAQScreen from "./feature/help/FAQScreen";
+import questions from "./feature/help/FAQQuestions";
 
 const App: React.FC = () => {
   const parseLocation = (location: string) => {
@@ -39,6 +41,9 @@ const App: React.FC = () => {
           <ManageAllMyFoods />
         </Route>
         <Route exact path="/food/:foodId" component={CreatedFoodOfferScreen} />
+        <Route path="/faq">
+          <FAQScreen questions={questions}/>
+        </Route>
         <Route path="/">
           <WelcomeScreen />
         </Route>
