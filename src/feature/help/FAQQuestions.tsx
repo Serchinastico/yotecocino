@@ -10,7 +10,7 @@ const questions: FAQQuestion[] = [
     answer: (
       <p>
         <b>#yotecocino</b> está pensado única y exclusivamente para faciliar el
-        contacto entre personas, que por su situación, debe salir de casa. Por
+        contacto entre personas, que por su situación, deben salir de casa. Por
         ejemplo personal sanitario, cuerpos de seguridad del estado o personal
         de tiendas de alimentación. Para evitar desplazamientos innecesarios,
         hemos limitado el radio de búsqueda a las cercanías del lugar del
