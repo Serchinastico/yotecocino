@@ -156,7 +156,7 @@ export const offer = functions
           await track({
             event_type: "find_food_offers",
             event_properties: {
-              center_geohash: geohashes[8],
+              geohash: geohashes[8],
               number_of_items_found: document.docs.length
             }
           });
