@@ -53,7 +53,7 @@ const questions: FAQQuestion[] = [
           Esta información es pública por lo que no pongas información sensible
           aquí.
         </b>{" "}
-        Nuestra preferencia es usar nuestro usuario de twitter, aunque algunas
+        Nuestra preferencia es usar nuestro usuario de Twitter, aunque algunas
         personas están usando su número de teléfono o email. Esto no debería ser
         problemático ya que no hay ninguna otra información personal asociada.
       </p>
